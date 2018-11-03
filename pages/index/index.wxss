@@ -1,1 +1,60 @@
 /**index.wxss**/
+.home-container{
+width: 100%;
+}
+.list{
+    width: 100%;
+    padding-top:84rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  .list-item{
+    width: 650rpx;
+    height: 270rpx;
+    background: #2b2b2b;
+    border-radius: 8rpx;
+    box-shadow: 0 4rpx 10rpx rgb(0, 0, 0);
+    margin-bottom:35rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.list-l{
+    flex-grow: 1;
+    margin-left:60rpx;
+}
+.list-l .title{
+    font-size: 30rpx;
+    color:#fad33a;
+    width: 100%;
+    margin-bottom: 20rpx;
+}
+.list-l .intro{
+    font-size: 28rpx;
+    width: 100%;
+    color:#fad33a;
+}
+.list-r{
+    flex: 0;
+    margin-right:40rpx;
+}
+.list-r image{
+    width: 136rpx;
+    height: 122rpx;
+}
+.list .item-goods{
+    background: #e5e5e5;
+    box-shadow: 0 4rpx 10rpx rgb(184, 184, 184);
+}
+.item-goods .list-l .title,
+.item-goods .list-l .intro
+{
+    color: #fff;
+}
+.tips{
+    color:#a6a9b0;
+    font-size: 30rpx;
+    text-align: center;
+
+}

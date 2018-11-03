@@ -1,0 +1,34 @@
+<!-- index.wxml -->
+<view class="list-container">
+    <view class="tips">最多可选择8条</view>
+    <view class="list">
+        <view class="list-item {{item.state==1?'active':''}}" bindtap="selectTag" data-id="{{item.id}}" wx:for="{{tagList}}" wx:key="{{item.id}}">
+            {{item.name}}
+        </view>
+    </view>
+    <view class="form-container">
+        <form bindsubmit="formSubmit" bindreset="formReset">
+            <view class="section-box">
+                <view class="section">
+                    <view class="section-l">
+                        <label>起拍价</label>
+                        <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon"></image>
+                        <text>¥</text>
+                    </view>
+                    <input name="input" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                </view>
+                <view class="line"></view>
+                <view class="section">
+                    <view class="section-l">
+                        <label>加价幅度</label>
+                        <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon"></image>
+                        <text class="small">¥</text>
+                    </view>
+                    <input name="input" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                </view>
+            </view>
+        </form>
+    </view>
+    <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为48小时</view>
+    <view class="creat">生成海报</view>
+</view>

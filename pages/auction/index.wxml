@@ -1,0 +1,78 @@
+<!-- index.wxml -->
+<view class="list-container">
+    <swiper style="height:316rpx">
+        <block>
+            <swiper-item>
+                <image src="../../static/img/banner_01.png" class="slide-image" mode="aspectFill" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="head-section">
+        <view class="head-left">
+            <image mode="aspectFill" src="../../static/img/icon_head.png" />
+        </view>
+        <view class="head-right">
+            <view class="nickname">我的民资</view>
+            <view class="time-box">
+                <label class="tip">距离结束还有</label>
+                <view class="time">
+                    <view>00</view>
+                    <label>:</label>
+                    <view>00</view>
+                    <label>:</label>
+                    <view>00</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="list-section">
+        <view class="list-top">
+            <view class="name">当前竞拍者</view>
+            <view class="line"></view>
+        </view>
+        <view class="list-tip">
+            <view class="tip-l">
+                已有
+                <label>2</label>
+                人出价
+            </view>
+            <view class="tip-r">竞拍规则说明</view>
+        </view>
+        <view class="list-item">
+            <view class="lsit-l">
+                <view class="head-box">
+                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
+                    <view class="status">领先</view>
+                </view>
+            </view>
+            <view class="lsit-c">
+                出价时间：
+                <label>00:00:00</label>
+            </view>
+            <view class="lsit-r">
+                ¥
+                <label>9.9</label>
+            </view>
+        </view>
+        <view class="list-item">
+            <view class="lsit-l out">
+                <view class="head-box">
+                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
+                    <view class="status">出局</view>
+                </view>
+            </view>
+            <view class="lsit-c">
+                出价时间：
+                <label>00:00:00</label>
+            </view>
+            <view class="lsit-r">
+                ¥
+                <label>9.9</label>
+            </view>
+        </view>
+    </view>
+    <view class="creat-box">
+        <view class="creat creat-l">找人捧场</view>
+        <view class="creat creat-r">发起拍卖</view>
+    </view>
+</view>
