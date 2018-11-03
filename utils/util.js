@@ -28,33 +28,21 @@ function request(url, data = {}, method = "GET") {
       data: data,
       method: method,
       header: {
-        'Content-Type': wx.getStorageSync('token') == "" || wx.getStorageSync('token') == null ? "application/x-www-form-urlencoded" : "application/json",
-        'Authorization': wx.getStorageSync('token') == "" || wx.getStorageSync('token') == null ? "Basic YXBwaWQ6c2VjcmV0" : "bearer " + wx.getStorageSync('token')
+        'Content-Type': "application/json",
       },
       success: function(res) {
-        //console.log("success");
         if (res.statusCode == 200) {
-          console.log(res)
           resolve(res.data);
         } else if (res.statusCode == 401) {
-          wx.setStorageSync('token', null);
-
+         
           wx.showToast({
             title: '登陆已过期',
           })
-
-          setTimeout(function() {
-            wx.navigateTo({
-              url: "/pages/authorize/index?getPhone=1&jumpFlag=invaild"
-            })
-          }, 1000)
         }
 
       },
       fail: function(err) {
         console.log(err)
-
-
         reject(err)
       }
     })
