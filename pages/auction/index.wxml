@@ -1,14 +1,5 @@
 <!-- index.wxml -->
 <view class="list-container">
-
-
-
-
-
-
-
-
-
     <swiper style="height:316rpx">
         <block>
             <swiper-item>
@@ -79,41 +70,33 @@
                 <label>9.9</label>
             </view>
         </view>
-        <view class="list-item">
-            <view class="lsit-l out">
-                <view class="head-box">
-                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
-                    <view class="status">出局</view>
-                </view>
-            </view>
-            <view class="lsit-c">
-                出价时间：
-                <label>00:00:00</label>
-            </view>
-            <view class="lsit-r">
-                ¥
-                <label>9.9</label>
-            </view>
-        </view>
-        <view class="list-item">
-            <view class="lsit-l out">
-                <view class="head-box">
-                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
-                    <view class="status">出局</view>
-                </view>
-            </view>
-            <view class="lsit-c">
-                出价时间：
-                <label>00:00:00</label>
-            </view>
-            <view class="lsit-r">
-                ¥
-                <label>9.9</label>
-            </view>
-        </view>
     </view>
     <view class="creat-box">
-        <view class="creat creat-l">出价</view>
+        <view class="creat creat-l" bindtap="showPopup">出价</view>
         <view class="creat creat-r">发起拍卖</view>
     </view>
+    <van-popup position="bottom" show="{{ show }}" bind:close="onClose">
+        <view class="popup">
+            <view class="time-box poptime">
+                <label class="tip">距离结束还有</label>
+                <view class="time">
+                    <view>00</view>
+                    <label>:</label>
+                    <view>00</view>
+                    <label>:</label>
+                    <view>00</view>
+                </view>
+            </view>
+            <view class="pop-content">
+                <view class="title">
+                    当前价格
+                    <label>（加价幅度5元起）</label>
+                </view>
+                <view class="stepper">
+                    <van-stepper input-class="out-input" integer custom-class="out-stepper" step="5" value="{{  value }}" bind:change="onChange" />
+                </view>
+            </view>
+            <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
+        </view>
+    </van-popup>
 </view>

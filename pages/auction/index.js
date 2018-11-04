@@ -6,22 +6,26 @@ var util = require("../../utils/util.js");
 import { GET_TAG_LIST, AUCTION } from "../../config/api.js";
 
 Page({
-  data: {},
+    data: {
+        show: false,
+        value: 9.09 //出价
+    },
   onLoad(options) {
-    if(options.auctionId){
-      this.getDetail(options.auctionId);
-    }else if (options.scene) {
-      var sceneId = decodeURIComponent(options.scene)
-      this.getDetail(3);
+      if (options.auctionId) {
+          this.getDetail(options.auctionId);
+      } else if (options.scene) {
+          var sceneId = decodeURIComponent(options.scene)
+          this.getDetail(3);
       }
-  },
+  }
+ ,
   getDetail(AUCTION_ID) {
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
         this.setData({
           auction: res.body.auction,
           biders: []
-          
+
         });
       }
     });
@@ -35,6 +39,22 @@ Page({
         });
       }
     });
+  },
+  onChange(event) {
+    //关闭蒙层，返回出价的价格
+    console.log(event);
+    this.data.value = event.detail;
+  },
+  hidePopup() {},
+  showPopup() {
+    this.setData({ show: true });
+  },
+  hidePopup() {
+    //关闭蒙层
+    this.setData({ show: false });
+  },
+  onClose() {
+    this.setData({ show: false });
   },
   selectTag(event) {
     let id = event.currentTarget.dataset["id"];

@@ -169,3 +169,44 @@
   background: #fad33a;
   /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
 }
+.popup {
+  width: 750rpx;
+  background: #fff;
+}
+.poptime {
+  padding: 5rpx 20rpx;
+  background: #b0b1b6;
+}
+.poptime .tip {
+  color: #222;
+}
+.poptime .time view {
+  color: #fff;
+  background: #000;
+}
+.pop-content {
+  padding: 80rpx 70rpx 90rpx 70rpx;
+}
+.pop-content .title {
+  font-size: 26rpx;
+  color: #a9aaac;
+  margin-bottom: 20rpx;
+}
+.pop-content .title label {
+  font-size: 22rpx;
+}
+.stepper {
+  width: 100%;
+}
+.out-stepper {
+  display: flex;
+}
+.out-input {
+  flex-grow: 1;
+  color: #000;
+  font-weight: 900;
+}
+.pop-button {
+  color: #fcd74b;
+  border-radius: 0;
+}
