@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "van-stepper": "../../components/stepper/index",
+    "van-popup": "../../components/popup/index"
+  }
+}

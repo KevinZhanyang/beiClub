@@ -6,7 +6,10 @@ var util = require("../../utils/util.js");
 import { GET_TAG_LIST } from "../../config/api.js";
 
 Page({
-  data: {},
+  data: {
+    show: false,
+    value: 9.09 //出价
+  },
   onLoad() {
     this.getList();
   },
@@ -18,6 +21,22 @@ Page({
         });
       }
     });
+  },
+  onChange(event) {
+    //关闭蒙层，返回出价的价格
+    console.log(event);
+    this.data.value = event.detail;
+  },
+  hidePopup() {},
+  showPopup() {
+    this.setData({ show: true });
+  },
+  hidePopup() {
+    //关闭蒙层
+    this.setData({ show: false });
+  },
+  onClose() {
+    this.setData({ show: false });
   },
   selectTag(event) {
     let id = event.currentTarget.dataset["id"];
