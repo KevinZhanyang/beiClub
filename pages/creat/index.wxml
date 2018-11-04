@@ -15,7 +15,7 @@
                         <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon"></image>
                         <text>¥</text>
                     </view>
-                    <input name="input" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                    <input name="input" style="{{showShare?  'color: #FFF':'color: #000000'}}" bindinput='startPrice' value="{{startPrice}}" maxlength="10" type="digit" placeholder-class="palceholder" placeholder="0.00" />
                 </view>
                 <view class="line"></view>
                 <view class="section">
@@ -24,11 +24,28 @@
                         <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon"></image>
                         <text class="small">¥</text>
                     </view>
-                    <input name="input" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="digit" placeholder-class="palceholder"  />
                 </view>
             </view>
         </form>
     </view>
     <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为48小时</view>
-    <view class="creat">生成海报</view>
+    <view class="creat" bindtap='create'>生成海报</view>
+
+
+
+<view class="qrcode" wx:if="{{showShare}}">
+    
+           <poster
+  drawing='{{drawing}}'
+  savebtnText='{{savebtnText}}'
+  canvas-style='canvas-style'
+  savebtn-style='savebtn-style' />
+
+
+
+
+    </view>
+
+
 </view>

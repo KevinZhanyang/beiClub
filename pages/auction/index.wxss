@@ -164,8 +164,8 @@
   color: #fad33a;
 }
 .creat-r {
-  width: 260rpx;
+  width: 340rpx;
   color: #2b2b2b;
   background: #fad33a;
-  box-shadow: 0 4rpx 10rpx rgb(232, 243, 135);
+  /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
 }

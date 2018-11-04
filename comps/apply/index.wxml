@@ -1,0 +1,55 @@
+<view class="applyHeaderInfo">
+  <text class="applyHeaderInfoTxt">填写报名信息</text>
+  <view class="vertical"></view>
+</view>
+<view class='noticeContainer'>
+  <image class='noticeImage' src='/static/icon/tips.png'></image>
+  <view class="notice">请填写您的真实姓名及手机号，便于培训统计！</view>
+</view>
+<view class="modify-form">
+  <form bindsubmit="formSubmit">
+    <view class="label-list">
+      <view class="label" style='font-weight:bold'>姓名:</view>
+      <input placeholder="请输入您的真实姓名" placeholder-class="place" name="name" value="{{applyData.name}}" bindblur="nameInput" />
+    </view>
+    <view class="label-list">
+      <view class="label" style='font-weight:bold'>手机:</view>
+      <input value="{{applyData.cellphone}}" name="cellphone" placeholder-class="place" bindblur="mobileInput" />
+    </view>
+    <view class="label-list">
+      <view class="label">单位:</view>
+      <input value="{{applyData.organization}}" name="organization" placeholder-class="place" bindblur="organizationInput" />
+    </view>
+    <view class="label-list">
+      <view class="label">职位:</view>
+      <input value="{{applyData.department}}" name="addr" placeholder-class="place" bindblur="addrInput" />
+    </view>
+
+    <view class="applyFooter">
+      <text class="applyFooterInfoTxt">是否住宿</text>
+      <view class="switch">
+        <switch unchecked color='#1873E0' bindchange="switchCar" />
+      </view>
+    </view>
+    <view class="applyFooter">
+      <text class="applyFooterInfoTxt">是否有车</text>
+      <view class="switch">
+        <switch unhecked color='#1873E0' bindchange="switchAcc" />
+      </view>
+    </view>
+  </form>
+  <modal hidden="{{modalHide}}" confirm-text="绑定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <view class="modalHead">
+      <image class='modalHeadImg' src='/static/icon/alert.png' />
+      <view class="modalHeadTxt">
+        手机号已存在，请输入密码绑定！
+      </view>
+    </view>
+    <view class="modalContent">
+      <input class='modalInput' type='text' placeholder="请输入密码" value="{{applyData.password}}" bindinput="passwordInput" />
+    </view>
+    <view class="modalBottom">
+      初始密码：手机号后六位
+    </view>
+  </modal>
+</view>

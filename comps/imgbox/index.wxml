@@ -1,0 +1,1 @@
+<image lazy-load="{{lazy}}" style="width: {{width}}; height: {{height}};border: 1rpx solid #E0E0E0;" catchtap="viewimg" data-src="{{src}}" mode="aspectFit" src="{{src}}"></image>

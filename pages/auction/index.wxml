@@ -1,5 +1,14 @@
 <!-- index.wxml -->
 <view class="list-container">
+
+
+
+
+
+
+
+
+
     <swiper style="height:316rpx">
         <block>
             <swiper-item>
@@ -70,9 +79,41 @@
                 <label>9.9</label>
             </view>
         </view>
+        <view class="list-item">
+            <view class="lsit-l out">
+                <view class="head-box">
+                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
+                    <view class="status">出局</view>
+                </view>
+            </view>
+            <view class="lsit-c">
+                出价时间：
+                <label>00:00:00</label>
+            </view>
+            <view class="lsit-r">
+                ¥
+                <label>9.9</label>
+            </view>
+        </view>
+        <view class="list-item">
+            <view class="lsit-l out">
+                <view class="head-box">
+                    <image mode="aspectFill" src="../../static/img/icon_head.png" />
+                    <view class="status">出局</view>
+                </view>
+            </view>
+            <view class="lsit-c">
+                出价时间：
+                <label>00:00:00</label>
+            </view>
+            <view class="lsit-r">
+                ¥
+                <label>9.9</label>
+            </view>
+        </view>
     </view>
     <view class="creat-box">
-        <view class="creat creat-l">找人捧场</view>
+        <view class="creat creat-l">出价</view>
         <view class="creat creat-r">发起拍卖</view>
     </view>
 </view>

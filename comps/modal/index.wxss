@@ -1,0 +1,26 @@
+.modal-box {
+    position: fixed;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20rpx;
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: center;
+    border-radius: 10rpx;
+    width: 250rpx;
+    height: 250rpx;
+    box-sizing: border-box;
+}
+
+.modal-box text {
+    font-size: 28rpx;
+    color: #ececec;
+}
+
+.modal-box image {
+    width: 100%;
+}

@@ -1,0 +1,1 @@
+<cover-view wx:if="{{isShow}}" class="cover-view"></cover-view>

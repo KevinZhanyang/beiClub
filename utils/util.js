@@ -29,6 +29,7 @@ function request(url, data = {}, method = "GET") {
       method: method,
       header: {
         'Content-Type': "application/json",
+        'Authorization': wx.getStorageSync('token') == "" || wx.getStorageSync('token') == null ? "" : "bearer " + wx.getStorageSync('token')
       },
       success: function(res) {
         if (res.statusCode == 200) {
@@ -48,6 +49,40 @@ function request(url, data = {}, method = "GET") {
     })
   });
 }
+
+
+/**
+ * 封封微信的的request
+ */
+function requestForForm(url, data = {}, method = "GET") {
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Authorization':  "Basic YXBwaWQ6c2VjcmV0" 
+      },
+      success: function (res) {
+        if (res.statusCode == 200) {
+          resolve(res.data);
+        } else if (res.statusCode == 401) {
+
+          wx.showToast({
+            title: '登陆已过期',
+          })
+        }
+
+      },
+      fail: function (err) {
+        console.log(err)
+        reject(err)
+      }
+    })
+  });
+}
+
 
 /**
  * 检查微信会话是否过期
@@ -133,6 +168,7 @@ function showErrorToast(msg) {
 }
 
 module.exports = {
+  requestForForm,
   formatTime,
   request,
   redirect,

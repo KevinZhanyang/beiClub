@@ -1,0 +1,4 @@
+<view wx:if="{{show}}" class="modal-box">
+    <text wx:if="{{title}}">{{title}}</text>
+    <image wx:if="{{ico}}" mode="aspectFit" src="{{ico}}" />
+</view>

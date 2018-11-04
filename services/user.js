@@ -23,19 +23,22 @@ function loginByWeixin() {
       console.log("--------------------");
       console.log(userInfo);
       //登录远程服务器
-      util.request(api.AuthLoginByWeixin, { code: code, providerId: "weixin", "nickName": userInfo.userInfo.nickName, "avatarUrl": userInfo.userInfo.avatarUrl, encrypData: userInfo.encryptedData, ivData: userInfo.iv }, 'POST').then(res => {
+      util.requestForForm(api.AUTH_LOGIN, { code: code, providerId: "auction", "nickName": userInfo.userInfo.nickName, "avatarUrl": userInfo.userInfo.avatarUrl, encrypData: userInfo.encryptedData, ivData: userInfo.iv }, 'POST').then(res => {
         console.log
         if (res.code === 200) {
           //存储用户信息
           wx.setStorageSync('token', res.body.access_token);
           wx.setStorageSync('refresh_token', res.body.refresh_token);
+
+
+
+
+
+          
           wx.setStorageSync('user', res.body.user);
           rolesHandler(res.body.user);
           resolve(res);
         } else {
-          console.log("2222");
-          console.log(res);
-
           reject(res);
         }
       }).catch((err) => {
