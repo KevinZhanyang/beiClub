@@ -1,5 +1,5 @@
 {
-  "pages": ["pages/index/index", "pages/auction/index", "pages/creat/index"],
+  "pages": ["pages/index/index", "pages/auction/index", "pages/creat/index","pages/auth/index"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

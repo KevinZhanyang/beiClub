@@ -125,7 +125,11 @@ Page({
       let token = wx.getStorageSync('token');
       app.globalData.token = wx.getStorageSync('token');
       app.globalData.userInfo = wx.getStorageSync('userInfo');
-      wx.hideLoading();
+      wx.showLoading({
+        title: '登陆成功',
+        duration:1500
+      })
+      
     }).catch((err) => {
      wx.hideLoading();
       wx.showModal({
@@ -137,10 +141,13 @@ Page({
     });
   },
   onLoad(){
-      if(wx.getStorageSync("user")){
-          this.setData({
-            showLogin:false
-          });
+    if (!wx.getStorageSync("token")){
+         wx.redirectTo({
+           url: '/pages/auth/index',
+           success: function(res) {},
+           fail: function(res) {},
+           complete: function(res) {},
+         }) 
       }
   }
 })

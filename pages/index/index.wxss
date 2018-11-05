@@ -58,3 +58,6 @@ width: 100%;
     text-align: center;
 
 }
+.userinfo{
+  margin-bottom: 200rpx;
+}

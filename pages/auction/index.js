@@ -3,12 +3,13 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
-import { GET_TAG_LIST, AUCTION } from "../../config/api.js";
+import { GET_TAG_LIST, AUCTION ,BIDDER,BIDDER_LIST} from "../../config/api.js";
 
 Page({
     data: {
         show: false,
         value: 9.09 //出价
+
     },
   onLoad(options) {
       if (options.auctionId) {
@@ -17,18 +18,26 @@ Page({
           var sceneId = decodeURIComponent(options.scene)
           this.getDetail(3);
       }
+    this.getDetail(3);
   }
  ,
   getDetail(AUCTION_ID) {
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
         this.setData({
-          auction: res.body.auction,
-          biders: []
-
+          auction: res.body,
+          bidders: res.body.bidderResults ? res.body.bidderResults:[]
+          
         });
       }
     });
+  },
+  goCreate(){
+ 
+      wx.navigateTo({
+        url: '/pages/creat/index',
+      })
+
   },
 
   getList() {
@@ -45,13 +54,34 @@ Page({
     console.log(event);
     this.data.value = event.detail;
   },
-  hidePopup() {},
+
   showPopup() {
     this.setData({ show: true });
+  }, 
+  
+  preventTouchMove: function (e) {
+    this.setData({
+      showModal: false
+    })
   },
-  hidePopup() {
+  hidePopup(event) {
+    let that = this;
     //关闭蒙层
     this.setData({ show: false });
+    console.log(event)
+    var data = {
+
+      auctionId: this.data.auction.id,
+      bid: this.data.value
+    }
+
+    util.request(BIDDER, data, "POST").then(res => {
+      if (res.code == 200) {
+       that.setData({
+         showModal:true
+       })
+      }
+    });
   },
   onClose() {
     this.setData({ show: false });

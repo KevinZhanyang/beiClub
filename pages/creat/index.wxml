@@ -48,4 +48,12 @@
     </view>
 
 
+  <view class='mode-loading' wx:if="{{showLoading}}">
+  <view class='mode-text'>
+    <view class='iconfont icon-emojifill warning-text'></view>
+    <view class='gray-text'>加载中...</view>
+  </view>
+</view>
+
+
 </view>

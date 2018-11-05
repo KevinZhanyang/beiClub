@@ -12,12 +12,13 @@ const AUTH_LOGIN = apiRoot + '/market/v1/authentication/miniapp'; //market微信
 const PROVIDERID = "auction";
 const CREATE_AUCTION = apiRoot + '/used/v1/auction'
 const AUCTION = apiRoot + '/used/v1/auction'
-
+const BIDDER = apiRoot +"/used/v1/bidder"
 module.exports = {
   GET_TAG_LIST,
   PAY_INFO,
   AUTH_LOGIN,
   PROVIDERID,
   CREATE_AUCTION,
-  AUCTION
+  AUCTION,
+  BIDDER
 };

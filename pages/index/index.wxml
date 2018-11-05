@@ -48,13 +48,5 @@
         <!-- </block> -->
     </view>
     <view class="tips">点击查看卡片详情</view>
-      <view class="userinfo">
-        <!-- <button type='primary' bindtap='choose'>选择照片</button> -->
-
-
-
-
-        
-         <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="save-btn">授权登录</button> 
-      </view>
+      
 </view>

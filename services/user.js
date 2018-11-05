@@ -29,14 +29,8 @@ function loginByWeixin() {
           //存储用户信息
           wx.setStorageSync('token', res.body.access_token);
           wx.setStorageSync('refresh_token', res.body.refresh_token);
-
-
-
-
-
-          
           wx.setStorageSync('user', res.body.user);
-          rolesHandler(res.body.user);
+          // rolesHandler(res.body.user);
           resolve(res);
         } else {
           reject(res);

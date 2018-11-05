@@ -1,0 +1,19 @@
+<view class="authorcontainer">
+    <form bindsubmit="bindSave">
+        <view class="logo">
+            <image src="/static/img/"></image>
+            <p>北美拍卖社</p>
+        </view>
+        <view class="text">北美拍卖社申请获得以下权限：</view>
+        <view class="text-b">
+            <i></i>
+            <text>获得你的公开信息（昵称、头像等)</text>
+        </view>
+        <button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="save-btn">
+            授权登录
+        </button>
+        <!-- <button wx:else open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="save-btn">
+            手机授权
+        </button> -->
+    </form>
+</view>

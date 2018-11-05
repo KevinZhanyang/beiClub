@@ -85,7 +85,7 @@ Page({
         that.setData({
           showShare:true
         })
-
+        that.showLoading();
 
 
 
@@ -127,29 +127,44 @@ Page({
         {
           type: 'image',
           url: wx.getStorageSync("userInfo").avatarUrl,
-          left: 72,
-          top: 53,
-          width: 78,
-          height: 75,
+          left: 142,
+          top: 273,
+          width: 108,
+          height: 108,
         },
         {
           type: 'text',
           content: wx.getStorageSync("userInfo").nickName,
           fontSize: 26,
-          color: 'white',
+          color: 'black',
           textAlign: 'left',
-          left: 170,
-          top: 50,
+          left: 270,
+          top: 310,
           width: 650,
         },
+
         {
           type: 'text',
-          content: '这里是小程序码',
+          content: "48小时后结束！",
+          fontSize: 26,
+          color: 'black',
+          textAlign: 'left',
+          left: 270,
+          top: 348,
+          width: 650,
+        },
+
+        
+
+
+        {
+          type: 'text',
+          content: 100,
           fontSize: 30,
           color: 'red',
           textAlign: 'left',
-          left: 390,
-          top: 720,
+          left: 142,
+          top: 745,
           width: 200
         },
         {
@@ -164,5 +179,17 @@ Page({
       ]
     })
     
-  }
+  },
+  showLoading: function () {
+    var that = this;
+    this.setData({
+      showLoading: true
+    })
+
+    setTimeout(function () {
+      that.setData({
+        showLoading: false
+      })
+    }, 222000)
+  },
 });

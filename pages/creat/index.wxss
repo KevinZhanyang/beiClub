@@ -141,9 +141,9 @@ bottom:0rpx;
    
 
 }
-clickbtn savebtn-style{
+/* clickbtn savebtn-style{
    background: #FFF  !important
-}
+} */
 
 /* .poster--clickbtn {
 width:300px;
