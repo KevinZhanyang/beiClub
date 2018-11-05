@@ -38,38 +38,27 @@
             </view>
             <view class="tip-r">竞拍规则说明</view>
         </view>
-
-     
-
-<!-- swiper -->
- <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{90*(bidders.length-1)}}rpx;" scroll-y="true">
-  <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item" >
-         <view class="list-item" bindtap="selectBidder" data-id="{{item.id}}"  >
-            <view class="lsit-l">
-                <view class="head-box">
-                    <image mode="aspectFill" src="{{item.avatar}}" />
-                    <view class="status">领先</view>
+        <!-- swiper -->
+        <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{90*(bidders.length-1)}}rpx;" scroll-y="true">
+            <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
+                <view class="list-item" bindtap="selectBidder" data-id="{{item.id}}">
+                    <view class="lsit-l">
+                        <view class="head-box">
+                            <image mode="aspectFill" src="{{item.avatar}}" />
+                            <view class="status">领先</view>
+                        </view>
+                    </view>
+                    <view class="lsit-c">
+                        出价时间：
+                        <label>{{item.createTime}}</label>
+                    </view>
+                    <view class="lsit-r">
+                        ¥
+                        <label>{{item.bid}}</label>
+                    </view>
                 </view>
-            </view>
-            <view class="lsit-c">
-                出价时间：
-                <label>{{item.createTime}}</label>
-            </view>
-            <view class="lsit-r">
-                ¥
-                <label>{{item.bid}}</label>
-            </view>
-        </view>
-  </block>
-</scroll-view>
-
-
-
-
-
-
-      
-      
+            </block>
+        </scroll-view>
     </view>
     <view class="foot-btn creat-box" wx:if="{{ !show }}">
         <view class="creat creat-l" bindtap="showPopup">出价</view>
@@ -99,35 +88,27 @@
             <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
         </view>
     </van-popup>
-
-
-
-  <view class="modal-box {{modalName=='modal'?'cur':''}}" >
-  <view class='modal-dialog'>
-    <view class="modal-title">
-      <text>复选框</text>
-      <view class='bar-close badge danger round' bindtap='closeModal'>
-        <text class='iconfont icon-close'></text>
-      </view>
+    <view class="modal-box {{modalName=='modal'?'cur':''}}">
+        <view class='modal-dialog'>
+            <view class="modal-title">
+                <text>复选框</text>
+                <view class='bar-close badge danger round' bindtap='closeModal'>
+                    <text class='iconfont icon-close'></text>
+                </view>
+            </view>
+            <view class='modal-bd modal-message'>带确认和取消</view>
+            <view class='modal-option'>
+                <view class='modal-option-btn'>取消</view>
+                <view class='modal-option-btn success-text'>确认</view>
+            </view>
+        </view>
     </view>
-    <view class='modal-bd modal-message'>
-      带确认和取消
-    </view>
-    <view class='modal-option'>
-      <view class='modal-option-btn'>取消</view>
-      <view class='modal-option-btn success-text'>确认</view>
-    </view>
-  </view>
 </view>
-
-</view>
-
 <view class="mask" bindtap="preventTouchMove" wx:if="{{showModal}}"></view>
- 
 <view class="modalDlg" wx:if="{{showModal}}">
-<view class="success_text"> 拍卖成功~</view>
-       <view class='creat-box_success'>
-       <view class="creat_success creat-l_success" bindtap="share">分享</view>
+    <view class="success_text">拍卖成功~</view>
+    <view class='creat-box_success'>
+        <view class="creat_success creat-l_success" bindtap="share">分享</view>
         <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
-      </view>
+    </view>
 </view>
