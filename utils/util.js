@@ -39,6 +39,9 @@ function request(url, data = {}, method = "GET") {
           wx.showToast({
             title: '登陆已过期',
           })
+           wx.navigateTo({
+             url: '/pages/auth/index',
+           })
         }
 
       },
@@ -69,9 +72,7 @@ function requestForForm(url, data = {}, method = "GET") {
           resolve(res.data);
         } else if (res.statusCode == 401) {
 
-          wx.showToast({
-            title: '登陆已过期',
-          })
+         
         }
 
       },

@@ -24,7 +24,7 @@
                         <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon"></image>
                         <text class="small">¥</text>
                     </view>
-                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="digit" placeholder-class="palceholder"  />
+                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="digit" placeholder-class="palceholder" placeholder="0.00" />
                 </view>
             </view>
         </form>
@@ -34,26 +34,7 @@
 
 
 
-<view class="qrcode" wx:if="{{showShare}}">
-    
-           <poster
-  drawing='{{drawing}}'
-  savebtnText='{{savebtnText}}'
-  canvas-style='canvas-style'
-  savebtn-style='savebtn-style' />
-
-
-
-
-    </view>
-
-
-  <view class='mode-loading' wx:if="{{showLoading}}">
-  <view class='mode-text'>
-    <view class='iconfont icon-emojifill warning-text'></view>
-    <view class='gray-text'>加载中...</view>
-  </view>
-</view>
-
 
 </view>
+
+

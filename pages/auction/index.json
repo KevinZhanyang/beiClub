@@ -2,5 +2,7 @@
   "usingComponents": {
     "van-stepper": "../../components/stepper/index",
     "van-popup": "../../components/popup/index"
-  }
+  },
+    "navigationBarTitleText": "拍卖厅"
+  
 }

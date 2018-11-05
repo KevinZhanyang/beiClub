@@ -210,6 +210,7 @@ module.exports = {
   getCurrentUser,
   isManager,
   getCurrentUserII,
+  rolesHandler
 };
 
 

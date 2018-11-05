@@ -94,6 +94,8 @@ Page({
         title: '登陆成功',
         duration: 1500
       })
+
+
       setTimeout(() => {
         wx.redirectTo({
         url: '/pages/index/index',

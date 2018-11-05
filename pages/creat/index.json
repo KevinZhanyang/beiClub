@@ -1,5 +1,4 @@
 {
-  "usingComponents": {
-    "poster": "plugin://poster/poster"
-  }
+  
+  "navigationBarTitleText": "创建拍卖"
 }

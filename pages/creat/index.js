@@ -9,8 +9,8 @@ Page({
   data: {
     tagList: [],
     selectTag: [],
-    startPrice:0.00,
-    bidIncreatment:0.00
+    // startPrice:0.00,
+    // bidIncreatment:0.00
   },
   onLoad() {
    
@@ -80,15 +80,9 @@ Page({
     util.request(CREATE_AUCTION, data, "POST").then(res => {
       if (res.code == 200) {
         //生成海报；
-        
-        that.prePareShare();
-        that.setData({
-          showShare:true
-        })
-        that.showLoading();
-
-
-
+       wx.redirectTo({
+         url: '/pages/poster/index?auctionId=' + res.body + "&startPrice=" + that.data.startPrice,
+       })
       }
     });
   },
@@ -113,83 +107,5 @@ Page({
       tagList
     });
   },
-  prePareShare(){
-    this.setData({
-      drawing: [
-        {
-          type: 'image',
-          url: 'https://used-america.oss-us-west-1.aliyuncs.com/cbb/2018-11-04%2016:19:42/154131958213811.png',
-          left: 0,
-          top: 0,
-          width: 645,
-          height: 955,
-        },
-        {
-          type: 'image',
-          url: wx.getStorageSync("userInfo").avatarUrl,
-          left: 142,
-          top: 273,
-          width: 108,
-          height: 108,
-        },
-        {
-          type: 'text',
-          content: wx.getStorageSync("userInfo").nickName,
-          fontSize: 26,
-          color: 'black',
-          textAlign: 'left',
-          left: 270,
-          top: 310,
-          width: 650,
-        },
 
-        {
-          type: 'text',
-          content: "48小时后结束！",
-          fontSize: 26,
-          color: 'black',
-          textAlign: 'left',
-          left: 270,
-          top: 348,
-          width: 650,
-        },
-
-        
-
-
-        {
-          type: 'text',
-          content: 100,
-          fontSize: 30,
-          color: 'red',
-          textAlign: 'left',
-          left: 142,
-          top: 745,
-          width: 200
-        },
-        {
-          type: 'image',
-          url: 'https://i.loli.net/2018/10/30/5bd851175ce40.jpg',
-          left: 388,
-          top: 620,
-          width: 190,
-          height: 190,
-          circle: true
-        }
-      ]
-    })
-    
-  },
-  showLoading: function () {
-    var that = this;
-    this.setData({
-      showLoading: true
-    })
-
-    setTimeout(function () {
-      that.setData({
-        showLoading: false
-      })
-    }, 222000)
-  },
 });

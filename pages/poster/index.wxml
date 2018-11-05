@@ -1,0 +1,28 @@
+<view class="qrcode" wx:if="{{showShare}}">
+  <poster drawing='{{drawing}}' savebtnText='{{savebtnText}}' canvas-style='canvas-style' savebtn-style='savebtn-style' />
+</view>
+<view class='mode-loading' wx:if="{{showLoading}}">
+  <view class='mode-text'>
+    <view class='iconfont icon-emojifill warning-text'></view>
+    <view class='gray-text'>海“豹”来啦...</view>
+  </view>
+</view>
+
+
+
+<view class='share' wx:if="{{showShare}}">
+  <view class='box_left'>
+
+   <view class="moments" bindtap="showCircleImg">
+				朋友圈
+			</view>
+  </view>
+
+  <view class='box_right' bindtap='onShareAppMessage'>
+
+    
+    <button class="friend"  data-url="{{shareUrl}}" open-type="share">微信好友</button>
+  </view>
+
+
+</view>

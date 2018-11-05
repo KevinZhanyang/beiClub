@@ -1,12 +1,17 @@
 {
-  "pages": ["pages/index/index", "pages/auction/index", "pages/creat/index","pages/auth/index"],
+  "pages": [
+    "pages/index/index",
+    "pages/creat/index",
+    "pages/auth/index",
+    "pages/poster/index",
+    "pages/auction/index"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  }
-  ,
+  },
   "plugins": {
     "poster": {
       "version": "1.0.0",

@@ -3,40 +3,48 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
-import { GET_TAG_LIST, AUCTION ,BIDDER,BIDDER_LIST} from "../../config/api.js";
+import { GET_TAG_LIST, AUCTION, BIDDER, BIDDER_LIST } from "../../config/api.js";
 
 Page({
-    data: {
-        show: false,
-        value: 9.09 //出价
-
-    },
+  data: {
+    show: false,
+    value: 9.09,
+    auctionId: null
+  },
   onLoad(options) {
-      if (options.auctionId) {
-          this.getDetail(options.auctionId);
-      } else if (options.scene) {
-          var sceneId = decodeURIComponent(options.scene)
-          this.getDetail(3);
-      }
-    this.getDetail(3);
+    if (options.auctionId) {
+      this.setData({
+        auctionId: options.auctionId
+      })
+
+    } else if (options.scene) {
+      var sceneId = decodeURIComponent(options.scene)
+      this.setData({
+        auctionId: sceneId
+      })
+    }
   }
- ,
+  ,
+  onShow(option) {
+    //获取拍卖详情
+    this.getDetail(this.data.auctionId);
+  }
+  ,
   getDetail(AUCTION_ID) {
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
         this.setData({
           auction: res.body,
-          bidders: res.body.bidderResults ? res.body.bidderResults:[]
-          
+          bidders: res.body.bidderResults ? res.body.bidderResults : []
+
         });
       }
     });
   },
-  goCreate(){
- 
-      wx.navigateTo({
-        url: '/pages/creat/index',
-      })
+  goCreate() {
+    wx.navigateTo({
+      url: '/pages/creat/index',
+    })
 
   },
 
@@ -57,8 +65,8 @@ Page({
 
   showPopup() {
     this.setData({ show: true });
-  }, 
-  
+  },
+
   preventTouchMove: function (e) {
     this.setData({
       showModal: false
@@ -77,9 +85,10 @@ Page({
 
     util.request(BIDDER, data, "POST").then(res => {
       if (res.code == 200) {
-       that.setData({
-         showModal:true
-       })
+        that.setData({
+          showModal: true
+        })
+        this.getDetail(that.data.auction.id);
       }
     });
   },
