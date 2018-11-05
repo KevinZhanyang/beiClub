@@ -12,6 +12,7 @@ Page({
     auctionId: null
   },
   onLoad(options) {
+    options.auctionId = 3;
     if (options.auctionId) {
       this.setData({
         auctionId: options.auctionId
@@ -37,6 +38,16 @@ Page({
           auction: res.body,
           bidders: res.body.bidderResults ? res.body.bidderResults : []
 
+        });
+
+        if (res.body.bidderResults && res.body.bidderResults.length<3){
+          this.setData({
+            height:450
+          });
+          }   
+      } else if (res.body.bidderResults && res.body.bidderResults.length >= 3){
+        this.setData({
+          height: res.body.bidderResults.length
         });
       }
     });

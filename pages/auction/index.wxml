@@ -39,7 +39,7 @@
             <view class="tip-r">竞拍规则说明</view>
         </view>
         <!-- swiper -->
-        <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{90*(bidders.length-1)}}rpx;" scroll-y="true">
+        <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{height}}rpx;" scroll-y="true">
             <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
                 <view class="list-item" bindtap="selectBidder" data-id="{{item.id}}">
                     <view class="lsit-l">
