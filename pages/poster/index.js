@@ -52,7 +52,7 @@ Page({
           fontSize: 26,
           color: 'black',
           textAlign: 'left',
-          left: 170,
+          left: 165,
           top: 745,
           width: 650,
         },

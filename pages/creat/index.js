@@ -30,13 +30,13 @@ Page({
     var regu = /^(([1-9]\d*(\.\d*)?)|(0\.\d[1-9]))$/;
     var re = new RegExp(regu);
     if (!re.test(amount * 100)) {
-      // wx.showLoading({
-      //   title: '调皮了！',
-      //   duration: 1500,
-      // })
-      // setTimeout(function () {
-      //   wx.hideLoading();
-      // }, 1500)
+      wx.showLoading({
+        title: '调皮了！',
+        duration: 1500,
+      })
+      setTimeout(function () {
+        wx.hideLoading();
+      }, 1500)
       
     }else{
       this.setData({
@@ -51,9 +51,9 @@ Page({
     var regu = /^(([1-9]\d*(\.\d*)?)|(0\.\d[1-9]))$/;
     var re = new RegExp(regu);
     if (!re.test(amount * 100)) {
-      // this.setData({
-      //   bidIncreatment: amount
-      // })
+      this.setData({
+        bidIncreatment: amount
+      })
     } else {
       this.setData({
         bidIncreatment: amount
@@ -75,13 +75,25 @@ Page({
       })
       return false;
     }
+    var startPrice=0.00;
+    if (!this.data.startPrice){
+      startPrice = startPrice*100
+    }else{
+      startPrice = this.data.startPrice * 100
+    }
+    var bidIncreatment = 0.00;
+    if (!this.data.bidIncreatment){
+      bidIncreatment = bidIncreatment*100;
+    }else{
+      bidIncreatment = this.data.bidIncreatment * 100;
+    }
 
-    var data = { startPrice: this.data.startPrice * 100, bidIncreatment: this.data.bidIncreatment * 100, desc: "", tags: this.data.selectTag}
+    var data = { startPrice: startPrice, bidIncreatment: bidIncreatment, desc: "", tags: this.data.selectTag}
     util.request(CREATE_AUCTION, data, "POST").then(res => {
       if (res.code == 200) {
         //生成海报；
        wx.redirectTo({
-         url: '/pages/poster/index?auctionId=' + res.body + "&startPrice=" + that.data.startPrice,
+         url: '/pages/poster/index?auctionId=' + res.body + "&startPrice=" + startPrice,
        })
       }
     });
