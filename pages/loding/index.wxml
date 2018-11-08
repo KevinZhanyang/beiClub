@@ -1,0 +1,12 @@
+<view class="home-container">
+  <view class="list">
+    <view class="list-item">
+      <view class="list-r">
+        <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
+        <view class="text">疯狂画海报中...</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="border">
+</view>

@@ -24,6 +24,8 @@ page {
   font-size: 40rpx;
   color: #1873e0;
   letter-spacing: 7rpx;
+  margin-top:44rpx;
+
 }
 
 .authorcontainer {

@@ -7,7 +7,7 @@ Page({
   data: {
 
   },
-  prePareShare() {
+  prePareShare(option) {
     this.setData({
       drawing: [{
           type: 'image',
@@ -15,35 +15,37 @@ Page({
           left: 0,
           top: 0,
           width: 645,
-          height: 955,
+          height: 855,
         },
         {
           type: 'image',
           url: wx.getStorageSync("userInfo").avatarUrl,
+          // url: "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eryLJEEaUiaChys4Vegu5FduefB349CNeIBzffGiaXHeYutOexIQWI1OLnGnk5Yg2cDIO3SD2JjXdJw/132",
           left: 142,
-          top: 273,
+          top: 233,
           width: 108,
           height: 108,
         },
         {
           type: 'text',
           content: wx.getStorageSync("userInfo").nickName,
+          // content:"必须性感",
           fontSize: 26,
           color: 'black',
           textAlign: 'left',
           left: 270,
-          top: 310,
+          top: 270,
           width: 650,
         },
 
         {
           type: 'text',
-          content: "48小时后结束！",
+          content: "还剩11:59:59",
           fontSize: 26,
           color: 'black',
           textAlign: 'left',
           left: 270,
-          top: 348,
+          top: 308,
           width: 650,
         },
         {
@@ -53,14 +55,15 @@ Page({
           color: 'black',
           textAlign: 'left',
           left: 165,
-          top: 745,
+          top: 665,
           width: 650,
         },
         {
           type: 'image',
-          url: 'https://i.loli.net/2018/10/30/5bd851175ce40.jpg',
+          url: option,
+          // url:"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eryLJEEaUiaChys4Vegu5FduefB349CNeIBzffGiaXHeYutOexIQWI1OLnGnk5Yg2cDIO3SD2JjXdJw/132",
           left: 388,
-          top: 620,
+          top: 540,
           width: 190,
           height: 190,
           circle: true
@@ -72,29 +75,50 @@ Page({
   showLoading: function() {
     var that = this;
     this.setData({
-      showLoading: true
+      showShare: false
     })
-
     setTimeout(function() {
       that.setData({
-        showLoading: false
+        showShare: true,
+        qrcode:"qrcode"
       })
-    }, 4000)
+    }, 3000)
   },
+
+  edit(){
+    wx.redirectTo({
+      url: '/pages/editAuction/index?auctionId=' + this.data.auctionId,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+   
+  },
+  goCreate(){
+    wx.redirectTo({
+      url: '/pages/creat/index',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    options.auctionId = 3
     let that = this;
     that.setData({
-      showShare: true,
+      qrcode:"",
+      showShare: false,
       startPrice: options.startPrice,
       auctionId: options.auctionId,
-      shareUrl: '/pages/auction/index?auctionId=' + options.auctionId
+      shareUrl: '/pages/auction/index?auctionId=' + options.auctionId,
+      qrcodeUrl: options.qrcodeUrl
     })
     this.showLoading();
-    this.prePareShare();
+    console.log(options.qrcodeUrl)
+    this.prePareShare(options.qrcodeUrl);
   },
   onShareAppMessage(res) {
     console.log(res)

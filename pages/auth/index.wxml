@@ -1,7 +1,7 @@
 <view class="authorcontainer">
     <form bindsubmit="bindSave">
         <view class="logo">
-            <image src="/static/img/"></image>
+            <image src="/static/img/logo.png"></image>
             <p>北美拍卖社</p>
         </view>
         <view class="text">北美拍卖社申请获得以下权限：</view>

@@ -42,7 +42,7 @@
                 <view class="intro">敬请期待。。。</view>
             </view>
             <view class="list-r">
-                <image mode="aspectFill" src="../../static/img/icon_head.png"></image>
+                <image mode="aspectFill" src="../../static/img/index_awl.png"></image>
             </view>
         </navigator>
         <!-- </block> -->
@@ -50,11 +50,6 @@
     <view class="tips">点击查看卡片详情</view>
       <!-- <view class="userinfo"> -->
         <!-- <button type='primary' bindtap='choose'>选择照片</button> -->
-
-
-<!-- 
-
-
-         <button bindtap='choose'  class="save-btn">hhh</button> 
-      </view> -->
+         <!-- <button bindtap='choose'  class="save-btn">hhh</button>  -->
+      <!-- </view> -->
 </view>

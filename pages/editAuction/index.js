@@ -13,21 +13,56 @@ Page({
   data: {
     tagList: [],
     selectTag: [],
-
+    startPrice:0.00,
+    bidIncreatment:0.00
   },
-  onLoad() {
-
-    this.getList();
+  onLoad(option) {
+     
+    var oldAuction = wx.getStorageSync(option.auctionId)
+    this.setData({
+      auctionId:option.auctionId,
+      selectTag: oldAuction.tags,
+      startPrice: oldAuction.startPrice/100,
+      bidIncreatment: oldAuction.bidIncreatment/100
+    })
+    this.getOldList(oldAuction.tags, option.auctionId);
   },
-  getList() {
-    util.request(GET_TAG_LIST, {
-      "perPageNum": 10
-    }, "GET").then(res => {
+  getList(selectTags) {
+    util.request(GET_TAG_LIST+"/getBiz", {
+      "perPageNum": 10, tags: selectTags
+    }, "PUT").then(res => {
       if (res.code == 200) {
+        var tagList = res.body.tagList.map((item,index)=>{
+          selectTags.map((selectTagId)=>{
+
+            if (selectTagId==item.id){
+              item.state=1;
+             }
+            return selectTagId;
+          })
+          return item
+        })
         this.setData({
           tagList: res.body.tagList
         });
       }
+    });
+  },
+   //获取原来的便签并绑定
+  getOldList(selectTags,auctionId) {
+    var tagList = wx.getStorageSync("selectTags_" + auctionId);
+    tagList = tagList.map((item, index) => {
+      selectTags.map((selectTagId) => {
+
+        if (selectTagId == item.id) {
+          item.state = 1;
+        }
+        return selectTagId;
+      })
+      return item
+    })
+    this.setData({
+      tagList: tagList
     });
   },
   startPrice(event) {
@@ -39,7 +74,7 @@ Page({
         title: '调皮了！',
         duration: 1500,
       })
-      setTimeout(function() {
+      setTimeout(function () {
         wx.hideLoading();
       }, 1500)
 
@@ -48,7 +83,9 @@ Page({
         startPrice: amount
       })
     }
-  },
+  }
+
+  ,
   bidIncreatment(event) {
     let amount = event.detail.value
     var regu = /^(([1-9]\d*(\.\d*)?)|(0\.\d[1-9]))$/;
@@ -62,12 +99,12 @@ Page({
         bidIncreatment: amount
       })
     }
+
   },
   startTip() {
     this.setData({
-      tipTitle: "起拍价",
       showTips: true,
-      tips: "指基础价格，且平台收取2%手续费"
+      tips: "指基础价格，且平台收取2%服手续费"
     })
 
   },
@@ -81,7 +118,6 @@ Page({
   bidIncreatmentTip() {
 
     this.setData({
-      tipTitle: "加价幅度",
       showTips: true,
       tips: "指竞拍者每次出价最少加价额"
     })
@@ -130,7 +166,6 @@ Page({
         })
       }
     });
-
   },
 
   showCreateTagModel() {
@@ -161,58 +196,40 @@ Page({
     })
     console.log(1)
     var tag = this.data.selectTag;
-
-
-
     if (!tag || tag.length < 2) {
-
-
-      this.setData({
-        tipTitle: "温馨提示",
-        showTipsModel: true,
-        tips: "至少选择2个标签"
+      wx.showModal({
+        title: '温馨提示',
+        content: '至少选择2个标签',
+        showCancel: false
       })
       that.setData({
         create: 0
       })
-      setTimeout(() => {
-
-        this.setData({
-          showTipsModel: false
-        })
-
-
-      }, 1500)
-
       return false;
     }
     console.log(2)
     var startPrice = 0.00;
     if (!this.data.startPrice) {
-      startPrice = startPrice
+      startPrice = startPrice*100
     } else {
-      startPrice = this.data.startPrice
+      startPrice = this.data.startPrice*100
     }
     var bidIncreatment = 0.00;
     if (!this.data.bidIncreatment) {
       console.log(3)
-      this.setData({
-        tipTitle: "温馨提示",
-        showTipsModel: true,
-        tips: "请设置加价幅度！"
+      wx.showModal({
+        title: '温馨提示',
+        content: '请设置加价幅度！',
+        showCancel: false,
+
       })
-      setTimeout(() => {
-        this.setData({
-          showTipsModel: false
-        })
-      }, 1500)
       that.setData({
         create: 0
       })
       return false;
-      bidIncreatment = bidIncreatment;
+      bidIncreatment = bidIncreatment * 100;
     } else {
-      bidIncreatment = this.data.bidIncreatment;
+      bidIncreatment = this.data.bidIncreatment * 100;
     }
     console.log(4)
     wx.showLoading({
@@ -220,26 +237,33 @@ Page({
     })
 
     var data = {
-      startPrice: startPrice * 100,
-      bidIncreatment: bidIncreatment * 100,
+      startPrice: startPrice,
+      bidIncreatment: bidIncreatment ,
       desc: "",
       tags: this.data.selectTag
     }
-    util.request(CREATE_AUCTION, data, "POST").then(res => {
+    util.request(CREATE_AUCTION+"/"+this.data.auctionId, data, "PUT").then(res => {
       if (res.code == 200) {
         wx.hideLoading();
         that.setData({
           create: 0
         })
-        wx.setStorageSync("" + res.body.id, data)
-        wx.setStorageSync("selectTags_" + res.body.id, that.data.tagList)
+        wx.setStorageSync("" + this.data.auctionId, data)
+        wx.setStorageSync("selectTags_" + this.data.auctionId, that.data.tagList)
         //生成海报；
         wx.redirectTo({
-          url: '/pages/poster/index?auctionId=' + res.body.id + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body.imgUrl,
+          url: '/pages/poster/index?auctionId=' + this.data.auctionId + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body.imgUrl,
         })
       } else {
-        wx.navigateTo({
-          url: '/pages/auth/index?senceType=back',
+        wx.setStorageSync("" + res.body.id, data)
+        wx.setStorageSync("selectTags_" + res.body.id, that.data.tagList)
+        wx.hideLoading();
+        that.setData({
+          create: 0
+        })
+       
+        wx.showLoading({
+          title: '服务器开小差啦！',
         })
       }
     });
@@ -248,36 +272,13 @@ Page({
     })
   },
   selectTag(event) {
-
-
     let id = event.currentTarget.dataset["id"];
     let selectTag = this.data.selectTag;
     let tagList = this.data.tagList;
     if (selectTag.indexOf(id) > -1) {
       selectTag.splice(selectTag.indexOf(id), 1);
     } else {
-      if (selectTag.length > 7) {
-
-
-        this.setData({
-          showTipsModel: true,
-          tips: "最多选择8个标签"
-        })
-
-        setTimeout(() => {
-
-          this.setData({
-            showTipsModel: false
-          })
-
-
-        }, 1500)
-
-
-        return false;
-
-
-      };
+      if (selectTag.length > 7) return;
       selectTag.push(id);
     }
     for (let item of tagList) {

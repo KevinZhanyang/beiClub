@@ -14,6 +14,7 @@ const CREATE_AUCTION = apiRoot + '/used/v1/auction';
 const AUCTION = apiRoot + '/used/v1/auction';
 const BIDDER = apiRoot +"/used/v1/bidder";
 const CURRENTUSER = apiRoot +"/used/v1/currentUser";
+const CREATE_TAG = apiRoot +"/used/v1/tag"
 module.exports = {
   GET_TAG_LIST,
   PAY_INFO,
@@ -22,5 +23,6 @@ module.exports = {
   CREATE_AUCTION,
   AUCTION,
   BIDDER,
-  CURRENTUSER
+  CURRENTUSER,
+  CREATE_TAG
 };

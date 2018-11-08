@@ -40,7 +40,10 @@
 <view class="modal-box cur">
   <view class='modal-dialog'>
     <view class="modal-title">
-      <text>{{tipTitle}}</text>
+      <text>Tips</text>
+      <view class='bar-close badge danger round' bindtap='hideTip'>
+        <text class='iconfont icon-close'></text>
+      </view>
     </view>
     <view class='modal-bd modal-message'>
      {{tips}}
@@ -54,31 +57,12 @@
 </block>
 
 
-<block wx:if="{{showTipsModel}}">
-<view class="modal-box cur">
-  <view class='modal-dialog'>
-    <view class="modal-title">
-      <text>{{tipTitle}}</text>
-    </view>
-    <view class='modal-bd modal-message'>
-     {{tips}}
-    </view>
-  </view>
-</view>
-</block>
-
-
-
-
 <block wx:if="{{showCreateTag}}">
 <view class="modal-box cur">
   <view class='modal-dialog'>
     <view class="modal-title">
       <text>创建便签</text>
-      <view class='bar-close badge danger round' bindtap='hideShowCreateTag'>
-        <text class='iconfont icon-close'>
-        </text>
-      </view>
+    
     </view>
     <view class='modal-bd modal-message'>
     <input name="input" style="color: #000000" bindinput='inputTag' auto-focus='true' maxlength="10" placeholder-class="palceholder"/>

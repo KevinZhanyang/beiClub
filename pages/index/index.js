@@ -11,10 +11,6 @@ Page({
    },
   navigator(e){
     //登陆
-
-
-
-
     let url = e.currentTarget.dataset.url;
     wx.navigateTo({
       url: url,

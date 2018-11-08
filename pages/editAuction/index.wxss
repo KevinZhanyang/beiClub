@@ -96,9 +96,6 @@ text.small {
   color: #000;
   font-size: 30rpx;
 }
-.modal-bd{
-  text-align:center !important;
-}
 
 .line {
   height: 1rpx;

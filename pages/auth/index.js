@@ -2,6 +2,7 @@
 const app = getApp()
 var util = require('../../utils/util.js');
 var user = require('../../services/user.js');
+import { CURRENTUSER } from "../../config/api.js";
 
 Page({
 
@@ -16,7 +17,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    if (options.senceType){
+       this.setData({
+         senceType: options.senceType
+       })
+    }
+
+    if (options.sence) {
+      this.setData({
+        sence: options.sence
+      })
+    }
+
+    if (options.path) {
+      this.setData({
+        path: options.path
+      })
+    }
   },
 
   /**
@@ -95,12 +112,33 @@ Page({
         duration: 1500
       })
 
+      util.request(CURRENTUSER).then(res => {
+        if (res.code == 200) {
+          wx.setStorageSync("user", res.body)
+        } else {
+        }
+      });
+      
 
-      setTimeout(() => {
-        wx.redirectTo({
-        url: '/pages/index/index',
-      })
-      }, 2500);
+      if (that.data.senceType && that.data.senceType=="back"&&!that.data.path ){
+          wx.navigateBack({
+          })
+      } else if (that.data.senceType && that.data.senceType == "back" && that.data.path&&that.data.sence){
+        setTimeout(() => {
+          wx.redirectTo({
+            url: that.data.path + "?auctionId=" + that.data.sence,
+          })
+        }, 1500);
+        
+
+       }else{
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '/pages/index/index',
+          })
+        }, 1500);
+       }
+     
       
     }).catch((err) => {
       wx.hideLoading();

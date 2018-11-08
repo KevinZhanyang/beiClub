@@ -1,19 +1,40 @@
-<view class="qrcode" wx:if="{{showShare}}">
-  <poster drawing='{{drawing}}' savebtnText='{{savebtnText}}' canvas-style='canvas-style' savebtn-style='savebtn-style' />
-</view>
-<view class='mode-loading' wx:if="{{showLoading}}">
-  <view class='mode-text'>
-    <view class='iconfont icon-emojifill warning-text'></view>
-    <view class='gray-text'>海“豹”来啦...</view>
+<block wx:if="{{!showShare}}">
+<view class="home-container">
+  <view class="list">
+    <view class="list-item">
+      <view class="list-r">
+        <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
+        <view class="text">疯狂画海报中...</view>
+      </view>
+    </view>
   </view>
 </view>
+<view class="border">
+</view>
 
 
+
+</block>
+
+
+
+<view class="{{qrcode}}"  >
+  <poster drawing='{{drawing}}' savebtnText='{{savebtnText}}' canvas-style='canvas-style' savebtn-style='savebtn-style' />
+</view>
+
+
+
+
+<view class='creat-box_success' wx:if="{{showShare}}">
+    <button class="creat_success creat-l_success"  bindtap='edit'>返回编辑</button>
+    
+    <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
+  </view>
 
 <view class='share' wx:if="{{showShare}}">
   <view class='box_left'>
 
-   <view class="moments" bindtap="showCircleImg">
+   <view class="moments" bindtap="showCircleImg" style='background-image:"../static/img.moments.png"'>
 				朋友圈
 			</view>
   </view>
@@ -26,3 +47,4 @@
 
 
 </view>
+
