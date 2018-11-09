@@ -128,3 +128,95 @@ text.small {
   left: 0rpx;
   bottom: 0rpx;
 }
+
+
+/**index.wxss**/
+
+.showShare-home-container {
+  width: 100%;
+  background-color: #fed406;
+  height: 800rpx;
+  z-index: 999;
+}
+
+.showShare-list {
+  width: 100%;
+  padding-top: 84rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.showShare-list-item {
+  width: 550rpx;
+  height: 600rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  box-shadow: 0 4rpx 10rpx rgb(39, 202, 88);
+  margin-bottom: 35rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.showShare-list-l {
+  flex-grow: 1;
+  margin-left: 60rpx;
+}
+
+.showShare-list-l .showShare-title {
+  font-size: 30rpx;
+  color: #fad33a;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.showShare-list-l .showShare-intro {
+  font-size: 28rpx;
+  width: 100%;
+  color: #fad33a;
+}
+
+.showShare-list-r {
+  flex: 0;
+}
+
+.showShare-list-r showShare-image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-left: 175rpx;
+}
+
+.showShare-list .showShare-item-goods {
+  background: #e5e5e5;
+  box-shadow: 0 4rpx 10rpx rgb(184, 184, 184);
+}
+
+.showShare-item-goods .showShare-list-l .showShare-title, .showShare-item-goods .showShare-list-l .showShare-intro {
+  color: #fff;
+}
+
+.showShare-tips {
+  color: #a6a9b0;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.showShare-border {
+  height: 110px;
+  /* border:8px solid #B4E3EF; */
+  text-align: center;
+  border-radius: 21%;
+  z-index: 999;
+  margin-top: -59rpx;
+  background-color: #fff;
+}
+
+.showShare-text {
+  width: 550rpx;
+  margin-top: 20rpx;
+  color: #000;
+  font-weight: 20;
+  font-size: 30rpx;
+  text-align: center;
+}

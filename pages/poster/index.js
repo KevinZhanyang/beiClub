@@ -2,6 +2,9 @@
 
 var wxDraw = require("../../utils/wxdraw.min.js").wxDraw;
 var Shape = require("../../utils/wxdraw.min.js").Shape;
+import {
+  apiRoot
+} from "../../config/api.js";
 Page({
 
   data: {
@@ -82,7 +85,7 @@ Page({
         showShare: true,
         qrcode:"qrcode"
       })
-    }, 3000)
+    }, 100)
   },
 
   edit(){
@@ -102,23 +105,24 @@ Page({
       complete: function (res) { },
     })
   },
-
+  previewImage: function (e) {
+    var current = e.target.dataset.src;
+    //预览图片
+    wx.previewImage({
+      current: current,
+      urls: [current],
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     let that = this;
     that.setData({
-      qrcode:"",
-      showShare: false,
-      startPrice: options.startPrice,
-      auctionId: options.auctionId,
-      shareUrl: '/pages/auction/index?auctionId=' + options.auctionId,
-      qrcodeUrl: options.qrcodeUrl
+      posterUrl: apiRoot+options.qrcodeUrl,
+      auctionId: options.auctionId
     })
-    this.showLoading();
-    console.log(options.qrcodeUrl)
-    this.prePareShare(options.qrcodeUrl);
+   
   },
   onShareAppMessage(res) {
     console.log(res)
@@ -163,4 +167,42 @@ Page({
     }
 
   },
+  saveImg(){
+    let that = this;
+
+
+    wx.getImageInfo({
+      src: this.data.posterUrl,
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: (res) => {
+           that.setData({
+             showTips:true,
+             tips:"海报已成功保存至相册；快去分享吧！"
+           })
+           setTimeout(()=>{
+             that.setData({
+               showTips: false
+             })
+   
+           },1500)
+          },
+          fail: (err) => {
+            that.setData({
+              showTips: true,
+              tips: "海报已成功保存失败！"
+            })
+            setTimeout(() => {
+              that.setData({
+                showTips: false
+              })
+
+            }, 1500)
+          }
+        })
+
+      }})
+  
+  }
 })

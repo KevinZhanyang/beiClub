@@ -1,40 +1,18 @@
-<block wx:if="{{!showShare}}">
-<view class="home-container">
-  <view class="list">
-    <view class="list-item">
-      <view class="list-r">
-        <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
-        <view class="text">疯狂画海报中...</view>
-      </view>
-    </view>
-  </view>
-</view>
-<view class="border">
+
+<view class="qrcode"  >
+  <image  mode="aspectFill" data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
 </view>
 
-
-
-</block>
-
-
-
-<view class="{{qrcode}}"  >
-  <poster drawing='{{drawing}}' savebtnText='{{savebtnText}}' canvas-style='canvas-style' savebtn-style='savebtn-style' />
-</view>
-
-
-
-
-<view class='creat-box_success' wx:if="{{showShare}}">
+<view class='creat-box_success'>
     <button class="creat_success creat-l_success"  bindtap='edit'>返回编辑</button>
     
     <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
   </view>
 
-<view class='share' wx:if="{{showShare}}">
+<view class='share' >
   <view class='box_left'>
 
-   <view class="moments" bindtap="showCircleImg" style='background-image:"../static/img.moments.png"'>
+   <view class="moments" bindtap="saveImg" style='background-image:"../static/img.moments.png"'>
 				朋友圈
 			</view>
   </view>
@@ -48,3 +26,19 @@
 
 </view>
 
+ <block wx:if="{{showTips}}">
+<view class="modal-box cur">
+  <view class='modal-dialog'>
+     <view class="modal-title">
+     
+      <view class='bar-close badge danger round' bindtap='closeModal'>
+        <text class='iconfont icon-close'></text>
+      </view>
+    </view>
+    <view class='modal-bd modal-message'>
+     {{tips}}
+    </view>
+    
+  </view>
+</view>
+</block>

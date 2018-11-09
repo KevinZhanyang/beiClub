@@ -14,7 +14,8 @@ Page({
     tagList: [],
     selectTag: [],
     startPrice:0.00,
-    bidIncreatment:0.00
+    bidIncreatment:0.00,
+    showSharePoster: false
   },
   onLoad(option) {
      
@@ -232,15 +233,16 @@ Page({
       bidIncreatment = this.data.bidIncreatment * 100;
     }
     console.log(4)
-    wx.showLoading({
-      title: '去分享吧！',
+    that.setData({
+      showSharePoster: true
     })
 
     var data = {
       startPrice: startPrice,
       bidIncreatment: bidIncreatment ,
       desc: "",
-      tags: this.data.selectTag
+      tags: this.data.selectTag,
+      avatarUrl: wx.getStorageSync("userInfo").avatarUrl
     }
     util.request(CREATE_AUCTION+"/"+this.data.auctionId, data, "PUT").then(res => {
       if (res.code == 200) {
@@ -252,7 +254,10 @@ Page({
         wx.setStorageSync("selectTags_" + this.data.auctionId, that.data.tagList)
         //生成海报；
         wx.redirectTo({
-          url: '/pages/poster/index?auctionId=' + this.data.auctionId + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body.imgUrl,
+          url: '/pages/poster/index?auctionId=' + this.data.auctionId + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body,
+        })
+        that.setData({
+          showSharePoster: false
         })
       } else {
         wx.setStorageSync("" + res.body.id, data)
@@ -261,11 +266,14 @@ Page({
         that.setData({
           create: 0
         })
-       
+        that.setData({
+          showSharePoster: false
+        })
         wx.showLoading({
           title: '服务器开小差啦！',
         })
       }
+      
     });
     that.setData({
       create: 0

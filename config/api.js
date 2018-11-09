@@ -7,7 +7,7 @@ const OSS_CDNDOMAIN = 'http://img.beimei2.com';
 const OSS_PROCESS_THUMBNAIL = '? x-oss-process=style/thumbnail';
 const OSS_PROCESS_SMALL_THUMBNAIL = '?x-oss-process=style/small_thumbnail';
 const GET_TAG_LIST = apiRoot + '/used/v1/tag';
-const PAY_INFO = apiRoot + "/used/v1/order";
+const PAY_INFO = apiRoot + "/used/v1/miniPay";
 const AUTH_LOGIN = apiRoot + '/market/v1/authentication/miniapp'; //market微信小程序登录
 const PROVIDERID = "auction";
 const CREATE_AUCTION = apiRoot + '/used/v1/auction';
@@ -16,6 +16,7 @@ const BIDDER = apiRoot +"/used/v1/bidder";
 const CURRENTUSER = apiRoot +"/used/v1/currentUser";
 const CREATE_TAG = apiRoot +"/used/v1/tag"
 module.exports = {
+  apiRoot,
   GET_TAG_LIST,
   PAY_INFO,
   AUTH_LOGIN,

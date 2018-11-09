@@ -13,7 +13,7 @@ Page({
   data: {
     tagList: [],
     selectTag: [],
-
+    showSharePoster:false
   },
   onLoad() {
 
@@ -215,18 +215,19 @@ Page({
       bidIncreatment = this.data.bidIncreatment;
     }
     console.log(4)
-    wx.showLoading({
-      title: '去分享吧！',
-    })
+   that.setData({
+     showSharePoster:true
+   })
 
     var data = {
       startPrice: startPrice * 100,
       bidIncreatment: bidIncreatment * 100,
       desc: "",
-      tags: this.data.selectTag
+      tags: this.data.selectTag,
+      avatarUrl: wx.getStorageSync("userInfo").avatarUrl
     }
     util.request(CREATE_AUCTION, data, "POST").then(res => {
-      if (res.code == 200) {
+      if (res.code == 200 && res.body.imgUrl) {
         wx.hideLoading();
         that.setData({
           create: 0
@@ -237,15 +238,29 @@ Page({
         wx.redirectTo({
           url: '/pages/poster/index?auctionId=' + res.body.id + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body.imgUrl,
         })
+        that.setData({
+
+          showSharePoster: false
+        })
+
       } else {
-        wx.navigateTo({
-          url: '/pages/auth/index?senceType=back',
+        wx.showLoading({
+          title: '海报飞啦',
+          mask: true,
+          success: function(res) {},
+          fail: function(res) {},
+          complete: function(res) {},
+        })
+        that.setData({
+          showSharePoster: false
         })
       }
     });
     that.setData({
       create: 0
+      
     })
+
   },
   selectTag(event) {
 

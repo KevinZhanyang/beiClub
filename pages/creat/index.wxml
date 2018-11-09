@@ -1,4 +1,24 @@
 <!-- index.wxml -->
+
+
+<block wx:if="{{showSharePoster}}">
+<view class="showShare-home-container">
+  <view class="showShare-list">
+    <view class="showShare-list-item">
+      <view class="showShare-list-r">
+        <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
+        <view class="showShare-text">疯狂画海报中...</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="showShare-border">
+</view>
+</block>
+
+
+<block wx:else>
+
 <view class="list-container">
     <view class="tips">最少选择2条</view>
     <view class="list">
@@ -33,7 +53,7 @@
             </view>
         </form>
     </view>
-    <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为48小时</view>
+    <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为12小时</view>
     <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view>
     <view class="creat" wx:else  bindtap='create'><text class='iconfont icon-loading iconfont-spin mr-xs'></text>生成海报</view>
 <block wx:if="{{showTips}}">
@@ -93,5 +113,8 @@
 
 
 </view>
+
+</block>
+
 
 

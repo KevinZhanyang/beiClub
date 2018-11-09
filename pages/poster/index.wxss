@@ -149,7 +149,11 @@ color:#C0BBB8;
 
 
 
-
+.qrcode image{
+ width:650rpx;
+ height:860rpx;
+ margin-left:50rpx;
+}
 
 
 /**index.wxss**/

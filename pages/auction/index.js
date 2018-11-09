@@ -61,7 +61,7 @@ Page({
   data: {
     clock: '',
     show: false,
-    value: 9.09,
+    value: null,
     auctionId: null,
     isSelf: false
   },
@@ -216,8 +216,23 @@ Page({
     this.data.value = event.detail;
   },
 
-  showPopup() {
+  showPopup(event) {
+    console.log(event);
     this.setData({ show: true });
+  },
+  startTip(){
+    this.setData({
+      tipTitle: "起拍价",
+      showTips: true,
+      tips: "1.拍卖规则,拍卖时间为12小时，活动结束后最后出价最高者拍的该服务。"+
+             "2.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包"+
+             "3.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!"
+    })
+  },
+  closeModal(){
+    this.setData({
+      showTips: false,
+    })
   },
 
   preventTouchMove: function (e) {

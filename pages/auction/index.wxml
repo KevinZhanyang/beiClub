@@ -48,7 +48,12 @@
         <label>{{bidders.length}}</label>
         人出价
       </view>
-      <view class="tip-r">赶紧开始抢拍</view>
+      <view class="tip-r">
+        <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='startTip'></image>
+        <view>
+          竞拍说明
+        </view>
+      </view>
     </view>
     <!-- swiper -->
     <block wx:if="{{noBidder}}">
@@ -74,11 +79,12 @@
         <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
 
           <block wx:if="{{item.isFirst}}">
-            <view class="list-item" style='background:#000; opacity: 0.8;' bindtap="selectBidder" data-id="{{item.id}}">
+            <view class="list-item firstBack" style=' opacity: 0.8;background-image:/static/img/firstBackground.png' bindtap="selectBidder" data-id="{{item.id}}">
               <view class="lsit-l">
                 <view class="head-box">
                   <image mode="aspectFill" src="{{item.avatar}}" />
                   <view class="status">领先</view>
+                  <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
                 </view>
               </view>
               <view class="lsit-c">
@@ -115,11 +121,22 @@
   </view>
   <view class="foot-btn creat-box" wx:if="{{ !show }}">
 
-
+<!-- 
     <view wx:if="{{isSelf}}" class="creat1 creat-l" bindtap="showPopup">
       <image class='awl' src='/static/img/awl_new.gif'></image>
       <view class='bid_text'>出价</view>
+    </view> -->
+
+
+    <view wx:if="{{isSelf}}" class="creat1 creat-l">
+      <form bindsubmit="showPopup" report-submit='true'>
+        <button class="creat1 creat-l" form-type="submit">
+          <image class='awl' src='/static/img/awl_new.gif'></image>
+          <view class='bid_text'>出价</view>
+        </button>
+      </form>
     </view>
+
 
     <view wx:else class="creat1 " bindtap="shareToOther">
       <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>找人捧场</button>
@@ -158,24 +175,30 @@
       </view>
       <view class="pop-content">
 
-        <view wx:if="{{firstBidder}}" class="list-item " style='border-bottom:none;'>
+        <view wx:if="{{firstBidder}}" class="list-item " style='border-bottom:none; height:180rpx;'>
           <view class="lsit-l">
             <view class="head-box" style='left:240rpx;'>
               <image mode="aspectFill" src="{{firstBidder.avatar}}" />
               <view class="status">领先</view>
+              <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
             </view>
           </view>
-          </view>
-          <view class="title">
-            当前价格
-            <label>（加价幅度{{auction.bidIncreatment/100}}元起）</label>
-          </view>
-          <view class="stepper">
-            <van-stepper input-class="out-input" style="height:60rpx;" integer custom-class="out-stepper" step="{{auction.bidIncreatment/100}}" value="{{  auction.startPrice/100 }}" bind:change="onChange" />
-          </view>
         </view>
-        <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
+
+
+        <view wx:else class="list-item " style='border-bottom:none; height:180rpx;'>
+
+        </view>
+        <view class="title">
+          当前价格
+          <label>（加价幅度{{auction.bidIncreatment/100}}元起）</label>
+        </view>
+        <view class="stepper">
+          <van-stepper input-class="out-input" style="height:60rpx;" integer custom-class="out-stepper" step="{{auction.bidIncreatment/100}}" value="{{  auction.startPrice/100 }}" bind:change="onChange" />
+        </view>
       </view>
+      <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
+    </view>
   </van-popup>
   <view class="modal-box {{modalName=='modal'?'cur':''}}">
     <view class='modal-dialog'>
@@ -192,13 +215,31 @@
       </view>
     </view>
   </view>
+</view>
+<view class="mask" bindtap="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modalDlg" wx:if="{{showModal}}">
+  <view class="success_text">出价成功~</view>
+  <view class='creat-box_success'>
+    <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>分享</button>
+    <!-- <view class="" bindtap="share">分享</view> -->
+    <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
   </view>
-  <view class="mask" bindtap="preventTouchMove" wx:if="{{showModal}}"></view>
-  <view class="modalDlg" wx:if="{{showModal}}">
-    <view class="success_text">出价成功~</view>
-    <view class='creat-box_success'>
-      <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>分享</button>
-      <!-- <view class="" bindtap="share">分享</view> -->
-      <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
+</view>
+
+
+<block wx:if="{{showTips}}">
+  <view class="modal-box cur">
+    <view class='modal-dialog'>
+      <view class="modal-title">
+
+        <view class='bar-close badge danger round' bindtap='closeModal'>
+          <text class='iconfont icon-close'></text>
+        </view>
+      </view>
+      <view class='modal-bd modal-message'>
+        {{tips}}
+      </view>
+
     </view>
   </view>
+</block>
