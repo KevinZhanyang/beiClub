@@ -346,7 +346,7 @@ Page({
       return false;
     }
 
-    if (that.data.firstBidder.bid >= this.data.value) {
+    if (that.data.firstBidder&&(that.data.firstBidder.bid >= this.data.value)) {
       wx.showModal({
         title: '温馨提示',
         content: '您的出价小于当前最高者',
