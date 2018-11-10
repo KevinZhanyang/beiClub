@@ -1,198 +1,130 @@
 <!-- index.wxml -->
 <view class="list-container">
-  <swiper style="height:316rpx">
-    <block>
-      <swiper-item>
-        <image src="../../static/img/banner_01.jpg" class="slide-image" mode="aspectFill" />
-      </swiper-item>
-    </block>
-  </swiper>
-  <view class="head-section">
-    <view class="head-left">
-      <image mode="aspectFill" src="{{auction.avatar}}" />
-    </view>
-    <view class="head-right">
-      <view class="nickname big">{{auction.nickname}}</view>
-      <view class="nickname">正在拍卖他的时间</view>
-    </view>
-  </view>
-  <view class="time-box">
-    <label class="tip">距离拍卖结束时间</label>
-    <block wx:if="{{clock.end}}">
-      <view class="time">
-        <view>00</view>
-        <label>:</label>
-        <view>00</view>
-        <label>:</label>
-        <view>00</view>
-      </view>
-    </block>
-    <block wx:else>
-      <view class="time">
-        <view>{{clock.hr}}</view>
-        <label>:</label>
-        <view>{{clock.min}}</view>
-        <label>:</label>
-        <view>{{clock.sec}}</view>
-      </view>
-    </block>
-  </view>
-  <view class='wordCloud'>
-    <image mode="aspectFill" src="{{wordCloud}}"></image>
-  </view>
-  <view class="list-section">
-    <view class="list-top">
-      <view class="name">当前竞拍者</view>
-      <view class="line"></view>
-    </view>
-    <view class="list-tip">
-      <view class="tip-l">
-        已有
-        <label>{{bidders.length}}</label>
-        人出价
-      </view>
-    </view>
-    <!-- swiper -->
-    <block wx:if="{{noBidder}}">
-      <view class="noBidder" style="height:270rpx;">
-        <image src='/static/img/logo_no.png'></image>
-        <view class='noBidder_text'>
-          <block wx:if="{{isSelf}}">暂时还没有人为你出价</block>
-          <block wx:else>暂时还没有人为他出价</block>
-        </view>
-      </view>
-    </block>
-    <block wx:else>
-      <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{height+90}}rpx;" scroll-y="true">
-        <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
-          <block wx:if="{{item.isFirst}}">
-            <view class="list-item firstBack" style=' opacity: 0.8;background-image:/static/img/firstBackground.png' bindtap="selectBidder" data-id="{{item.id}}">
-              <view class="lsit-l">
-                <view class="head-box">
-                  <image mode="aspectFill" src="{{item.avatar}}" />
-                  <view class="status">领先</view>
-                  <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
-                </view>
-              </view>
-              <view class="lsit-c">
-                出价时间：
-                <label>{{item.createTime}}</label>
-              </view>
-              <view class="lsit-r" style='color:#FFF'>
-                ¥
-                <label style='overflow:hidden;color:#FFF'>{{item.bid}}</label>
-              </view>
-            </view>
-          </block>
-          <block wx:else>
-            <view class="list-item" bindtap="selectBidder" data-id="{{item.id}}">
-              <view class="lsit-l out">
-                <view class="head-box">
-                  <image mode="aspectFill" src="{{item.avatar}}" />
-                  <view class="status">出局</view>
-                </view>
-              </view>
-              <view class="lsit-c">出价时间： {{item.createTime}}</view>
-              <view class="lsit-r">
-                ¥
-                <label style='word-break:false'>{{item.bid}}</label>
-              </view>
-            </view>
-          </block>
+    <swiper style="height:316rpx">
+        <block>
+            <swiper-item>
+                <image src="../../static/img/banner_01.jpg" class="slide-image" mode="aspectFill" />
+            </swiper-item>
         </block>
-      </scroll-view>
-    </block>
-    <view class="shuoming" bind:tap="startTip">竞拍规则说明</view>
-  </view>
-  <view class="foot-btn creat-box" wx:if="{{ !show }}">
-    <!-- <view wx:if="{{isSelf}}" class="creat1 creat-l" bindtap="showPopup">
+    </swiper>
+    <view class="head-section">
+        <view class="head-left">
+            <image mode="aspectFill" src="{{auction.avatar}}" />
+        </view>
+        <view class="head-right">
+            <view class="nickname big">{{auction.nickname}}</view>
+            <view class="nickname">正在拍卖他的时间</view>
+        </view>
+    </view>
+    <view class="time-box">
+        <label class="tip">距离拍卖结束时间</label>
+        <block wx:if="{{clock.end}}">
+            <view class="time">
+                <view>00</view>
+                <label>:</label>
+                <view>00</view>
+                <label>:</label>
+                <view>00</view>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="time">
+                <view>{{clock.hr}}</view>
+                <label>:</label>
+                <view>{{clock.min}}</view>
+                <label>:</label>
+                <view>{{clock.sec}}</view>
+            </view>
+        </block>
+    </view>
+    <view class='wordCloud'>
+        <image mode="aspectFill" src="{{wordCloud}}"></image>
+    </view>
+    <view class="list-section">
+        <view class="list-top">
+            <view class="name">当前竞拍者</view>
+            <view class="line"></view>
+        </view>
+        <view class="list-tip">
+            <view class="tip-l">
+                已有
+                <label>{{bidders.length}}</label>
+                人出价
+            </view>
+        </view>
+        <!-- swiper -->
+        <block wx:if="{{noBidder}}">
+            <view class="noBidder" style="height:270rpx;">
+                <image src='/static/img/logo_no.png'></image>
+                <view class='noBidder_text'>
+                    <block wx:if="{{isSelf}}">暂时还没有人为你出价</block>
+                    <block wx:else>暂时还没有人为他出价</block>
+                </view>
+            </view>
+        </block>
+        <block wx:else>
+            <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{height+90}}rpx;" scroll-y="true">
+                <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
+                    <block wx:if="{{item.isFirst}}">
+                        <view class="list-item firstBack" style=' opacity: 0.8;background-image:/static/img/firstBackground.png' bindtap="selectBidder" data-id="{{item.id}}">
+                            <view class="lsit-l">
+                                <view class="head-box">
+                                    <image mode="aspectFill" src="{{item.avatar}}" />
+                                    <view class="status">领先</view>
+                                    <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
+                                </view>
+                            </view>
+                            <view class="lsit-c">
+                                出价时间：
+                                <label>{{item.createTime}}</label>
+                            </view>
+                            <view class="lsit-r" style='color:#FFF'>
+                                ¥
+                                <label style='overflow:hidden;color:#FFF'>{{item.bid}}</label>
+                            </view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <view class="list-item" bindtap="selectBidder" data-id="{{item.id}}">
+                            <view class="lsit-l out">
+                                <view class="head-box">
+                                    <image mode="aspectFill" src="{{item.avatar}}" />
+                                    <view class="status">出局</view>
+                                </view>
+                            </view>
+                            <view class="lsit-c">出价时间： {{item.createTime}}</view>
+                            <view class="lsit-r">
+                                ¥
+                                <label style='word-break:false'>{{item.bid}}</label>
+                            </view>
+                        </view>
+                    </block>
+                </block>
+            </scroll-view>
+        </block>
+        <view class="shuoming" bind:tap="startTip">竞拍规则说明</view>
+    </view>
+    <view class="foot-btn creat-box" wx:if="{{ !show }}">
+        <!-- <view wx:if="{{isSelf}}" class="creat1 creat-l" bindtap="showPopup">
       <image class='awl' src='/static/img/awl_new.gif'></image>
       <view class='bid_text'>出价</view>
     </view> -->
-    <view wx:if="{{isSelf}}" class="creat1 creat-l">
-      <form bindsubmit="showPopup" report-submit='true'>
-        <button class="creat1 creat-l" form-type="submit">
-          <image class='awl' src='/static/img/awl_new.gif'></image>
-          <view class='bid_text'>出价</view>
-        </button>
-      </form>
-    </view>
-    <view wx:else class="creat1 " bindtap="shareToOther">
-      <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
-        找人捧场
-      </button>
-    </view>
-    <view class="creat creat-r" bindtap='goCreate'>发起拍卖</view>
-  </view>
-  <van-popup position="bottom" show="{{ show }}" bind:close="onClose">
-    <view class="popup">
-      <!-- <view class="time-box poptime">
-                <block wx:if="{{clock.end}}">
-                    <label class="tip">本场拍卖已截止！</label>
-                </block>
-                <block wx:else>
-                    <label class="tip">距离结束还有</label>
-                </block>
-                <block wx:if="{{clock.end}}">
-                    <view class="time">
-                        <view>00</view>
-                        <label>:</label>
-                        <view>00</view>
-                        <label>:</label>
-                        <view>00</view>
-                    </view>
-                </block>
-                <block wx:else>
-                    <view class="time">
-                        <view>{{clock.hr}}</view>
-                        <label>:</label>
-                        <view>{{clock.min}}</view>
-                        <label>:</label>
-                        <view>{{clock.sec}}</view>
-                    </view>
-                </block>
-            </view> -->
-      <view class="pop-content">
-        <!-- <view wx:if="{{firstBidder}}" class="list-item " style='border-bottom:none; height:180rpx;'>
-                    <view class="lsit-l">
-                        <view class="head-box" style='left:240rpx;'>
-                            <image mode="aspectFill" src="{{firstBidder.avatar}}" />
-                            <view class="status">领先</view>
-                            <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
-                        </view>
-                    </view>
-                </view>
-                <view wx:else class="list-item " style='border-bottom:none; height:180rpx;'></view> -->
-        <view class="title">
-          当前价格
-          <label>????</label>
-          （加价幅度
-          <label>{{auction.bidIncreatment}}</label>
-          元起）
+        <view wx:if="{{isSelf}}" class="creat1 creat-l">
+            <form bindsubmit="showPopup" report-submit='true'>
+                <button class="creat1 creat-l" form-type="submit">
+                    <image class='awl' src='/static/img/awl_new.gif'></image>
+                    <view class='bid_text'>出价</view>
+                </button>
+            </form>
         </view>
-        <view class="stepper">
-          <van-stepper input-class="out-input" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{value}}" bind:change="onChange" />
+        <view wx:else class="creat1 " bindtap="shareToOther">
+            <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
+                找人捧场
+            </button>
         </view>
-        <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
-      </view>
+        <view class="creat creat-r" bindtap='goCreate'>发起拍卖</view>
     </view>
-  </van-popup>
-  <van-popup custom-class="center-pop" position="center" show="{{showModal}}" bind:close="onCloseModal">
-    <view class="success-modal">
-      <image class="top" src="/static/img/top.png" mode="aspectFill" />
-      <div class="title">
-        <image src="/static/img/title.png" mode="aspectFill" />
-        <view>恭喜你</view>
-      </div>
-      <view class="box">
-        <image src="/static/img/center.png" mode="aspectFill" />
-        <view class="text">出价成功</view>
-        <view class="creat creat-l" bindtap='goCreate'>我也要发起竞拍</view>
-      </view>
-      <view bindtap="hideModal" class="close">x</view>
-    </view>
-  </van-popup>
-  <!-- <view class="modal-box {{modalName=='modal'?'cur':''}}">
+    <!-- <view class="modal-box {{modalName=='modal'?'cur':''}}">
         <view class='modal-dialog'>
             <view class="modal-title">
                 <text>复选框</text>
@@ -219,14 +151,82 @@
     </view>
 </view> -->
 <block wx:if="{{showTips}}">
-  <view class="modal-box cur">
-    <view class='modal-dialog'>
-      <view class="modal-title">
-        <view class='bar-close badge danger round' bindtap='closeModal'>
-          <text class='iconfont icon-close'></text>
+    <view class="modal-box cur">
+        <view class='modal-dialog'>
+            <view class="modal-title">
+                <view class='bar-close badge danger round' bindtap='closeModal'>
+                    <text class='iconfont icon-close'></text>
+                </view>
+            </view>
+            <view class='modal-bd modal-message'>{{tips}}</view>
         </view>
-      </view>
-      <view class='modal-bd modal-message'>{{tips}}</view>
     </view>
-  </view>
 </block>
+<van-popup position="bottom" show="{{ show }}" bind:close="onClose">
+    <view class="popup">
+        <!-- <view class="time-box poptime">
+                <block wx:if="{{clock.end}}">
+                    <label class="tip">本场拍卖已截止！</label>
+                </block>
+                <block wx:else>
+                    <label class="tip">距离结束还有</label>
+                </block>
+                <block wx:if="{{clock.end}}">
+                    <view class="time">
+                        <view>00</view>
+                        <label>:</label>
+                        <view>00</view>
+                        <label>:</label>
+                        <view>00</view>
+                    </view>
+                </block>
+                <block wx:else>
+                    <view class="time">
+                        <view>{{clock.hr}}</view>
+                        <label>:</label>
+                        <view>{{clock.min}}</view>
+                        <label>:</label>
+                        <view>{{clock.sec}}</view>
+                    </view>
+                </block>
+            </view> -->
+        <view class="pop-content">
+            <!-- <view wx:if="{{firstBidder}}" class="list-item " style='border-bottom:none; height:180rpx;'>
+                    <view class="lsit-l">
+                        <view class="head-box" style='left:240rpx;'>
+                            <image mode="aspectFill" src="{{firstBidder.avatar}}" />
+                            <view class="status">领先</view>
+                            <image class="crown" mode="aspectFill" src="/static/img/crown.png" />
+                        </view>
+                    </view>
+                </view>
+                <view wx:else class="list-item " style='border-bottom:none; height:180rpx;'></view> -->
+            <view class="title">
+                当前价格
+                <label>????</label>
+                （加价幅度
+                <label>{{auction.bidIncreatment}}</label>
+                元起）
+            </view>
+            <view class="stepper">
+                <van-stepper input-class="out-input" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{value}}" bind:change="onChange" />
+            </view>
+            <view class="creat pop-button" bindtap="hidePopup">立即出价</view>
+        </view>
+    </view>
+</van-popup>
+<van-popup custom-class="center-pop" position="center" show="{{showModal}}" bind:close="onCloseModal">
+    <view class="success-modal">
+        <image class="top" src="/static/img/top.png" mode="aspectFill" />
+        <div class="title">
+            <image src="/static/img/title.png" mode="aspectFill" />
+            <view>恭喜你</view>
+        </div>
+        <view class="box">
+            <image src="/static/img/center.png" mode="aspectFill" />
+            <view class="text">出价成功</view>
+            <view class="creat creat-l" bindtap='goCreate'>我也要发起竞拍</view>
+        </view>
+        <view bindtap="hideModal" class="close">x</view>
+    </view>
+</van-popup>
