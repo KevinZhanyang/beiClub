@@ -133,7 +133,7 @@ Page({
   },
   getDetailOnLoad(AUCTION_ID) {
     let that = this;
-    util.request(AUCTION + "/" + AUCTION_ID).then(res => {
+    util.request(AUCTION + "/" + 3).then(res => {
       if (res.code == 200) {
         that.calTime(that, res.body.createTime);
         that.setData({
