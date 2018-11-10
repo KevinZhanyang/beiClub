@@ -3,6 +3,7 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
+var formIdService = require("../../services/formId.js");
 import {
   GET_TAG_LIST,
   CREATE_AUCTION,
@@ -79,7 +80,6 @@ Page({
   },
 
   bidIncreatmentTip() {
-
     this.setData({
       tipTitle: "加价幅度",
       showTips: true,
@@ -152,6 +152,10 @@ Page({
   },
 
   create(event) {
+
+    formIdService.createUserFormId(event.detail.formId);
+
+
     let that = this;
     if (this.data.create && this.data.create == 1) {
       return false;
@@ -220,8 +224,8 @@ Page({
    })
 
     var data = {
-      startPrice: startPrice * 100,
-      bidIncreatment: bidIncreatment * 100,
+      startPrice: startPrice,
+      bidIncreatment: bidIncreatment,
       desc: "",
       tags: this.data.selectTag,
       avatarUrl: wx.getStorageSync("userInfo").avatarUrl
@@ -245,12 +249,11 @@ Page({
 
       } else {
         wx.showLoading({
-          title: '海报飞啦',
+          title: '生成海报失败',
           mask: true,
-          success: function(res) {},
-          fail: function(res) {},
-          complete: function(res) {},
+          duration:1500
         })
+        wx.hideLoading();
         that.setData({
           showSharePoster: false
         })

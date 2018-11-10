@@ -48,14 +48,14 @@
         <!-- </block> -->
     </view>
     <view class="tips">点击查看卡片详情</view>
-      <view class="userinfo">
+      <!-- <view class="userinfo"> -->
         <!-- <button type='primary' bindtap='choose'>选择照片</button> -->
          <!-- <button bindtap='choose'  class="save-btn">hhh</button>  -->
 
-         <form bindsubmit="choose" report-submit='true' >
-<button form-type="submit">
-hhh
-</button>
-</form>
-      </view>
+         <!-- <form bindsubmit="choose" report-submit='true' > -->
+<!-- <button form-type="submit"> -->
+<!-- hhh -->
+<!-- </button> -->
+<!-- </form> -->
+      <!-- </view> -->
 </view>

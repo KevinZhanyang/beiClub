@@ -3,7 +3,8 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
-import { GET_TAG_LIST, AUCTION, BIDDER, BIDDER_LIST } from "../../config/api.js";
+var formIdService =require("../../services/formId.js");
+import { GET_TAG_LIST, AUCTION, BIDDER, BIDDER_LIST, PAY_INFO} from "../../config/api.js";
 /** 
  * 需要一个目标日期，初始化时，先得出到当前时间还有剩余多少秒
  * 1.将秒数换成格式化输出为XX天XX小时XX分钟XX秒 XX
@@ -104,7 +105,7 @@ Page({
   ,
   onShow(option) {
     //获取拍卖详情
-    this.getDetail(this.data.auctionId);
+    this.getDetailOnLoad(this.data.auctionId);
   }
   ,
   calTime(that, createTime) {
@@ -128,6 +129,78 @@ Page({
     }
   }
   ,
+  
+  
+  getDetailOnLoad(AUCTION_ID) {
+    let that = this;
+    util.request(AUCTION + "/" + AUCTION_ID).then(res => {
+      if (res.code == 200) {
+
+        that.calTime(that, res.body.createTime);
+        that.setData({
+          value: res.body.startPrice + res.body.bidIncreatment,
+          wordCloud: 'https://used.beimei2.com' + res.body.tagWordCloudUrl
+        })
+        if (res.body.createId + "" == wx.getStorageSync("user").recId) {
+          that.setData({
+            isSelf: true
+          })
+        }
+
+        var bidderResults = []
+        if (res.body.bidderResults) {
+          bidderResults = res.body.bidderResults.map((item, index) => {
+            if (0 == index) {
+              item.isFirst = true;
+              that.setData({
+                firstBidder: item
+              })
+            }
+            return item
+          })
+        }
+        if (!res.body.bidderResults || res.body.bidderResults.length == 0) {
+          this.setData({
+            noBidder: true,
+          })
+        } else {
+          this.setData({
+            noBidder: false,
+          })
+        }
+        this.setData({
+          auction: res.body,
+          bidders: bidderResults,
+        });
+
+        if (res.body.bidderResults && res.body.bidderResults.length < 3) {
+          this.setData({
+            height: 450
+          });
+        }
+      } else if (res.body.bidderResults && res.body.bidderResults.length >= 3) {
+        this.setData({
+          height: res.body.bidderResults.length
+        });
+      }
+
+      if (res.body.bidderResults && res.body.bidderResults.length > 0) {
+        res.body.bidderResults.map((item, index) => {
+          if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
+            wx.showModal({
+              title: '温馨提示',
+              content: '恭喜您暂时领先',
+              showCancel: false,
+            })
+          }
+          return item;
+        })
+
+      }
+    });
+  },
+  
+  
   getDetail(AUCTION_ID) {
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
@@ -165,7 +238,7 @@ Page({
         this.setData({
           auction: res.body,
           bidders: bidderResults,
-          value: res.body.bid
+          
         });
 
         if (res.body.bidderResults && res.body.bidderResults.length < 3) {
@@ -213,12 +286,27 @@ Page({
   onChange(event) {
     //关闭蒙层，返回出价的价格
     console.log(event);
-    this.data.value = event.detail;
+    // if (that.data.auction.startPrice > this.data.value) {
+    // }else{
+      this.setData(
+        {
+          value: event.detail
+        }
+      )
+      // this.data.value = event.detail;
+    // }
   },
 
   showPopup(event) {
+    //创建用户formId数据
+
+    formIdService.createUserFormId(event.detail.formId);
     console.log(event);
+    if (this.data.isCreated==1){
+        return
+    }
     this.setData({ show: true });
+    
   },
   startTip(){
     this.setData({
@@ -242,30 +330,94 @@ Page({
   },
   hidePopup(event) {
     let that = this;
+
+    if (that.data.isCreated && that.data.isCreated==1){
+         return false;
+    }
     //关闭蒙层
     this.setData({ show: false });
     console.log(event)
+    if (that.data.auction.startPrice > this.data.value) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '您的出价小于起拍价',
+      })
+
+      return false;
+    }
+
+    if (that.data.firstBidder.bid >= this.data.value) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '您的出价小于当前最高者',
+      })
+
+      return false;
+    }
+
+
     if (that.data.clock.end) {
       wx.showModal({
         title: '温馨提示',
         content: '拍卖已截止',
       })
+
+      return false;
+    }else{
+      this.setData({ isCreated: 1 });
     }
-
     var data = {
-
       auctionId: this.data.auction.id,
       bid: this.data.value
     }
 
-    util.request(BIDDER, data, "POST").then(res => {
-      if (res.code == 200) {
-        that.setData({
-          showModal: true
+    let url = PAY_INFO;
+    util.request(url, {
+      openId: wx.getStorageSync("user").openId,
+      auctionId: data.auctionId,
+      amt: data.bid*100,
+    }, 'POST').then(res => {
+      let code = res.code;
+      if (code == 200) {
+        let payParam = res.body;
+        wx.requestPayment({
+          'timeStamp': payParam.timeStamp + '',
+          'nonceStr': payParam.nonceStr,
+          'package': payParam.package,
+          'signType': payParam.signType,
+          'paySign': payParam.sign,
+          'success': function (res) {
+            util.request(BIDDER, data, "POST").then(res => {
+              if (res.code == 200) {
+                console.log(event);
+                that.setData({
+                  showModal: true
+                })
+                that.getDetail(that.data.auction.id);
+              }
+            });
+          },
+          'fail': function (res) {
+             wx.showLoading({
+               title: '您取消了支付',
+               duration:1500
+             })
+            that.getDetail(that.data.auction.id);
+          },
+          'complete': function (res) {
+            that.setData({ isCreated: 0 });
+          }
         })
-        this.getDetail(that.data.auction.id);
       }
-    });
+    }).catch(err => {
+      console.log(err)
+      that.setData({ isCreated: 0 });
+    }).catch(err => {
+      //1
+      that.setData({ isCreated: 0 });
+    })
+
+
   },
   onClose() {
     this.setData({ show: false });

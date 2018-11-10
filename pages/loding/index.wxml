@@ -1,9 +1,9 @@
  <view class='form-box'>
     <view class='form-item'>
       <view class='form-title cur form-title-sm'>
-       出价
+       金额
       </view>
-      <input class='' type="text" bindinput='bid' placeholder="您本次出价" class='form-input'></input>
+      <input class='' type="text" bindinput='bid' placeholder="88" class='form-input'></input>
     </view>
     <view class='form-item'>
       <view class='form-title cur'>
@@ -22,6 +22,6 @@
   </view>
   <view class="doc-main">
   <view class='flex flex-direction'>
-    <button class='primary btn mt-sm block lg' bindtap='submit'>提交</button>
+    <button class='primary btn mt-sm block lg' bindtap='submit'>申请提现</button>
   </view>
 </view>

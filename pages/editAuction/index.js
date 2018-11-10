@@ -3,6 +3,7 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
+var formIdService = require("../../services/formId.js");
 import {
   GET_TAG_LIST,
   CREATE_AUCTION,
@@ -23,8 +24,8 @@ Page({
     this.setData({
       auctionId:option.auctionId,
       selectTag: oldAuction.tags,
-      startPrice: oldAuction.startPrice/100,
-      bidIncreatment: oldAuction.bidIncreatment/100
+      startPrice: oldAuction.startPrice,
+      bidIncreatment: oldAuction.bidIncreatment
     })
     this.getOldList(oldAuction.tags, option.auctionId);
   },
@@ -188,6 +189,7 @@ Page({
   },
 
   create(event) {
+    formIdService.createUserFormId(event.detail.formId);
     let that = this;
     if (this.data.create && this.data.create == 1) {
       return false;
@@ -211,9 +213,9 @@ Page({
     console.log(2)
     var startPrice = 0.00;
     if (!this.data.startPrice) {
-      startPrice = startPrice*100
+      startPrice = startPrice
     } else {
-      startPrice = this.data.startPrice*100
+      startPrice = this.data.startPrice
     }
     var bidIncreatment = 0.00;
     if (!this.data.bidIncreatment) {
@@ -228,9 +230,9 @@ Page({
         create: 0
       })
       return false;
-      bidIncreatment = bidIncreatment * 100;
+      bidIncreatment = bidIncreatment;
     } else {
-      bidIncreatment = this.data.bidIncreatment * 100;
+      bidIncreatment = this.data.bidIncreatment;
     }
     console.log(4)
     that.setData({

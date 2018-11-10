@@ -9,10 +9,10 @@
   </swiper>
   <view class="head-section">
     <view class="head-left">
-      <image mode="aspectFill" src="../../static/img/icon_head.png" />
+      <image mode="aspectFill" src="{{auction.avatar}}" />
     </view>
     <view class="head-right">
-      <view class="nickname">我的民资</view>
+      <view class="nickname">{{auction.nickname}}正在拍卖</view>
       <view class="time-box">
         <label class="tip">距离结束还有</label>
         <block wx:if="{{clock.end}}">
@@ -36,6 +36,9 @@
         </block>
       </view>
     </view>
+  </view>
+  <view class='wordCloud'>
+   <image mode="aspectFill" src="{{wordCloud}}"></image>
   </view>
   <view class="list-section">
     <view class="list-top">
@@ -75,7 +78,7 @@
 
     <block wx:else>
 
-      <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{height}}rpx;" scroll-y="true">
+      <scroll-view enable-back-to-top="true" lower-threshold="50" bindscrolltolower="toShowMore" bindscrolltoupper="refreshList" class="scroll-h" style="height:{{height+90}}rpx;" scroll-y="true">
         <block wx:for="{{bidders}}" wx:key="{{item.id}}" wx:for-index="index" wx:for-item="item">
 
           <block wx:if="{{item.isFirst}}">
@@ -127,8 +130,7 @@
       <view class='bid_text'>出价</view>
     </view> -->
 
-
-    <view wx:if="{{isSelf}}" class="creat1 creat-l">
+    <view wx:if="{{!isSelf}}" class="creat1 creat-l">
       <form bindsubmit="showPopup" report-submit='true'>
         <button class="creat1 creat-l" form-type="submit">
           <image class='awl' src='/static/img/awl_new.gif'></image>
@@ -136,7 +138,6 @@
         </button>
       </form>
     </view>
-
 
     <view wx:else class="creat1 " bindtap="shareToOther">
       <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>找人捧场</button>
@@ -191,10 +192,10 @@
         </view>
         <view class="title">
           当前价格
-          <label>（加价幅度{{auction.bidIncreatment/100}}元起）</label>
+          <label>（加价幅度{{auction.bidIncreatment}}元起）</label>
         </view>
         <view class="stepper">
-          <van-stepper input-class="out-input" style="height:60rpx;" integer custom-class="out-stepper" step="{{auction.bidIncreatment/100}}" value="{{  auction.startPrice/100 }}" bind:change="onChange" />
+          <van-stepper input-class="out-input" style="height:60rpx;" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{value}}" bind:change="onChange" />
         </view>
       </view>
       <view class="creat pop-button" bindtap="hidePopup">立即出价</view>

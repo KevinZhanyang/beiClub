@@ -38,7 +38,7 @@
                         <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='startTip'></image>
                         <text>¥</text>
                     </view>
-                    <input name="input" style="{{showShare?  'color: #FFF':'color: #000000'}}" bindinput='startPrice' value="{{startPrice}}" maxlength="10" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                    <input name="input" style="{{showShare?  'color: #FFF':'color: #000000'}}" bindinput='startPrice' value="{{startPrice}}" maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
                 </view>
                 <view class="line"></view>
                 <view class="section">
@@ -47,13 +47,22 @@
                         <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='bidIncreatmentTip'></image>
                         <text class="small">¥</text>
                     </view>
-                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="digit" placeholder-class="palceholder" placeholder="0.00" />
+                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
                 </view>
             </view>
         </form>
     </view>
     <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为12小时</view>
-    <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view>
+    <!-- <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view> -->
+
+    <form bindsubmit="create" wx:if="{{createTag!=1}}" report-submit='true'>
+      <button class="creat" form-type="submit">
+        生成海报
+      </button>
+    </form>
+
+
+
     <view class="creat" wx:else  bindtap='create'><text class='iconfont icon-loading iconfont-spin mr-xs'></text>生成海报</view>
 <block wx:if="{{showTips}}">
 <view class="modal-box cur">
