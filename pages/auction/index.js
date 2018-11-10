@@ -3,9 +3,15 @@
 const app = getApp();
 var uploadImage = require("../../utils/uploadFile.js");
 var util = require("../../utils/util.js");
-var formIdService =require("../../services/formId.js");
-import { GET_TAG_LIST, AUCTION, BIDDER, BIDDER_LIST, PAY_INFO} from "../../config/api.js";
-/** 
+var formIdService = require("../../services/formId.js");
+import {
+  GET_TAG_LIST,
+  AUCTION,
+  BIDDER,
+  BIDDER_LIST,
+  PAY_INFO
+} from "../../config/api.js";
+/**
  * 需要一个目标日期，初始化时，先得出到当前时间还有剩余多少秒
  * 1.将秒数换成格式化输出为XX天XX小时XX分钟XX秒 XX
  * 2.提供一个时钟，每10ms运行一次，渲染时钟，再总ms数自减10
@@ -29,12 +35,11 @@ function count_down(that) {
     // timeout则跳出递归
     return;
   }
-  setTimeout(function () {
+  setTimeout(function() {
     // 放在最后--
     total_micro_second -= 10;
     count_down(that);
-  }
-    , 14)
+  }, 14);
 }
 
 // 时间格式化输出，如03:25:19 86。每10ms都会调用一次
@@ -46,131 +51,125 @@ function date_format(micro_second) {
   // 分钟位
   var min = fill_zero_prefix(Math.floor((second - hr * 3600) / 60));
   // 秒位
-  var sec = fill_zero_prefix((second - hr * 3600 - min * 60));// equal to => var sec = second % 60;
+  var sec = fill_zero_prefix(second - hr * 3600 - min * 60); // equal to => var sec = second % 60;
   // 毫秒位，保留2位
   var micro_sec = fill_zero_prefix(Math.floor((micro_second % 1000) / 10));
 
-  return { hr: hr, min: min, sec: sec }
+  return { hr: hr, min: min, sec: sec };
 }
 
 // 位数不足补零
 function fill_zero_prefix(num) {
-  return num < 10 ? "0" + num : num
+  return num < 10 ? "0" + num : num;
 }
 
 Page({
   data: {
-    clock: '',
+    clock: "",
     show: false,
     value: null,
     auctionId: null,
-    isSelf: false
+    isSelf: false,
+    successModal: false
   },
   onLoad(options) {
-
-
-
-
     var auctionId;
     if (options.auctionId) {
-      auctionId = options.auctionId
+      auctionId = options.auctionId;
       this.setData({
         auctionId: options.auctionId
-      })
+      });
     } else if (options.scene) {
-      var sceneId = decodeURIComponent(options.scene)
-      auctionId = sceneId
+      var sceneId = decodeURIComponent(options.scene);
+      auctionId = sceneId;
       this.setData({
         auctionId: sceneId
-      })
+      });
     }
 
     if (!wx.getStorageSync("user")) {
       wx.showLoading({
-        title: '请先登陆！',
+        title: "请先登陆！",
         duration: 1500
-      })
+      });
       setTimeout(() => {
         wx.navigateTo({
-          url: '/pages/auth/index?senceType=back&sence=' + auctionId + "&path=" + "/pages/auction/index",
-        })
-      }, 2000)
+          url:
+            "/pages/auth/index?senceType=back&sence=" +
+            auctionId +
+            "&path=" +
+            "/pages/auction/index"
+        });
+      }, 2000);
       return false;
     }
 
     this.setData({
-      shareUrl: '/pages/auction/index?auctionId=' + auctionId
-    })
-  }
-  ,
+      shareUrl: "/pages/auction/index?auctionId=" + auctionId
+    });
+  },
   onShow(option) {
     //获取拍卖详情
     this.getDetailOnLoad(this.data.auctionId);
-  }
-  ,
+  },
+  onCloseModal() {},
   calTime(that, createTime) {
     var createTime = Date.parse(new Date(createTime.replace(/-/g, "/")));
     var now = Date.parse(new Date());
 
-    var now_result = now - createTime
-
+    var now_result = now - createTime;
 
     var step = 12 * 60 * 60 * 1000;
-    var result = now_result >= step
+    var result = now_result >= step;
 
     if (result) {
       that.setData({
         clock: { end: "已经截止" }
       });
-
     } else {
-      total_micro_second = step - now_result
+      total_micro_second = step - now_result;
       count_down(that);
     }
-  }
-  ,
-  
-  
+  },
   getDetailOnLoad(AUCTION_ID) {
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-
         that.calTime(that, res.body.createTime);
         that.setData({
           value: res.body.startPrice + res.body.bidIncreatment,
-          wordCloud: 'https://used.beimei2.com' + res.body.tagWordCloudUrl
-        })
+          wordCloud: "https://used.beimei2.com" + res.body.tagWordCloudUrl
+        });
         if (res.body.createId + "" == wx.getStorageSync("user").recId) {
           that.setData({
             isSelf: true
-          })
+          });
         }
 
-        var bidderResults = []
+        var bidderResults = [];
         if (res.body.bidderResults) {
           bidderResults = res.body.bidderResults.map((item, index) => {
             if (0 == index) {
               item.isFirst = true;
               that.setData({
                 firstBidder: item
-              })
+              });
             }
-            return item
-          })
+            return item;
+          });
         }
         if (!res.body.bidderResults || res.body.bidderResults.length == 0) {
           this.setData({
-            noBidder: true,
-          })
+            noBidder: true
+          });
         } else {
           this.setData({
-            noBidder: false,
-          })
+            noBidder: false
+          });
         }
         this.setData({
           auction: res.body,
-          bidders: bidderResults,
+          bidders: bidderResults
         });
 
         if (res.body.bidderResults && res.body.bidderResults.length < 3) {
@@ -188,57 +187,53 @@ Page({
         res.body.bidderResults.map((item, index) => {
           if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
             wx.showModal({
-              title: '温馨提示',
-              content: '恭喜您暂时领先',
-              showCancel: false,
-            })
+              title: "温馨提示",
+              content: "恭喜您暂时领先",
+              showCancel: false
+            });
           }
           return item;
-        })
-
+        });
       }
     });
   },
-  
-  
+
   getDetail(AUCTION_ID) {
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-
         that.calTime(that, res.body.createTime);
 
         if (res.body.createId + "" == wx.getStorageSync("user").recId) {
           this.setData({
             isSelf: true
-          })
+          });
         }
 
-        var bidderResults = []
+        var bidderResults = [];
         if (res.body.bidderResults) {
           bidderResults = res.body.bidderResults.map((item, index) => {
             if (0 == index) {
               item.isFirst = true;
               that.setData({
-                firstBidder:item
-              })
+                firstBidder: item
+              });
             }
-            return item
-          })
+            return item;
+          });
         }
         if (!res.body.bidderResults || res.body.bidderResults.length == 0) {
           this.setData({
-            noBidder: true,
-          })
+            noBidder: true
+          });
         } else {
           this.setData({
-            noBidder: false,
-          })
+            noBidder: false
+          });
         }
         this.setData({
           auction: res.body,
-          bidders: bidderResults,
-          
+          bidders: bidderResults
         });
 
         if (res.body.bidderResults && res.body.bidderResults.length < 3) {
@@ -256,22 +251,20 @@ Page({
         res.body.bidderResults.map((item, index) => {
           if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
             wx.showModal({
-              title: '温馨提示',
-              content: '恭喜您暂时领先',
-              showCancel: false,
-            })
+              title: "温馨提示",
+              content: "恭喜您暂时领先",
+              showCancel: false
+            });
           }
           return item;
-        })
-
+        });
       }
     });
   },
   goCreate() {
     wx.navigateTo({
-      url: '/pages/creat/index',
-    })
-
+      url: "/pages/creat/index"
+    });
   },
 
   getList() {
@@ -288,12 +281,10 @@ Page({
     console.log(event);
     // if (that.data.auction.startPrice > this.data.value) {
     // }else{
-      this.setData(
-        {
-          value: event.detail
-        }
-      )
-      // this.data.value = event.detail;
+    this.setData({
+      value: event.detail
+    });
+    // this.data.value = event.detail;
     // }
   },
 
@@ -302,122 +293,132 @@ Page({
 
     formIdService.createUserFormId(event.detail.formId);
     console.log(event);
-    if (this.data.isCreated==1){
-        return
+    if (this.data.isCreated == 1) {
+      return;
     }
     this.setData({ show: true });
-    
   },
-  startTip(){
+  startTip() {
     this.setData({
       tipTitle: "起拍价",
       showTips: true,
-      tips: "1.拍卖规则,拍卖时间为12小时，活动结束后最后出价最高者拍的该服务。"+
-             "2.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包"+
-             "3.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!"
-    })
+      tips:
+        "1.拍卖规则,拍卖时间为12小时，活动结束后最后出价最高者拍的该服务。" +
+        "2.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包" +
+        "3.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!"
+    });
   },
-  closeModal(){
+  closeModal() {
     this.setData({
-      showTips: false,
-    })
+      showTips: false
+    });
   },
 
-  preventTouchMove: function (e) {
+  // preventTouchMove: function(e) {
+  //   this.setData({
+  //     showModal: false
+  //   });
+  // },
+  hideModal() {
     this.setData({
       showModal: false
-    })
+    });
   },
   hidePopup(event) {
     let that = this;
 
-    if (that.data.isCreated && that.data.isCreated==1){
-         return false;
+    if (that.data.isCreated && that.data.isCreated == 1) {
+      return false;
     }
     //关闭蒙层
     this.setData({ show: false });
-    console.log(event)
+    console.log(event);
     if (that.data.auction.startPrice > this.data.value) {
       wx.showModal({
-        title: '温馨提示',
-        content: '您的出价小于起拍价',
-      })
+        title: "温馨提示",
+        content: "您的出价小于起拍价"
+      });
 
       return false;
     }
 
-    if (that.data.firstBidder&&(that.data.firstBidder.bid >= this.data.value)) {
+    if (that.data.firstBidder && that.data.firstBidder.bid >= this.data.value) {
       wx.showModal({
-        title: '温馨提示',
-        content: '您的出价小于当前最高者',
-      })
+        title: "温馨提示",
+        content: "您的出价小于当前最高者"
+      });
 
       return false;
     }
-
 
     if (that.data.clock.end) {
       wx.showModal({
-        title: '温馨提示',
-        content: '拍卖已截止',
-      })
+        title: "温馨提示",
+        content: "拍卖已截止"
+      });
 
       return false;
-    }else{
+    } else {
       this.setData({ isCreated: 1 });
     }
     var data = {
       auctionId: this.data.auction.id,
       bid: this.data.value
-    }
+    };
 
     let url = PAY_INFO;
-    util.request(url, {
-      openId: wx.getStorageSync("user").openId,
-      auctionId: data.auctionId,
-      amt: data.bid*100,
-    }, 'POST').then(res => {
-      let code = res.code;
-      if (code == 200) {
-        let payParam = res.body;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp + '',
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.sign,
-          'success': function (res) {
-            util.request(BIDDER, data, "POST").then(res => {
-              if (res.code == 200) {
-                console.log(event);
-                that.setData({
-                  showModal: true
-                })
-                that.getDetail(that.data.auction.id);
-              }
-            });
-          },
-          'fail': function (res) {
-             wx.showLoading({
-               title: '您取消了支付',
-               duration:1500
-             })
-            that.getDetail(that.data.auction.id);
-          },
-          'complete': function (res) {
-            that.setData({ isCreated: 0 });
-          }
-        })
-      }
-    }).catch(err => {
-      console.log(err)
-      that.setData({ isCreated: 0 });
-    }).catch(err => {
-      //1
-      that.setData({ isCreated: 0 });
-    })
-
-
+    util
+      .request(
+        url,
+        {
+          openId: wx.getStorageSync("user").openId,
+          auctionId: data.auctionId,
+          amt: data.bid * 100
+        },
+        "POST"
+      )
+      .then(res => {
+        let code = res.code;
+        if (code == 200) {
+          let payParam = res.body;
+          wx.requestPayment({
+            timeStamp: payParam.timeStamp + "",
+            nonceStr: payParam.nonceStr,
+            package: payParam.package,
+            signType: payParam.signType,
+            paySign: payParam.sign,
+            success: function(res) {
+              util.request(BIDDER, data, "POST").then(res => {
+                if (res.code == 200) {
+                  console.log(event);
+                  that.setData({
+                    showModal: true
+                  });
+                  that.getDetail(that.data.auction.id);
+                }
+              });
+            },
+            fail: function(res) {
+              wx.showLoading({
+                title: "您取消了支付",
+                duration: 1500
+              });
+              that.getDetail(that.data.auction.id);
+            },
+            complete: function(res) {
+              that.setData({ isCreated: 0 });
+            }
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        that.setData({ isCreated: 0 });
+      })
+      .catch(err => {
+        //1
+        that.setData({ isCreated: 0 });
+      });
   },
   onClose() {
     this.setData({ show: false });

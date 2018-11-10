@@ -1,12 +1,12 @@
 {
   "pages": [
      
+    "pages/auction/index",
     "pages/index/index",
     "pages/loding/index",
     "pages/creat/index",
     "pages/editAuction/index",
     "pages/auth/index",
-    "pages/auction/index",
     "pages/poster/index"
    
  
