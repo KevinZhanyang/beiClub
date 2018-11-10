@@ -3,7 +3,7 @@
   <swiper style="height:316rpx">
     <block>
       <swiper-item>
-        <image src="../../static/img/banner_01.png" class="slide-image" mode="aspectFill" />
+        <image src="../../static/img/banner_01.jpg" class="slide-image" mode="aspectFill" />
       </swiper-item>
     </block>
   </swiper>
