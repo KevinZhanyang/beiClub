@@ -18,18 +18,7 @@
 
 
 
-<block wx:if="{{showShareLodding}}">
-   <view class="Lodding_modalDlg_out">
-  </view>
-  <view class="showShareLoddingModalDlg">
-      <view style='height:330rpx;'>
-         <view class="imgheadborder" style='200rpx;'>
-            <image class='imghead' style='height:200rpx;' src="/static/img/logo.png"></image>
-         </view>
-         <view class="lodding_text_top">疯狂画海报中...</view>
-      </view>
-  </view>
-</block>
+
 
 
 <block wx:else>
@@ -218,5 +207,19 @@
       </button>
       <view class="creat_success creat-r_success" bindtap='deleteTag'>确认</view>
     </view>
+  </view>
+</block>
+
+
+<block wx:if="{{showShareLodding}}">
+   <view class="Lodding_modalDlg_out">
+  </view>
+  <view class="showShareLoddingModalDlg">
+      <view style='height:330rpx;'>
+         <view class="imgheadborder" style='200rpx;'>
+            <image class='imghead' style='height:200rpx;' src="/static/img/logo.png"></image>
+         </view>
+         <view class="lodding_text_top">疯狂画海报中...</view>
+      </view>
   </view>
 </block>

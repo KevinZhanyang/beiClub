@@ -24,6 +24,7 @@
 .menus .menu .icon {
   width: 64rpx;
   height: 64rpx;
+  margin-left: 15rpx;
 }
 .menus .menu .icon image {
   width: 64rpx;
@@ -33,7 +34,7 @@
   position: absolute;
   top: -58rpx;
   right: -15rpx;
-  left: -11rpx;
+  left: -26rpx;
   width: 118rpx;
   height: 118rpx;
 }
@@ -81,7 +82,7 @@ width:90rpx;
 }
 
 .r_l{
-  margin-top:43rpx;
+  margin-top:50rpx;
   width:79rpx;
 height:19rpx;
 font-size:20rpx;
@@ -91,13 +92,7 @@ color:rgba(0,0,0,1);
 line-height:30rpx;
 
 }
+
 .left{
   margin-left:15rpx;
-}
-.right{
-  margin-right:30rpx;
-
-}
-.r{
-  margin-left:7rpx;
 }

@@ -1,8 +1,9 @@
 {
   "pages": [
- 
-      "pages/index/index",
-      "pages/auctionResult/index",
+      "pages/home/index",
+    "pages/index/index",
+    "pages/test/index",
+    "pages/auctionResult/index",
     "pages/auction/index",
     "pages/loding/index",
     "pages/creat/index",
@@ -10,21 +11,21 @@
     "pages/auth/index",
     "pages/poster/index",
     "pages/withDraw/index"
-    
-   
-   
  
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "wight"
   },
   "plugins": {
     "poster": {
       "version": "1.0.0",
       "provider": "wxbf07f0f22c6c200d"
     }
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx31f8d157fbe5ebc8"
+  ]
 }

@@ -36,15 +36,15 @@
                 <image mode="aspectFill" src="../../static/img/icon_head.png"></image>
             </view>
         </navigator>
-        <navigator url="" class="list-item item-goods">
+        <view bindtap='jumpApp' class="list-item item-goods">
             <view class="list-l">
-                <view class="title">拍卖物品</view>
-                <view class="intro">敬请期待。。。</view>
+                <view class="title">二手交易</view>
+                <view class="intro">专为留学生打造的二手交易平台</view>
             </view>
-            <view class="list-r">
-                <image mode="aspectFill" src="../../static/img/index_awl.png"></image>
+            <view class="list_used_img_r">
+                <image class='list_used_img' mode="aspectFill" src="../../static/img/index_used.png"></image>
             </view>
-        </navigator>
+        </view>
         <!-- </block> -->
     </view>
     <view class="tips">点击查看卡片详情</view>

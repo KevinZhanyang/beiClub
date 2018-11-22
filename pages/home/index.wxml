@@ -1,0 +1,24 @@
+<view class="head">
+    <view class='nickName'>
+    </view>
+    <view class='headImgOut'>
+      <image >
+      </image>
+    </view>
+</view>
+<!-- 提现信息 -->
+<view class='account'>
+
+
+    <view class='account_txt'>
+    
+    </view>
+    <view class='account_amt'>
+    
+    </view>
+    <view class='account_withDraw'>
+    
+    
+    </view>
+
+</view>

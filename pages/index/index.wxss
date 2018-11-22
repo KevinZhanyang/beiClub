@@ -39,10 +39,22 @@ width: 100%;
     flex: 0;
     margin-right:40rpx;
 }
+.list_used_img_r{
+ flex: 0;
+}
 .list-r image{
     width: 136rpx;
     height: 122rpx;
 }
+.list_used_img{
+  width:194rpx;
+height: 122rpx;
+}
+
+
+
+
+
 .list .item-goods{
     background: #e5e5e5;
     box-shadow: 0 4rpx 10rpx rgb(184, 184, 184);
