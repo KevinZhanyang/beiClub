@@ -84,7 +84,6 @@ function getCurrentUser() {
                 } else {
                   //刷新token
 
-
                 }
               }).catch((err) => {
                 // reject(err);
@@ -92,7 +91,6 @@ function getCurrentUser() {
             }
 
           }
-
 
         } else {
           //刷新token

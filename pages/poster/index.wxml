@@ -1,12 +1,13 @@
 
 <view class="qrcode"  >
-  <image  mode="aspectFill" data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
+<view class="qrcode_out" style='width:650rpx;height:900rpx'> 
+  <image  mode="aspectFit " data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
+</view>
+ 
 </view>
 
 <view class='creat-box_success'>
     <button class="creat_success creat-l_success"  bindtap='edit'>返回编辑</button>
-    
-    <view class="creat_success creat-r_success" bindtap='goCreate'>发起拍卖</view>
   </view>
 
 <view class='share' >
@@ -29,12 +30,7 @@
  <block wx:if="{{showTips}}">
 <view class="modal-box cur">
   <view class='modal-dialog'>
-     <view class="modal-title">
-     
-      <view class='bar-close badge danger round' bindtap='closeModal'>
-        <text class='iconfont icon-close'></text>
-      </view>
-    </view>
+    
     <view class='modal-bd modal-message'>
      {{tips}}
     </view>

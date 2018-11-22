@@ -48,6 +48,11 @@
         <!-- </block> -->
     </view>
     <view class="tips">点击查看卡片详情</view>
+
+<menu number="0"   bind:show="showModal" back="{{isShowFloatTab}}" notify="{{ systemNotify }}"></menu>
+
+
+    
       <!-- <view class="userinfo"> -->
         <!-- <button type='primary' bindtap='choose'>选择照片</button> -->
          <!-- <button bindtap='choose'  class="save-btn">hhh</button>  -->

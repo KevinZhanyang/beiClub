@@ -32,7 +32,10 @@
    height:68px !important;
 
 }
+.qrcode_out{
 
+  margin-bottom: 10rpx;
+}
 .poster--clickbtn::after{
   border: none;
 }
@@ -270,9 +273,9 @@ color:#C0BBB8;
   background: #2b2b2b;
 }
 .creat-l_success {
-  width: 330rpx;
+  width: 650rpx;
   color: #fad33a;
-  margin-left:30rpx;
+  margin-left:50rpx;
 
 }
 .creat-r_success {

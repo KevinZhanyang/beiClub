@@ -1,0 +1,27 @@
+ <view class='form-box'>
+    <view class='form-item'>
+      <view class='form-title cur form-title-sm'>
+       金额
+      </view>
+      <input class='' type="text" disabled='true' placeholder="{{amt}}元" class='form-input'></input>
+    </view>
+    <view class='form-item'>
+      <view class='form-title cur'>
+        微信号
+      </view>
+      <input class='' type="text" placeholder="请输入您的微信号，方便款项退回" bindinput='mobileWechat' class='form-input'></input>
+    </view>
+    <view class='form-item'>
+      <view class='form-title'>
+        手机号
+      </view>
+      <view class='form-input'>
+        <input class='' type="text" placeholder="请输入您的手机号码，方便联系您" bindinput='mobileInput'></input>
+      </view>
+    </view>
+  </view>
+  <view class="doc-main">
+  <view class='flex flex-direction'>
+    <button class='primary btn mt-sm block lg' bindtap='withDraw'>申请提现</button>
+  </view>
+</view>

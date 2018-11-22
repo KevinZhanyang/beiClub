@@ -1,0 +1,137 @@
+/* pages/auctionResult/index.wxss */
+.lsi-container {
+  width: 100%;
+}
+
+.slide-image {
+  width: 750rpx;
+  height: 316rpx;
+}
+.time-box {
+  display: flex;
+  align-items: center;
+  margin: 40rpx 0;
+  justify-content: center;
+}
+
+.time-box .tip {
+  font-size: 24rpx;
+  color: #b0b1b6;
+  margin-right: 10rpx;
+}
+
+.time-box .time {
+  display: flex;
+}
+
+.time-box .time view {
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 25rpx;
+  color: #fcd74b;
+  background: #000;
+  border-radius: 8rpx;
+}
+
+.time-box .time label {
+  font-size: 25rpx;
+  color: black;
+  margin: 0 8rpx;
+}
+
+
+
+
+
+.modalDlg {
+  width: 650rpx;
+  height: 450rpx;
+  background-color: #fff;
+  border-radius: 36rpx;
+  display: flex;
+  flex-flow: column nowrap;
+  box-shadow: 0 4rpx 10rpx rgb(0, 0, 0);
+  margin-left: 50rpx;
+}
+
+.success_text {
+  text-align: center;
+  margin-top: 100rpx;
+  font-weight: 900;
+  font-size: 39rpx;
+}
+
+.creat-box_success {
+  width: 100%;
+  margin-top: 150rpx;
+  display: flex;
+  justify-content: center;
+  bottom: 30rpx;
+}
+
+.creat_success {
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 40rpx;
+  box-shadow: 0 4rpx 10rpx rgb(0, 0, 0);
+  border-radius: 8rpx;
+  /* margin: 0 auto; */
+  background: #2b2b2b;
+}
+
+.creat_success_share {
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  box-shadow: 0 4rpx 10rpx rgb(0, 0, 0);
+  border-radius: 8rpx;
+  margin: 0 auto;
+  background: #2b2b2b;
+}
+
+.creat-l_success {
+  width: 245rpx;
+  color: #fad33a;
+ margin-left:50rpx
+}
+
+.creat-l_share {
+  width: 340rpx;
+  color: #fad33a;
+}
+
+.creat-r_success {
+  width:362rpx;
+  color: #fad33a;
+  background: #2b2b2b;
+  /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
+}
+
+.auctionImg {
+  width:180rpx;
+  height: 180rpx;
+  color: #fad33a;
+
+  /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
+}
+.img{
+  margin-bottom: 90rpx;
+  display:flex;
+justify-content:space-around;
+}
+.bidderImg {
+  width:180rpx;
+  height: 180rpx;
+  color: #fad33a;
+
+  /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
+}
+.success_text2{
+  margin-top:30rpx;
+  margin-bottom:30rpx;
+
+}

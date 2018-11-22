@@ -1,0 +1,36 @@
+<view class="menus" style="height:100rpx;">
+    <navigator wx:if="{{!back}}" open-type="redirect" url="/pages/index/index" hover-class="none">
+        <view class="menu">
+            <view class="icon">
+                <image src="{{ number == 0 ? '/static/img/home.png' : '/static/img/home_no_active.png' }}"></image>
+            </view>
+            <view class="{{ number == 0 ? 'name current' : 'name' }}">首页</view>
+        </view>
+    </navigator>
+    <view wx:else bindtap="backToTop" class="menu">
+        <view class="icon">
+            <image src="{{ number == 0 ? '/static/img/home.png' : 'http://static.124115.com/static/program/img/menu/index.png' }}"></image>
+        </view>
+        <view class="{{ number == 0 ? 'name current' : 'name' }}">返回</view>
+    </view>
+    <!-- <navigator url="/pages/publish/index" hover-class="none"> -->
+    <view bind:tap="showModal" class="menu">
+        <view class="icon_">
+            <image src="/static/img/publish.png"></image>
+        </view>
+      
+    </view>
+    <!-- </navigator> -->
+    <navigator open-type="redirect" url="/pages/home/index" hover-class="none">
+        <view class="menu">
+            <view class="icon">
+                <image src="{{ number == 2 ? '/static/img/my.png' : '/static/img/person.png' }}"></image>
+            </view>
+            <view class="{{ number == 2 ? 'name current' : 'name' }}">我的</view>
+        </view>
+    </navigator>
+</view>
+<view class="blank" style="{{ 'height:' + paddingBottom + 'rpx' }}"></view>
+<view class="notify" wx:if="{{ notify > 0}}" >
+    {{ notify }}
+</view>

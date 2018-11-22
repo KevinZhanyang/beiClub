@@ -133,7 +133,7 @@ Page({
   },
   getDetailOnLoad(AUCTION_ID) {
     let that = this;
-    util.request(AUCTION + "/" + 3).then(res => {
+    util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
         that.calTime(that, res.body.createTime);
         that.setData({
@@ -145,7 +145,6 @@ Page({
             isSelf: true
           });
         }
-
         var bidderResults = [];
         if (res.body.bidderResults) {
           bidderResults = res.body.bidderResults.map((item, index) => {
@@ -188,7 +187,7 @@ Page({
           if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
             wx.showModal({
               title: "温馨提示",
-              content: "恭喜您暂时领先",
+              content: "您出价最高暂时",
               showCancel: false
             });
           }
@@ -345,9 +344,9 @@ Page({
     if (that.data.firstBidder && that.data.firstBidder.bid >= this.data.value) {
       wx.showModal({
         title: "温馨提示",
-        content: "您的出价小于当前最高者"
+        content: "您的出价必须高于当前最高者",
+        showCancel:false
       });
-
       return false;
     }
 
@@ -373,7 +372,7 @@ Page({
         {
           openId: wx.getStorageSync("user").openId,
           auctionId: data.auctionId,
-          amt: data.bid * 100
+          amt: 1 * 100
         },
         "POST"
       )
@@ -443,5 +442,8 @@ Page({
     this.setData({
       tagList
     });
+  },
+  summitForm(event){
+    formIdService.createUserFormId(event.detail.formId);
   }
 });

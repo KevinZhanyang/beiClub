@@ -14,7 +14,7 @@ Page({
   data: {
     tagList: [],
     selectTag: [],
-    showSharePoster:false
+    showSharePoster: false
   },
   onLoad() {
 
@@ -22,7 +22,7 @@ Page({
   },
   getList() {
     util.request(GET_TAG_LIST, {
-      "perPageNum": 10
+      "perPageNum": 20
     }, "GET").then(res => {
       if (res.code == 200) {
         this.setData({
@@ -79,6 +79,57 @@ Page({
     })
   },
 
+  deleteModel(event) {
+    this.setData({
+      showDelet: true,
+      currentDeleteId: event.currentTarget.dataset.id
+    })
+
+  },
+  hideDeleteTag() {
+    var id = this.data.currentDeleteId;
+    let tagList = this.data.tagList;
+    for (let item of tagList) {
+      if (item.id == id ) {
+        item.showDelete = 0;
+      } else {
+        item.showDelete = 0;
+      }
+    }
+
+
+    this.setData({
+      tagList,
+      showDelet: false,
+      currentDeleteId: ""
+    })
+  },
+
+  deleteTag(event) {
+    let that = this;
+    util.request(CREATE_TAG + "/" + that.data.currentDeleteId, {}, "DELETE").then(res => {
+      if (res.code == 200) {
+        this.setData({
+          showDelet: false,
+        })
+        wx.showLoading({
+          title: '删除成功',
+          duration: 1500
+        })
+        that.getList();
+      } else {
+        showDelet: false,
+        wx.showLoading({
+          title: '删除失败',
+          duration: 1500
+        })
+      }
+
+    });
+
+
+  },
+
   bidIncreatmentTip() {
     this.setData({
       tipTitle: "加价幅度",
@@ -113,16 +164,13 @@ Page({
           id: res.body,
           name: that.data.selfTag
         }
-        var tagList = this.data.tagList;
-        tagList.push(tag);
-        that.setData({
-          tagList: tagList,
-          showCreateTag: false
+        that.getList();
 
-        })
-        this.setData({
+        that.setData({
+          showCreateTag: false,
           createTag: 0
         })
+
       } else {
 
         this.setData({
@@ -219,9 +267,9 @@ Page({
       bidIncreatment = this.data.bidIncreatment;
     }
     console.log(4)
-   that.setData({
-     showSharePoster:true
-   })
+    that.setData({
+      showShareLodding: true
+    })
 
     var data = {
       startPrice: startPrice,
@@ -244,33 +292,57 @@ Page({
         })
         that.setData({
 
-          showSharePoster: false
+          showShareLodding: false
         })
 
       } else {
+       
+        wx.hideLoading();
+        that.setData({
+          showShareLodding: false
+        })
         wx.showLoading({
           title: '生成海报失败',
           mask: true,
-          duration:1500
-        })
-        wx.hideLoading();
-        that.setData({
-          showSharePoster: false
+          duration: 1500
         })
       }
     });
     that.setData({
       create: 0
-      
+
     })
 
   },
+
+  showX(event) {
+    let id = event.currentTarget.dataset["id"];
+    let tagList = this.data.tagList;
+    for (let item of tagList) {
+      if (item.id == id && item.userId) {
+        item.showDelete = 1;
+      } else {
+        item.showDelete = 0;
+      }
+    }
+    this.setData({
+      tagList
+    });
+  },
+
   selectTag(event) {
 
 
     let id = event.currentTarget.dataset["id"];
     let selectTag = this.data.selectTag;
     let tagList = this.data.tagList;
+
+    for (let item of tagList) {
+        item.showDelete = 0;
+    }
+    this.setData({
+      tagList
+    });
     if (selectTag.indexOf(id) > -1) {
       selectTag.splice(selectTag.indexOf(id), 1);
     } else {

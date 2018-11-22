@@ -123,6 +123,7 @@ Page({
       if (that.data.senceType && that.data.senceType=="back"&&!that.data.path ){
           wx.navigateBack({
           })
+        
       } else if (that.data.senceType && that.data.senceType == "back" && that.data.path&&that.data.sence){
         setTimeout(() => {
           wx.redirectTo({
@@ -131,7 +132,15 @@ Page({
         }, 1500);
         
 
-       }else{
+      } else if (that.data.senceType && that.data.senceType == "backResult" && that.data.path && that.data.sence) {
+        setTimeout(() => {
+          wx.redirectTo({
+            url: that.data.path + "?"+ that.data.sence,
+          })
+        }, 1500);
+
+
+      }else{
         setTimeout(() => {
           wx.redirectTo({
             url: '/pages/index/index',

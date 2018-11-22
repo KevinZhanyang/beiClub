@@ -1,1 +1,7 @@
-{"navigationBarTitleText": "拍卖坊"}
+{"navigationBarTitleText": "拍卖坊",
+
+"usingComponents": {
+  "menu": "/components/menu/index"
+}
+
+}

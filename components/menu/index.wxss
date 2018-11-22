@@ -1,0 +1,77 @@
+.menus {
+  z-index: 100;
+  position: fixed;
+  bottom: 0rpx;
+  right: 0rpx;
+  left: 0rpx;
+  display: flex;
+  justify-content: space-around;
+  height: 110rpx;
+  padding-top: 8rpx;
+  padding-bottom: 3rpx;
+  border-top: 1px solid #b4b4b4;
+  background:rgba(255,255,255,1);
+}
+.menus .menu {
+  position: relative;
+  width: 60rpx;
+  height: 85rpx;
+  /* background-color:red; */
+}
+
+.menus .menu .icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+.menus .menu .icon image {
+  width: 40rpx;
+  height: 44rpx;
+}
+.menus .menu .icon_ {
+  position: absolute;
+  top: -51rpx;
+  right: -15rpx;
+  left: -15rpx;
+  width: 118rpx;
+  height: 118rpx;
+}
+.menus .menu .icon_ image {
+  width: 100%;
+  height: 100%;
+}
+.menus .menu .name {
+position:absolute;
+bottom:19rpx;
+right:0rpx;
+left:2rpx;
+font-size:19rpx;
+height:19rpx;
+color:#303030;
+
+}
+.menus .menu .name_ {
+  font-size: 22rpx;
+  height: 22rpx;
+}
+.menus .menu .current {
+  color: #008cbf;
+}
+/* sp */
+.blank {
+  height: 97rpx;
+}
+/* system notify */
+.notify {
+  z-index: 101;
+  position: fixed;
+  right: 80rpx;
+  bottom: 60rpx;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 20rpx;
+  background-color: red;
+  line-height: 30rpx;
+  text-align: center;
+  font-size: 18rpx;
+  color: white;
+}

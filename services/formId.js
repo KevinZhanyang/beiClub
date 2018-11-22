@@ -12,7 +12,7 @@ import { CREATE_USER_FORMID } from "../config/api.js";
 function createUserFormId(formId) {
   return new Promise(function (resolve, reject) {
     util.request(CREATE_USER_FORMID, {
-     openId: wx.getStorageSync("user").openId,
+      openId: wx.getStorageSync("user").openId,
       formId: formId,
       provider:"pms"
       },'POST'

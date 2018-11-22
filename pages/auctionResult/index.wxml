@@ -1,0 +1,64 @@
+<view class="list-container">
+  <swiper style="height:316rpx">
+    <block>
+      <swiper-item>
+        <image src="../../static/img/banner_01.jpg" class="slide-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+ <view class="time-box">
+
+    <block wx:if="{{!clock.end}}">
+      <label class="tip">拍卖已结束</label>
+      <view class="time">
+        <view>00</view>
+        <label>:</label>
+        <view>00</view>
+        <label>:</label>
+        <view>00</view>
+      </view>
+    </block>
+    <block wx:else>
+      <label class="tip">距离拍卖结束时间</label>
+      <view class="time">
+        <view>{{clock.hr}}</view>
+        <label>:</label>
+        <view>{{clock.min}}</view>
+        <label>:</label>
+        <view>{{clock.sec}}</view>
+      </view>
+    </block>
+  </view>
+
+<view class="modalDlg" >
+
+      <view class='creat-box_success img'>
+        
+         <image class="creat_success auctionImg" src="{{auction.avatar}}" >
+           
+        </image>
+         <!-- <view class="creat_success creat-r_success" bindtap='goCreate'>提现</view> -->
+        <image class="creat_success bidderImg" src="{{bidder.avatar}}" >
+           
+        </image>
+    </view>
+    <view class="success_text success_text2">有趣的灵魂终将在拍卖里相遇</view>
+    
+</view>
+
+
+
+<view class='creat-box_success'>
+         <block wx:if="{{miss}}">
+         <view class="creat_success creat-r_success" bindtap='withDraw'>快去相遇吧</view>
+         </block>
+         <block wx:else>
+         <view wx:if="{{!bidder}}" class="creat_success creat-r_success" bindtap='withDraw'>提现</view>
+        <view wx:else class="creat_success creat-r_success" bindtap='waitPay'>付尾款</view>
+         </block>
+        <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
+            分享
+        </button>
+    </view>
+  </view>

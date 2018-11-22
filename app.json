@@ -1,13 +1,17 @@
 {
   "pages": [
-     
+ 
+      "pages/index/index",
+      "pages/auctionResult/index",
     "pages/auction/index",
-    "pages/index/index",
     "pages/loding/index",
     "pages/creat/index",
     "pages/editAuction/index",
     "pages/auth/index",
-    "pages/poster/index"
+    "pages/poster/index",
+    "pages/withDraw/index"
+    
+   
    
  
   ],
