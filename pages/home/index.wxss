@@ -1,1 +1,277 @@
-/* pages/home/index.wxss */
+/***head start***/
+
+.head {
+  padding: 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.nickName {
+  height: 48rpx;
+  font-size: 60rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
+  line-height: 53rpx;
+}
+
+.headImgOut {
+  width: 130rpx;
+  height: 13rpx;
+  border-radius: 50%;
+}
+
+.headImgOut image {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+
+/***head end***/
+
+/***account start***/
+
+.account {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400rpx;
+  margin-top: 30rpx;
+}
+
+.account_txt {
+  width: 120rpx;
+  height: 24rpx;
+  font-size: 24rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(171, 174, 181, 1);
+  line-height: 24rpx;
+  margin: 25rpx 0rpx;
+}
+
+.account_amt {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* width:290rpx; *//* height:63rpx; */
+  font-size: 70rpx;
+  font-family: MicrosoftYaHei-Bold;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 1);
+  line-height: 53rpx;
+  margin: 25rpx 0rpx;
+}
+
+.account_withDraw {
+  margin: 25rpx 0rpx;
+  width: 262rpx;
+  height: 88rpx;
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 0rpx 3rpx 7rpx 2rpx rgba(35, 24, 21, 0.31);
+  border-radius: 10rpx;
+}
+
+.withDraw {
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 0rpx 3rpx 7rpx 2rpx rgba(35, 24, 21, 0.31);
+  color: rgba(250, 211, 58, 1);
+  font-weight: 400;
+}
+
+/***account end***/
+
+/*middle*/
+
+/***head start***/
+
+.middle {
+  padding: 40rpx 0rpx 40rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+.middle_img_out button{
+  background: transparent !important;
+  padding-right: 0rpx !important;
+  padding-left: 60rpx !important;
+   border:none !important;
+}
+/*去除buttun边框关键样式*/
+button[class="rule"]::after {
+  border: 0;
+}
+.middle_txt {
+  width: 203px;
+  height: 80rpx;
+  font-size: 34rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 1);
+  line-height: 80rpx;
+}
+
+.middle_img_out {
+  width: 160rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border:none;
+  background: transparent !important;
+}
+
+.middle_img_out image {
+  width: 80rpx;
+  height: 80rpx;
+  /* border-radius: 50%; */
+}
+
+.btn-none{
+   width: 160rpx;
+   height: 80rpx;
+    border:none !important;
+   background: transparent !important;
+}
+
+
+button::after{ border: none; }
+
+.List {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 55rpx 30rpx 55rpx;
+  width: 640rpx;
+  height: 262rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 3px 29px 9px rgba(190, 190, 190, 0.19);
+  border-radius: 10px;
+}
+
+.list_top {
+  height: 196rpx;
+  width: 640rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.seller_img {
+  height: 80rpx;
+  width: 80rpx;
+  margin-top: 50rpx;
+  margin-bottom: 10rpx;
+}
+
+ .seller_img_in {
+  height: 80rpx;
+  width: 80rpx;
+  position:relative;
+}
+
+ .seller_img_in_seller {
+   
+  height: 28rpx;
+  width: 28rpx;
+   position:absolute;right:0;bottom:0;
+}
+
+.seller_name {
+  text-align: center;
+  width: 71rpx;
+  height: 50rpx;
+  font-size: 20rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(171, 174, 181, 1);
+  line-height: 28rpx;
+overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+
+
+}
+
+.heart {
+  margin-top: 35rpx;
+  height: 108rpx;
+  width: 288rpx;
+}
+
+.heart image {
+  height: 108rpx;
+  width: 288rpx;
+}
+
+.buyer_img {
+  height: 80rpx;
+  width: 80rpx;
+  margin-top: 50rpx;
+  margin-bottom: 10rpx;
+}
+
+.buyer_img image {
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.buyer_name {
+  text-align: center;
+  width:71rpx;
+  height:50rpx;
+  font-size: 20rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: rgba(171, 174, 181, 1);
+  line-height: 36rpx;
+  overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+
+.list-bottom {
+  color: rgba(171, 174, 181, 1);
+  width: 640rpx;
+  height: 66rpx;
+  background: rgba(0, 0, 0, 1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  line-height: 66rpx;
+}
+
+.auction_status {
+  margin-left: 36rpx;
+}
+
+.auction_bid {
+  margin-right: 36rpx;
+}
+
+.home_container {
+  padding: 0 0 200rpx 0;
+}
+
+.noBidder {
+  height: 270rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.noBidder image {
+  height: 66rpx;
+  width: 126rpx;
+
+}
+
+.noBidder_text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #a9aaac;
+}

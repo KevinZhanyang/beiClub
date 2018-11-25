@@ -148,7 +148,7 @@
       <image class='awl' src='/static/img/awl_new.gif'></image>
       <view class='bid_text'>出价</view>
     </view> -->
-    <block wx:if="{{clock.end}}">
+    <block wx:if="{{clock.end||auction.status!=1}}">
       <view class="creat1 creat-l">
         <form bindsubmit="summitForm" report-submit='true'>
           <button class="creat1 creat-l" form-type="submit">
@@ -174,13 +174,8 @@
         </button>
       </view>
 
-
-
-
     </block>
-    <view class="creat creat-r" bindtap='goCreate'>发起拍卖</view>
-
-
+    <view class="creat creat-r" bindtap='goIndex'>返回首页</view>
   </view>
   <!-- <view class="modal-box {{modalName=='modal'?'cur':''}}">
         <view class='modal-dialog'>
@@ -209,14 +204,12 @@
     </view>
 </view> -->
 <block wx:if="{{showTips}}">
-  <view class="modal-box cur">
-    <view class='modal-dialog'>
+  <view class="modal-box cur" bindtap='closeModal'>
+    <view class='modal-dialog' >
       <view class="modal-title">
-        <view class='bar-close badge danger round' bindtap='closeModal'>
-          <text class='iconfont icon-close'></text>
-        </view>
+              竞拍规则说明
       </view>
-      <view class='modal-bd modal-message'>{{tips}}</view>
+      <view class='modal-bd modal-message'> <rich-text nodes="{{tips}}" bindtap="tap"></rich-text></view>
     </view>
   </view>
 </block>
@@ -267,7 +260,7 @@
         元起）
       </view>
       <view class="stepper">
-        <van-stepper input-class="out-input" maxlength="8" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{value}}" bind:change="onChange" />
+        <van-stepper input-class="out-input" maxlength="8" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{firstBidder?firstBidder.bid:auction.startPrice}}" bind:change="onChange" />
       </view>
       <view class="creat pop-button" bindtap="hidePopup">支付1元保证金</view>
     </view>

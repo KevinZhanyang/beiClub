@@ -1,1 +1,153 @@
-/* pages/withDraw/index.wxss */
+.amt {
+  height: 250rpx;
+  font-size: 70rpx;
+  font-family: MicrosoftYaHei-Bold;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 1);
+  line-height: 250rpx;
+  text-align: center;
+}
+
+.form {
+  width: 685rpx;
+  height: 470rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0rpx 1rpx 14rpx 4rpx rgba(131, 131, 131, 0.11);
+  border-radius: 10rpx;
+  margin-left: 32.5rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  height: 30rpx;
+  font-size: 30rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 1);
+  line-height: 30rpx;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  margin-left: 237.5rpx;
+}
+
+.withDraw {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80rpx;
+}
+
+.word {
+  margin-left: 33rpx;
+  margin-right: 20rpx;
+  width: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.word image {
+  width: 22rpx;
+  height: 32rpx;
+  margin-top:28rpx;
+
+}
+
+.inputAmt {
+  width: 300rpx;
+  font-size: 30px;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: rgba(171, 174, 181, 1);
+  line-height: 80rpx;
+}
+
+.withDrawAmt {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+    align-items: center;
+}
+
+.allAmt {
+  width: 130rpx;
+  height: 80rpx;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 10rpx;
+  margin-right: 30rpx;
+}
+
+.withDraw_Bun {
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 0rpx 3rpx 7rpx 2rpx rgba(35, 24, 21, 0.31);
+  color: rgba(250, 211, 58, 1);
+  font-weight: 400;
+}
+
+.phone {
+  width: 620rpx;
+  height: 88rpx;
+  background: rgba(229, 229, 229, 1);
+  opacity: 0.74;
+  border-radius: 10rpx;
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+  margin-left: 32.5rpx;
+}
+.phone input{
+  margin-top: 19rpx;
+  margin-left: 20rpx;
+}
+
+.wechat {
+  width: 620rpx;
+  height: 88rpx;
+  background: rgba(229, 229, 229, 1);
+  opacity: 0.74;
+  border-radius: 10rpx;
+  margin-left: 32.5rpx;
+}
+.wechat input{
+  margin-top: 19rpx;
+  margin-left: 20rpx;
+}
+.tips {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: row;
+  margin-left: 32.5rpx;
+  height: 24rpx;
+  line-height: 24rpx;
+}
+
+.point {
+  width: 14rpx;
+  height: 14rpx;
+  background: rgba(171, 174, 181, 1);
+  border-radius: 50%;
+  margin-top:5rpx;
+  margin-right: 10rpx;
+}
+.nomal{
+  color: rgba(171, 174, 181, 1);
+  
+}
+
+.account_withDraw {
+  margin-top: 150rpx;
+}
+
+.normal_qa {
+  margin-left: 323.5rpx;
+  margin-top: 105rpx;
+  width: 105rpx;
+  height: 28rpx;
+  font-size: 26rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: 500;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 1);
+  line-height: 30rpx;
+  
+}

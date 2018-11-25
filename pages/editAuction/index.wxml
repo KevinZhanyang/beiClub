@@ -1,113 +1,219 @@
 <!-- index.wxml -->
 
+
 <block wx:if="{{showSharePoster}}">
-<view class="showShare-home-container">
-  <view class="showShare-list">
-    <view class="showShare-list-item">
-      <view class="showShare-list-r">
-        <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
-        <view class="showShare-text">疯狂画海报中...</view>
+  <view class="showShare-home-container">
+    <view class="showShare-list">
+      <view class="showShare-list-item">
+        <view class="showShare-list-r">
+          <image mode="aspectFill" src="../../static/img/madingPoster.png"></image>
+          <view class="showShare-text">疯狂画海报中...</view>
+        </view>
       </view>
     </view>
   </view>
-</view>
-<view class="showShare-border">
-</view>
+  <view class="showShare-border">
+  </view>
 </block>
+
 
 
 <block wx:else>
-
-<view class="list-container">
+  <view class="list-container">
     <view class="tips">最少选择2条</view>
-    <view class="list">
-        <view class="list-item {{item.state==1?'active':''}}" bindtap="selectTag" data-id="{{item.id}}" wx:for="{{tagList}}" wx:key="{{item.id}}">
-            {{item.name}}
-        </view>
-        <view class="list-item  " bindtap="showCreateTagModel" >
-            创建标签
-            <text  class='iconfont icon-add'></text>
-        </view>
-    </view>
-    <view class="form-container">
-        <form bindsubmit="formSubmit" bindreset="formReset">
-            <view class="section-box">
-                <view class="section">
-                    <view class="section-l">
-                        <label>起拍价</label>
-                        <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='startTip'></image>
-                        <text>¥</text>
-                    </view>
-                    <input name="input" style="{{showShare?  'color: #FFF':'color: #000000'}}" bindinput='startPrice' value="{{startPrice}}" maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
-                </view>
-                <view class="line"></view>
-                <view class="section">
-                    <view class="section-l">
-                        <label>加价幅度</label>
-                        <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='bidIncreatmentTip'></image>
-                        <text class="small">¥</text>
-                    </view>
-                    <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
-                </view>
+
+    <scroll-view scroll-x style="width: 750rpx;overflow:hidden;" class="list" style='height:{{tagList.length/5*100+50}}rpx;'>
+      <!-- <view class="list"> -->
+      <view class='list-item_par_out' wx:for="{{tagList}}" wx:key="{{item.id}}" wx:for-index="index" wx:if="{{index<5}}">
+        <view class='list-item_par'>
+          <view class='box'>
+            <view class='x' wx:if="{{item.showDelete==1}}" bindtap='deleteModel' data-id="{{item.id}}">
+              x
             </view>
-        </form>
-    </view>
-    <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为12小时</view>
-    <!-- <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view> -->
+            <view class="list-item {{item.state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{item.id}}">
+              {{item.name}}
+            </view>
 
-    <form bindsubmit="create" wx:if="{{createTag!=1}}" report-submit='true'>
-      <button class="creat" form-type="submit">
-        生成海报
-      </button>
-    </form>
+          </view>
+          <view class='box'>
+            <view class='x' wx:if="{{tagList[index+5].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+5].id}}">
+              x
+            </view>
+            <view class="list-item {{tagList[index+5].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+5].id}}">
+              {{tagList[index+5].name}}
+            </view>
+          </view>
+           <view class='box' wx:if="{{tagList.length>10&&tagList[index+10]}}">
+            <view class='x' wx:if="{{tagList[index+10].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+10].id}}">
+              x
+            </view>
+            <view class="list-item {{tagList[index+10].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+10].id}}">
+              {{tagList[index+10].name}}
+            </view>
+           </view>
+
+              <view class='box' wx:if="{{tagList.length>15&&tagList[index+15]}}">
+            <view class='x' wx:if="{{tagList[index+15].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+15].id}}">
+              x
+            </view>
+            <view class="list-item {{tagList[index+15].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+15].id}}">
+              {{tagList[index+15].name}}
+            </view>
+           </view>
+
+             <view class='box' wx:if="{{tagList.length>20&&tagList[index+20]}}">
+            <view class='x' wx:if="{{tagList[index+20].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+20].id}}">
+              x
+            </view>
+            <view class="list-item {{tagList[index+20].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+20].id}}">
+              {{tagList[index+20].name}}
+            </view>
+           </view>
+        </view>
+      </view>
 
 
-
-    <view class="creat" wx:else  bindtap='create'><text class='iconfont icon-loading iconfont-spin mr-xs'></text>生成海报</view>
-<block wx:if="{{showTips}}">
-<view class="modal-box cur">
-  <view class='modal-dialog'>
-    <view class="modal-title">
-      <text>Tips</text>
-      <view class='bar-close badge danger round' bindtap='hideTip'>
-        <text class='iconfont icon-close'></text>
+      <!-- <!-- </view> -->
+    </scroll-view>
+    <view class='list_create'>
+      <view class="list-item  " bindtap="showCreateTagModel">
+        创建标签
+        <text class='iconfont icon-add'></text>
       </view>
     </view>
-    <view class='modal-bd modal-message'>
-     {{tips}}
+
+    <view class="form-container">
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="section-box">
+          <view class="section">
+            <view class="section-l">
+              <label>起拍价</label>
+              <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='startTip'></image>
+              <text>¥</text>
+            </view>
+            <input name="input" style="{{showShare?  'color: #FFF':'color: #000000'}}" bindinput='startPrice' value="{{startPrice}}" maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
+          </view>
+          <view class="line"></view>
+          <view class="section">
+            <view class="section-l">
+              <label>加价幅度</label>
+              <image mode="aspectFill" src="../../static/img/icon_warn.png" class="icon" bindtap='bidIncreatmentTip'></image>
+              <text class="small">¥</text>
+            </view>
+            <input style="{{showShare?  'color: #FFF':'color: #000000'}}" name="input" value="{{bidIncreatment}}" bindinput='bidIncreatment' maxlength="10" type="number" placeholder-class="palceholder" placeholder="0" />
+          </view>
+        </view>
+      </form>
     </view>
-    <view class='modal-option'>
-      <view class='modal-option-btn' bindtap='hideTip'>取消</view>
-      <view class='modal-option-btn success-text' bindtap='hideTip'>确认</view>
-    </view>
+    <view class="tips top">自生成海报后即拍卖 开始，总拍卖时长为2小时</view>
+    <!-- <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view> -->
+    <form bindsubmit="create" wx:if="{{createTag!=1}}" report-submit='true'>
+      <button class="creat" form-type="submit">
+        修改拍卖
+      </button>
+    </form>
+    <view class="creat" wx:else bindtap='create'>
+      <text class='iconfont icon-loading iconfont-spin mr-xs'></text>生成海报</view>
+    <block wx:if="{{showTips}}">
+      <view class="modal-box cur">
+        <view class='modal-dialog'>
+          <view class="modal-title">
+            <text>{{tipTitle}}</text>
+          </view>
+          <view class='modal-bd modal-message'>
+            {{tips}}
+          </view>
+          <view class='modal-option'>
+            <view class='modal-option-btn' bindtap='hideTip'>取消</view>
+            <view class='modal-option-btn success-text' bindtap='hideTip'>确认</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{showTipsModel}}">
+      <view class="modal-box cur">
+        <view class='modal-dialog'>
+          <view class="modal-title">
+            <text>{{tipTitle}}</text>
+          </view>
+          <view class='modal-bd modal-message'>
+            {{tips}}
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+
+
+    <!-- <block wx:if="{{showCreateTag}}">
+      <view class="modal-box cur">
+        <view class='modal-dialog'>
+          <view class="modal-title">
+            <text>创建便签</text>
+            <view class='bar-close badge danger round' bindtap='hideShowCreateTag'>
+              <text class='iconfont icon-close'>
+        </text>
+            </view>
+          </view>
+          <view class='modal-bd modal-message'>
+            <input name="input" style="color: #000000" bindinput='inputTag' auto-focus='true' maxlength="10" placeholder-class="palceholder" />
+          </view>
+          <view class='modal-option'>
+            <view class='modal-option-btn' bindtap='hideShowCreateTag'>取消</view>
+            <view class='modal-option-btn success-text' bindtap='createTag'>确认</view>
+          </view>
+        </view>
+      </view>
+    </block> -->
+
   </view>
-</view>
 </block>
-
-
 <block wx:if="{{showCreateTag}}">
-<view class="modal-box cur">
-  <view class='modal-dialog'>
-    <view class="modal-title">
-      <text>创建便签</text>
-    
+  <view class="modalDlg_out">
+  </view>
+  <view class="modalDlg">
+    <view class="success_text_top">请填写标签名称最长10个汉字
     </view>
-    <view class='modal-bd modal-message'>
-    <input name="input" style="color: #000000" bindinput='inputTag' auto-focus='true' maxlength="10" placeholder-class="palceholder"/>
+
+    <view class="success_text">
+      <input name="input" style="color: #000000" bindinput='inputTag' auto-focus='true' maxlength="10" placeholder-class="palceholder" />
     </view>
-    <view class='modal-option'>
-      <view class='modal-option-btn' bindtap='hideShowCreateTag'>取消</view>
-      <view class='modal-option-btn success-text' bindtap='createTag'>确认</view>
+    <view class='creat-box_success'>
+      <button class="creat_success creat-l_success" bindtap='hideShowCreateTag'>
+        取消
+      </button>
+      <view class="creat_success creat-r_success" bindtap='createTag'>确认</view>
     </view>
   </view>
-</view>
+</block>
+
+<block wx:if="{{showDelet}}">
+  <view class="modalDlg_out">
+  </view>
+  <view class="modalDlg">
+    <view class="success_text_top_message">确认删除？
+    </view>
+    <view class='creat-box_success'>
+      <button class="creat_success creat-l_success" bindtap='hideDeleteTag'>
+        取消
+      </button>
+      <view class="creat_success creat-r_success" bindtap='deleteTag'>确认</view>
+    </view>
+  </view>
 </block>
 
 
-</view>
-
+<block wx:if="{{showShareLodding}}">
+   <view class="Lodding_modalDlg_out">
+  </view>
+  <view class="showShareLoddingModalDlg">
+      <view style='height:330rpx;'>
+         <view class="imgheadborder" style='200rpx;'>
+            <image class='imghead' style='height:200rpx;' src="/static/img/loading.gif"></image>
+         </view>
+         <view class="lodding_text_top">疯狂画海报中...</view>
+      </view>
+  </view>
 </block>
-
-
-
-

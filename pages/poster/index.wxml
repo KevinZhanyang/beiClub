@@ -8,6 +8,8 @@
 
 <view class='creat-box_success'>
     <button class="creat_success creat-l_success"  bindtap='edit'>返回编辑</button>
+
+    <view class="creat_success creat-r_success" bindtap='goDetail'>查看详情</view>
   </view>
 
 <view class='share' >

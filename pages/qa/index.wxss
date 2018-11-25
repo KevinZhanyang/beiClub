@@ -1,0 +1,11 @@
+/* pages/qa/index.wxss */
+.qa{
+  width: 684rpx;
+  height: 1181rpx;
+  margin:  32rpx;
+
+}
+.qa image{
+  width: 684rpx;
+  height: 1181rpx;
+}

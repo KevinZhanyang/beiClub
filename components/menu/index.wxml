@@ -1,8 +1,8 @@
-<view class="menus">
-    <navigator  open-type="redirect" url="/pages/index/index" hover-class="none">
+<view class="{{ number == 2 ? 'menus_person' : 'menus' }}">
+    <navigator  open-type="redirect" url="{{number == 0?'':'/pages/index/index'}}" hover-class="none">
         <view class="menu r_l">
             <view class="icon left">
-                <image src="{{ number == 0 ? '/static/img/awl_menu.png' : '/static/img/awl_menu.png' }}"></image>
+                <image src="{{ number == 0 ? '/static/img/awl_menu.png' : '/static/img/awl_menu_noActive.png' }}"></image>
             </view>
             <view class="{{ number == 0 ? 'name current' : 'name' }}">发起拍卖</view>
         </view>
@@ -13,10 +13,10 @@
         </view>
     </navigator>
     <!-- </navigator> -->
-    <navigator open-type="redirect" url="/pages/home/index" hover-class="none">
+    <navigator open-type="redirect" url="{{number == 2?'':'/pages/home/index'}}" hover-class="none">
         <view class="menu r_l right">
             <view class="icon r"  >
-                <image src="{{ number == 2 ? '/static/img/my.png' : '/static/img/person_center_menu.png' }}"></image>
+                <image src="{{ number == 2 ? '/static/img/person_center_menu_active.png' : '/static/img/person_center_menu.png' }}"></image>
             </view>
             <view class="{{ number == 2 ? 'name current' : 'name' }}">我的参与</view>
         </view>

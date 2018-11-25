@@ -25,7 +25,7 @@
   <view class="list-container">
     <view class="tips">最少选择2条</view>
 
-    <scroll-view scroll-x style="width: 750rpx;overflow:hidden;" class="list" style='height:{{tagList.length/5*100+100}}rpx;'>
+    <scroll-view scroll-x style="width: 750rpx;overflow:hidden;" class="list" style='height:{{tagList.length/5*100+50}}rpx;'>
       <!-- <view class="list"> -->
       <view class='list-item_par_out' wx:for="{{tagList}}" wx:key="{{item.id}}" wx:for-index="index" wx:if="{{index<5}}">
         <view class='list-item_par'>
@@ -112,7 +112,7 @@
     <!-- <view class="creat" wx:if="{{createTag!=1}}" bindtap='create'>生成海报</view> -->
     <form bindsubmit="create" wx:if="{{createTag!=1}}" report-submit='true'>
       <button class="creat" form-type="submit">
-        生成海报
+        发布拍卖
       </button>
     </form>
     <view class="creat" wx:else bindtap='create'>
@@ -216,8 +216,8 @@
   </view>
   <view class="showShareLoddingModalDlg">
       <view style='height:330rpx;'>
-         <view class="imgheadborder" style='200rpx;'>
-            <image class='imghead' style='height:200rpx;' src="/static/img/logo.png"></image>
+         <view class="imgheadborder" >
+            <image class='imghead' style='height:200rpx;' src="/static/img/loading.gif"></image>
          </view>
          <view class="lodding_text_top">疯狂画海报中...</view>
       </view>

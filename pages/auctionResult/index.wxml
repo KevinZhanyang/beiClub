@@ -7,7 +7,7 @@
     </block>
   </swiper>
 
- <view class="time-box">
+  <view class="time-box">
 
     <block wx:if="{{!clock.end}}">
       <label class="tip">拍卖已结束</label>
@@ -31,34 +31,44 @@
     </block>
   </view>
 
-<view class="modalDlg" >
+  <view class="bidderAmt">拍出金额：￥{{bidder.bid}}</view>
 
-      <view class='creat-box_success img'>
-        
-         <image class="creat_success auctionImg" src="{{auction.avatar}}" >
-           
+  <view class="modalDlg">
+
+    <view class='creat-box_success img'>
+      <view>
+        <image mode='aspectFit' class="creat_success auctionImg" src="{{auction.avatar}}">
         </image>
-         <!-- <view class="creat_success creat-r_success" bindtap='goCreate'>提现</view> -->
-        <image class="creat_success bidderImg" src="{{bidder.avatar}}" >
-           
+        <view class="auctionNickname">{{auction.nickname?auction.nickname:"创始人"}} </view>
+      </view>
+      <view class='heart' >
+        <image wx:if="{{auction.status==5}}" mode='aspectFit' src='/static/img/heart.png'></image>
+      </view>
+      <!-- <view class="creat_success creat-r_success" bindtap='goCreate'>提现</view> -->
+      <view>
+        <image mode='aspectFit' class="creat_success bidderImg" src="{{bidder.avatar}}">
+
         </image>
+        <view class='bidderNickname'>{{bidder.nickname?bidder.nickname:"摆渡人"}}</view>
+      </view>
+
     </view>
     <view class="success_text success_text2">有趣的灵魂终将在拍卖里相遇</view>
-    
-</view>
 
-
-
-<view class='creat-box_success'>
-         <block wx:if="{{miss}}">
-         <view class="creat_success creat-r_success" bindtap='withDraw'>快去相遇吧</view>
-         </block>
-         <block wx:else>
-         <view wx:if="{{!bidder}}" class="creat_success creat-r_success" bindtap='withDraw'>提现</view>
-        <view wx:else class="creat_success creat-r_success" bindtap='waitPay'>付尾款</view>
-         </block>
-        <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
-            分享
-        </button>
-    </view>
   </view>
+
+
+
+  <view class='creat-box_success'>
+    <block wx:if="{{miss}}">
+      <view class="creat_success creat-r_success" bindtap='withDraw'>快去相遇吧</view>
+    </block>
+    <block wx:else>
+      <view wx:if="{{!bidder}}" class="creat_success creat-r_success" bindtap='withDraw'>提现</view>
+      <view wx:else class="creat_success creat-r_success" bindtap='waitPay'>付尾款</view>
+    </block>
+    <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
+      分享
+    </button>
+  </view>
+</view>

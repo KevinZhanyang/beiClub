@@ -1,0 +1,5 @@
+<view class='qa'>
+ <image  mode='aspectFit' src='/static/img/qa.png'></image>
+
+
+</view>

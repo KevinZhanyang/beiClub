@@ -16,7 +16,9 @@ const BIDDER = apiRoot + "/used/v1/bidder";
 const CURRENTUSER = apiRoot + "/used/v1/currentUser";
 const CREATE_TAG = apiRoot + "/used/v1/tag";
 const CREATE_USER_FORMID = apiRoot + "/used/v1/miniFormId";
-const WITHDRAW =apiRoot+"/used/v1/withdraw"
+const WITHDRAW =apiRoot+"/used/v1/withdraw";
+const MYJOINAUCTION = apiRoot +"/used/v1/auction/personCenter";
+const MYACCOUNT = apiRoot +"/used/v1/account/currentUser"
 module.exports = {
   apiRoot,
   GET_TAG_LIST,
@@ -29,5 +31,7 @@ module.exports = {
   CURRENTUSER,
   CREATE_TAG,
   CREATE_USER_FORMID,
-  WITHDRAW
+  WITHDRAW,
+  MYJOINAUCTION,
+  MYACCOUNT,
 };

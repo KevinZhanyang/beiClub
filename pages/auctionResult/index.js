@@ -23,6 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // options.auctionId=427
     console.log(options)
  
     if (options.senceType = "bidder") {
@@ -50,9 +51,14 @@ Page({
       }
 
 
-
-
     } else {
+          if(options.senceId) {
+    var sceneId = options.senceId;
+    this.setData({
+      auctionId: sceneId
+    });
+            options.auctionId = senceId;
+     }
 
       if (!wx.getStorageSync("user")) {
         wx.showLoading({
@@ -67,7 +73,7 @@ Page({
               "&path=" +
               "/pages/auction/index"
           });
-        }, 2000);
+        }, 1500);
         return false;
       }
       this.setData({
@@ -119,7 +125,7 @@ Page({
         {
           openId: wx.getStorageSync("user").openId,
           auctionId: this.data.auction.id,
-          amt: (this.data.bidder.bid - 1) * 100
+          amt: (this.data.bidder.bid-1) * 100
         },
         "POST"
       )
@@ -137,13 +143,13 @@ Page({
               that.setData({
                 miss: true
               })
-              util.request(BIDDER + '/' + that.data.bidder.id, { status: 2 }, "PUT").then(res => {
+              util.request(BIDDER + '/' + that.data.bidder.id, { status: 2, auctionId: auctionId, bid: this.data.bidder.bid}, "PUT").then(res => {
                 if (res.code == 200) {
+                  wx.showLoading({
+                    title: "交易完成!",
+                    duration: 1500
+                  });
                 }
-              });
-              wx.showLoading({
-                title: "交易完成!",
-                duration: 1500
               });
             },
             fail: function (res) {

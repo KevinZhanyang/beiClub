@@ -1,27 +1,48 @@
- <view class='form-box'>
-    <view class='form-item'>
-      <view class='form-title cur form-title-sm'>
-       金额
-      </view>
-      <input class='' type="text" disabled='true' placeholder="{{amt}}元" class='form-input'></input>
-    </view>
-    <view class='form-item'>
-      <view class='form-title cur'>
-        微信号
-      </view>
-      <input class='' type="text" placeholder="请输入您的微信号，方便款项退回" bindinput='mobileWechat' class='form-input'></input>
-    </view>
-    <view class='form-item'>
-      <view class='form-title'>
-        手机号
-      </view>
-      <view class='form-input'>
-        <input class='' type="text" placeholder="请输入您的手机号码，方便联系您" bindinput='mobileInput'></input>
-      </view>
-    </view>
+<view class='amt'>
+   {{myAccount.amt?myAccount.amt:0}}元
+</view>
+
+<view class='form'>
+  <view class='info'>
+    提现到微信钱包
   </view>
-  <view class="doc-main">
-  <view class='flex flex-direction'>
-    <button class='primary btn mt-sm block lg' bindtap='withDraw'>申请提现</button>
+  <view class='withDraw'>
+      <view class='withDrawAmt'>
+          <view class='word'><image src="/static/img/￥.png"></image></view>
+          <view class='inputAmt'><input type="number" placeholder='最低1元起提' placeholder-style='height:80rpx;font-size:40rpx;font-weight:normal;color:rgba(171,174,181,1);line-height:80rpx;' bindinput='setWithDrawAmt' value='{{withDrawAmt}}'></input></view>
+      </view>
+      <view class='allAmt'>
+          <form bindsubmit="summitFormAllAmt" report-submit='true'>
+          <button class="withDraw_Bun" form-type="submit">
+            <view class='withDraw_text'>全部</view>
+          </button>
+           </form>
+      </view>
   </view>
+
+  <view class='phone'>
+    <input style="line-height:88rpx;" placeholder='手机号(必填)' bindinput='mobileInput' type="number" maxlength="11"></input>
+  </view>
+
+  <view class='wechat'>
+    <input bindinput='mobileWechat' placeholder='微信号(必填)' ></input>
+  </view>
+</view>
+
+<view class='tips'> 
+ <view class='point'></view>
+ <view class='nomal'>平台将收取2%手续费</view>
+</view>
+
+<view class='account_withDraw'>
+  <form bindsubmit="summitForm" report-submit='true'>
+    <button class="withDraw_Bun" style='width:656rpx;margin-left:47rpx;' form-type="submit">
+      <view class='withDraw_text'>申请提现</view>
+    </button>
+  </form>
+</view>
+
+
+<view class='normal_qa' bindtap='goqa'>
+   常见问题
 </view>

@@ -265,10 +265,10 @@ text.small {
   left: 0rpx;
   z-index: 991;
 }
-.imgheadborder{  width:60%;
+.imgheadborder{  width:66%;
 padding-top:10.9%;margin-top: 30rpx; margin-left:66rpx;
 border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%; position:relative;}
-.imgheadborder .imghead{position:absolute;left:0px;top:0px; border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%; width:100%;height:100%;z-Index:-1;}
+.imgheadborder .imghead{position:absolute;left:0px;top:0px;  width:100%;height:100%;z-Index:-1;}
 
 .Lodding_modalDlg_out {
   width: 100%;
@@ -294,11 +294,11 @@ background-color: rgba(0, 0, 0, 0.6);
   flex-flow: column nowrap;
 }
 .showShareLoddingModalDlg{
-  width: 330rpx;
+  width: 430rpx;
   height: 330rpx;
   position: fixed;
   top: 35%;
-  left: 210rpx;
+  left: 150rpx;
   z-index: 9999;
   /* margin: -370rpx 85rpx; */
   background-color: #fff;
@@ -308,7 +308,7 @@ background-color: rgba(0, 0, 0, 0.6);
 }
 .lodding_text_top{
   text-align:center;
-margin-top:200rpx;
+margin-top:190rpx;
 
 line-height:32rpx;
 /* margin-left:47.5rpx; */
@@ -349,7 +349,7 @@ color:rgba(171, 174, 181, 1);
   margin-left: 47.5rpx;
   width: 445rpx;
   height: 32rpx;
-  font-size: 34rpx;
+  font-size: 30rpx;
   font-family: Adobe Heiti Std R;
   font-weight: normal;
   color: rgba(171, 174, 181, 1);

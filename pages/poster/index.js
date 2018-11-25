@@ -97,9 +97,9 @@ Page({
     })
    
   },
-  goCreate(){
-    wx.redirectTo({
-      url: '/pages/creat/index',
+  goDetail(){
+    wx.navigateTo({
+      url: '/pages/auction/index?auctionId=' + this.data.auctionId,
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },

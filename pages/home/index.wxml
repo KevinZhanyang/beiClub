@@ -1,24 +1,101 @@
-<view class="head">
+<view class='home_container'>
+  <!-- 个人信息 -->
+  <view class="head">
     <view class='nickName'>
+      {{currentUser.nickname}}
     </view>
     <view class='headImgOut'>
-      <image >
+      <image src="{{currentUser.avatar}}">
       </image>
     </view>
-</view>
-<!-- 提现信息 -->
-<view class='account'>
-
-
+  </view>
+  <!-- 提现信息 -->
+  <view class='account'>
     <view class='account_txt'>
-    
+      可提现余额
     </view>
     <view class='account_amt'>
-    
+      <view class="amt_l">{{myAccount.amt?myAccount.amt:0}}元</view>
+      <view class="amt_r"></view>
     </view>
-    <view class='account_withDraw'>
-    
-    
+    <!-- <block wx:if="{{myAccount.amt&&myAccount.amt>0}}"> -->
+      <view class='account_withDraw'>
+        <form bindsubmit="summitForm" report-submit='true'>
+          <button class="withDraw" form-type="submit">
+            <view class='withDraw_text'>申请提现</view>
+          </button>
+        </form>
+      </view>
+    <!-- </block> -->
+
+    <!-- <block wx:else>
+      <view class='account_withDraw'>
+        <form bindsubmit="summitFormId" report-submit='true'>
+          <button class="withDraw" form-type="submit">
+            <view class='withDraw_text'>快去寻觅吧</view>
+          </button>
+        </form>
+      </view>
+    </block> -->
+
+  </view>
+
+  <!-- middle -->
+  <view class='middle'>
+    <view class='middle_txt'>我参加的拍卖</view>
+    <view class='middle_img_out'>
+      <button class="btn-none" open-type="contact">
+        <image src='/static/img/service.png'></image>
+      </button>
     </view>
+  </view>
+
+
+  <!-- 拍卖列表 -->
+
+  <view class='List' bindtap='goAuction' data-auction-id='{{auction.id}}' wx:for="{{ auctionList }}" wx:for-index="index" wx:for-item="auction" wx:key="id">
+    <view class='list_top'>
+      <view class='seller'>
+        <view class='seller_img'>
+          <image class='seller_img_in' src='{{auction.avatar}}'>
+            <image class="seller_img_in_seller" src='/static/img/seller.png'></image>
+          </image>
+
+        </view>
+        <view class='seller_name'>{{auction.nickname}}</view>
+      </view>
+      <view class='heart'>
+        <image mode='aspectFit' src='/static/img/heart.png'></image>
+      </view>
+      <view class='buyer'>
+        <view class='buyer_img'>
+          <image src='{{auction.bidderResults&&auction.bidderResults.length>0?auction.bidderResults[0].avatar:""}}'></image>
+        </view>
+        <view class='buyer_name'>{{auction.bidderResults&&auction.bidderResults.length>0?auction.bidderResults[0].nickname:""}}</view>
+      </view>
+    </view>
+    <view class='list-bottom'>
+      <view class='auction_status'>
+        {{auction.status==1?'进行中':(auction.status==2?'待付款':(auction.status==3?'已流拍':(auction.status==4?'已结束':"成功")))}}
+      </view>
+      <view class='auction_bid'>
+        出价￥{{auction.bidderResults&&auction.bidderResults.length>0?auction.bidderResults[0].bid:""}}
+      </view>
+    </view>
+  </view>
+
+    <block wx:if="{{!auctionList||auctionList.length==0}}">
+      <view class="noBidder" style="height:270rpx;">
+        <image src='/static/img/logo_no.png'></image>
+        <view class='noBidder_text'>
+          暂时没有您参与的拍卖哦！
+        </view>
+      </view>
+    </block>
+
 
 </view>
+
+
+
+<menu number="2" bind:show="showModal" back="{{isShowFloatTab}}" notify="{{ systemNotify }}"></menu>

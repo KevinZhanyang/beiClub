@@ -73,6 +73,7 @@ Page({
     successModal: false
   },
   onLoad(options) {
+    console.log(options)
     var auctionId;
     if (options.auctionId) {
       auctionId = options.auctionId;
@@ -81,6 +82,13 @@ Page({
       });
     } else if (options.scene) {
       var sceneId = decodeURIComponent(options.scene);
+      auctionId = sceneId;
+      this.setData({
+        auctionId: sceneId
+      });
+    }
+    else if (options.senceId) {
+      var sceneId = options.senceId;
       auctionId = sceneId;
       this.setData({
         auctionId: sceneId
@@ -108,9 +116,31 @@ Page({
       shareUrl: "/pages/auction/index?auctionId=" + auctionId
     });
   },
+  goCreate(){
+    wx.navigateTo({
+      url:
+        "/pages/create/index" 
+    });
+
+
+  },
+  onUnload(){
+
+    clearInterval(this.data.setInter)
+  },
+  onHide(){
+    clearInterval(this.data.setInter)
+
+  },
   onShow(option) {
+    var that = this;
     //获取拍卖详情
     this.getDetailOnLoad(this.data.auctionId);
+    that.data.setInter = setInterval(
+      function () {
+        that.getDetail(that.data.auctionId);
+      }
+      , 2000);
   },
   onCloseModal() {},
   calTime(that, createTime) {
@@ -119,7 +149,7 @@ Page({
 
     var now_result = now - createTime;
 
-    var step = 12 * 60 * 60 * 1000;
+    var step = 2 * 60 * 60 * 1000;
     var result = now_result >= step;
 
     if (result) {
@@ -260,9 +290,9 @@ Page({
       }
     });
   },
-  goCreate() {
+  goIndex() {
     wx.navigateTo({
-      url: "/pages/creat/index"
+      url: "/pages/index/index"
     });
   },
 
@@ -278,13 +308,11 @@ Page({
   onChange(event) {
     //关闭蒙层，返回出价的价格
     console.log(event);
-    // if (that.data.auction.startPrice > this.data.value) {
-    // }else{
+  
     this.setData({
       value: event.detail
     });
-    // this.data.value = event.detail;
-    // }
+   
   },
 
   showPopup(event) {
@@ -302,9 +330,7 @@ Page({
       tipTitle: "起拍价",
       showTips: true,
       tips:
-        "1.拍卖规则,拍卖时间为12小时，活动结束后最后出价最高者拍的该服务。" +
-        "2.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包" +
-        "3.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!"
+        "<p><strong style=\"color: rgb(163, 21, 21);\">1</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖规则,拍卖时间为2小时，活动结束后最后出价最高者拍的该服务；</span></p><p><strong style=\"color: rgb(163, 21, 21);\">2</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包\"；</span></p><p><strong style=\"color: rgb(163, 21, 21);\">3</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!</span></p>"
     });
   },
   closeModal() {
@@ -387,6 +413,7 @@ Page({
             signType: payParam.signType,
             paySign: payParam.sign,
             success: function(res) {
+              data.orderId = payParam.orderId;
               util.request(BIDDER, data, "POST").then(res => {
                 if (res.code == 200) {
                   console.log(event);

@@ -21,10 +21,29 @@ Page({
     this.getList();
   },
   getList() {
+    let that = this;
+
     util.request(GET_TAG_LIST, {
       "perPageNum": 20
     }, "GET").then(res => {
       if (res.code == 200) {
+        if (that.data.selectTag && that.data.selectTag.length>0){
+         let selectTag =  that.data.selectTag;
+          res.body.tagList.map((item)=>{
+            selectTag.map((selectTagItem)=>{
+              if(item.id==selectTagItem){
+                item.state = 1;
+              }
+
+              return selectTagItem;
+            })
+
+            return item;
+          })
+        }
+
+
+
         this.setData({
           tagList: res.body.tagList
         });

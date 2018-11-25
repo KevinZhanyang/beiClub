@@ -22,7 +22,7 @@ Page({
      
     var oldAuction = wx.getStorageSync(option.auctionId)
     this.setData({
-      auctionId:option.auctionId,
+      auctionId: option.auctionId,
       selectTag: oldAuction.tags,
       startPrice: oldAuction.startPrice,
       bidIncreatment: oldAuction.bidIncreatment
@@ -36,7 +36,6 @@ Page({
       if (res.code == 200) {
         var tagList = res.body.tagList.map((item,index)=>{
           selectTags.map((selectTagId)=>{
-
             if (selectTagId==item.id){
               item.state=1;
              }
@@ -66,8 +65,7 @@ Page({
     this.setData({
       tagList: tagList
     });
-  },
-  startPrice(event) {
+  }, startPrice(event) {
     let amount = event.detail.value
     var regu = /^(([1-9]\d*(\.\d*)?)|(0\.\d[1-9]))$/;
     var re = new RegExp(regu);
@@ -85,9 +83,7 @@ Page({
         startPrice: amount
       })
     }
-  }
-
-  ,
+  },
   bidIncreatment(event) {
     let amount = event.detail.value
     var regu = /^(([1-9]\d*(\.\d*)?)|(0\.\d[1-9]))$/;
@@ -101,12 +97,12 @@ Page({
         bidIncreatment: amount
       })
     }
-
   },
   startTip() {
     this.setData({
+      tipTitle: "起拍价",
       showTips: true,
-      tips: "指基础价格，且平台收取2%服手续费"
+      tips: "指基础价格，且平台收取2%手续费"
     })
 
   },
@@ -117,9 +113,60 @@ Page({
     })
   },
 
-  bidIncreatmentTip() {
+  deleteModel(event) {
+    this.setData({
+      showDelet: true,
+      currentDeleteId: event.currentTarget.dataset.id
+    })
+
+  },
+  hideDeleteTag() {
+    var id = this.data.currentDeleteId;
+    let tagList = this.data.tagList;
+    for (let item of tagList) {
+      if (item.id == id) {
+        item.showDelete = 0;
+      } else {
+        item.showDelete = 0;
+      }
+    }
+
 
     this.setData({
+      tagList,
+      showDelet: false,
+      currentDeleteId: ""
+    })
+  },
+
+  deleteTag(event) {
+    let that = this;
+    util.request(CREATE_TAG + "/" + that.data.currentDeleteId, {}, "DELETE").then(res => {
+      if (res.code == 200) {
+        this.setData({
+          showDelet: false,
+        })
+        wx.showLoading({
+          title: '删除成功',
+          duration: 1500
+        })
+        that.getList();
+      } else {
+        showDelet: false,
+          wx.showLoading({
+            title: '删除失败',
+            duration: 1500
+          })
+      }
+
+    });
+
+
+  },
+
+  bidIncreatmentTip() {
+    this.setData({
+      tipTitle: "加价幅度",
       showTips: true,
       tips: "指竞拍者每次出价最少加价额"
     })
@@ -151,16 +198,13 @@ Page({
           id: res.body,
           name: that.data.selfTag
         }
-        var tagList = this.data.tagList;
-        tagList.push(tag);
-        that.setData({
-          tagList: tagList,
-          showCreateTag: false
+        that.getList();
 
-        })
-        this.setData({
+        that.setData({
+          showCreateTag: false,
           createTag: 0
         })
+
       } else {
 
         this.setData({
@@ -168,6 +212,7 @@ Page({
         })
       }
     });
+
   },
 
   showCreateTagModel() {
@@ -187,6 +232,7 @@ Page({
       selfTag: tag
     })
   },
+
 
   create(event) {
     formIdService.createUserFormId(event.detail.formId);
@@ -236,7 +282,7 @@ Page({
     }
     console.log(4)
     that.setData({
-      showSharePoster: true
+      showShareLodding: true
     })
 
     var data = {
@@ -259,7 +305,7 @@ Page({
           url: '/pages/poster/index?auctionId=' + this.data.auctionId + "&startPrice=" + startPrice + "&qrcodeUrl=" + res.body,
         })
         that.setData({
-          showSharePoster: false
+          showShareLodding: false
         })
       } else {
         wx.setStorageSync("" + res.body.id, data)
@@ -269,10 +315,12 @@ Page({
           create: 0
         })
         that.setData({
-          showSharePoster: false
+          showShareLodding: false
         })
         wx.showLoading({
-          title: '服务器开小差啦！',
+          title: '生成海报失败',
+          mask: true,
+          duration: 1500
         })
       }
       
@@ -281,14 +329,60 @@ Page({
       create: 0
     })
   },
+
+  showX(event) {
+    let id = event.currentTarget.dataset["id"];
+    let tagList = this.data.tagList;
+    for (let item of tagList) {
+      if (item.id == id && item.userId) {
+        item.showDelete = 1;
+      } else {
+        item.showDelete = 0;
+      }
+    }
+    this.setData({
+      tagList
+    });
+  },
+
   selectTag(event) {
+
+
     let id = event.currentTarget.dataset["id"];
     let selectTag = this.data.selectTag;
     let tagList = this.data.tagList;
+
+    for (let item of tagList) {
+      item.showDelete = 0;
+    }
+    this.setData({
+      tagList
+    });
     if (selectTag.indexOf(id) > -1) {
       selectTag.splice(selectTag.indexOf(id), 1);
     } else {
-      if (selectTag.length > 7) return;
+      if (selectTag.length > 7) {
+
+
+        this.setData({
+          showTipsModel: true,
+          tips: "最多选择8个标签"
+        })
+
+        setTimeout(() => {
+
+          this.setData({
+            showTipsModel: false
+          })
+
+
+        }, 1500)
+
+
+        return false;
+
+
+      };
       selectTag.push(id);
     }
     for (let item of tagList) {
@@ -301,6 +395,7 @@ Page({
     this.setData({
       tagList
     });
-  },
+  }
+
 
 });
