@@ -11,57 +11,7 @@ import {
   BIDDER_LIST,
   PAY_INFO
 } from "../../config/api.js";
-/**
- * 需要一个目标日期，初始化时，先得出到当前时间还有剩余多少秒
- * 1.将秒数换成格式化输出为XX天XX小时XX分钟XX秒 XX
- * 2.提供一个时钟，每10ms运行一次，渲染时钟，再总ms数自减10
- * 3.剩余的秒次为零时，return，给出tips提示说，已经截止
- */
 
-// 定义一个总毫秒数，以一分钟为例。TODO，传入一个时间点，转换成总毫秒数
-var total_micro_second = 10000 * 1000;
-
-/* 毫秒级倒计时 */
-function count_down(that) {
-  // 渲染倒计时时钟
-  that.setData({
-    clock: date_format(total_micro_second)
-  });
-
-  if (total_micro_second <= 0) {
-    that.setData({
-      clock: { end: "已经截止" }
-    });
-    // timeout则跳出递归
-    return;
-  }
-  setTimeout(function() {
-    // 放在最后--
-    total_micro_second -= 10;
-    count_down(that);
-  }, 14);
-}
-
-// 时间格式化输出，如03:25:19 86。每10ms都会调用一次
-function date_format(micro_second) {
-  // 秒数
-  var second = Math.floor(micro_second / 1000);
-  // 小时位
-  var hr = Math.floor(second / 3600);
-  // 分钟位
-  var min = fill_zero_prefix(Math.floor((second - hr * 3600) / 60));
-  // 秒位
-  var sec = fill_zero_prefix(second - hr * 3600 - min * 60); // equal to => var sec = second % 60;
-  // 毫秒位，保留2位
-  var micro_sec = fill_zero_prefix(Math.floor((micro_second % 1000) / 10));
-
-  return { hr: hr, min: min, sec: sec };
-}
-
-// 位数不足补零
-function fill_zero_prefix(num) {
-  return num < 10 ? "0" + num : num;
-}
 
 Page({
   data: {
@@ -70,7 +20,9 @@ Page({
     value: null,
     auctionId: null,
     isSelf: false,
-    successModal: false
+    successModal: false,
+    countDownList: [],
+    actEndTimeList: []
   },
   onLoad(options) {
     console.log(options)
@@ -119,7 +71,7 @@ Page({
   goCreate(){
     wx.navigateTo({
       url:
-        "/pages/create/index" 
+        "/pages/creat/index" 
     });
 
 
@@ -136,36 +88,105 @@ Page({
     var that = this;
     //获取拍卖详情
     this.getDetailOnLoad(this.data.auctionId);
-    that.data.setInter = setInterval(
-      function () {
-        that.getDetail(that.data.auctionId);
-      }
-      , 2000);
+    // that.data.setInter = setInterval(
+    //   function () {
+    //     that.getDetail(that.data.auctionId);
+    //   }
+    //   , 6000);
   },
-  onCloseModal() {},
-  calTime(that, createTime) {
-    var createTime = Date.parse(new Date(createTime.replace(/-/g, "/")));
+  calTime(that,endTime) {
+     console.log(endTime)
+    //  endTime='2018-11-27 13:40:11'
+    if (!endTime){
+       that.setData({
+         clock: { end: "已经截止" }
+       });
+     }
+    var endTime = Date.parse(new Date(endTime.replace(/-/g, "/")));
+
     var now = Date.parse(new Date());
 
-    var now_result = now - createTime;
+    var d = new Date();
 
-    var step = 2 * 60 * 60 * 1000;
-    var result = now_result >= step;
+    var localTime = d.getTime(); //通过调用Data()对象的getTime()方法，即可显示1970年1月1日后到此时时间之间的毫秒数。
+    console.log(localTime)
+     var localOffset = d.getTimezoneOffset() * 60000;
+
+    var utc = localTime + localOffset; //得到国际标准时间
+    console.log(utc);
+     var offset = 8;
+    var calctime = utc + (3600000 * offset);
+    var nd = Date.parse(new Date(calctime));
+    console.log('指定时区时间是：' + nd);
+    var now_result = nd - endTime;
+    console.log('指定时区时间是：' + now_result);
+    var result = now_result >= 0;
 
     if (result) {
       that.setData({
         clock: { end: "已经截止" }
       });
     } else {
-      total_micro_second = step - now_result;
-      count_down(that);
+      let endTimeList = [];
+      // 将活动的结束时间参数提成一个单独的数组，方便操作
+      endTimeList.push(endTime)
+      this.setData({ actEndTimeList: endTimeList });
+      // 执行倒计时函数
+      this.countDown();
     }
+    
+
+
+
+  },
+  timeFormat(param) {//小于10的格式化函数
+    return param < 10 ? '0' + param : param;
+  },
+  countDown() {//倒计时函数
+    // 获取当前时间，同时得到活动结束时间数组
+    let newTime = new Date().getTime();
+    let endTimeList = this.data.actEndTimeList;
+    let countDownArr = [];
+
+    // 对结束时间进行处理渲染到页面
+    endTimeList.forEach(o => {
+      let endTime = new Date(o).getTime();
+      let obj = null;
+      // 如果活动未结束，对时间进行处理
+      if (endTime - newTime > 0) {
+        let time = (endTime - newTime) / 1000;
+        // 获取天、时、分、秒
+        let day = parseInt(time / (60 * 60 * 24));
+        let hou = parseInt(time % (60 * 60 * 24) / 3600);
+        let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+        let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+        obj = {
+          day: this.timeFormat(day),
+          hou: this.timeFormat(hou),
+          min: this.timeFormat(min),
+          sec: this.timeFormat(sec)
+        }
+      } else {//活动已结束，全部设置为'00'
+        obj = {
+          day: '00',
+          hou: '00',
+          min: '00',
+          sec: '00'
+        }
+      }
+      countDownArr.push(obj);
+    })
+    // 渲染，然后每隔一秒执行一次倒计时函数
+    this.setData({ countDownList: countDownArr })
+    setTimeout(this.countDown, 1000);
   },
   getDetailOnLoad(AUCTION_ID) {
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-        that.calTime(that, res.body.createTime);
+        console.log(res.body.endTime)
+        console.log("----------------------")
+        that.calTime(that, res.body.endTime);
         that.setData({
           value: res.body.startPrice + res.body.bidIncreatment,
           wordCloud: "https://used.beimei2.com" + res.body.tagWordCloudUrl
@@ -212,18 +233,18 @@ Page({
         });
       }
 
-      if (res.body.bidderResults && res.body.bidderResults.length > 0) {
-        res.body.bidderResults.map((item, index) => {
-          if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
-            wx.showModal({
-              title: "温馨提示",
-              content: "您出价最高暂时",
-              showCancel: false
-            });
-          }
-          return item;
-        });
-      }
+      // if (res.body.bidderResults && res.body.bidderResults.length > 0) {
+      //   res.body.bidderResults.map((item, index) => {
+      //     if (index == 0 && item.bidderId == wx.getStorageSync("user").recId) {
+      //       wx.showModal({
+      //         title: "温馨提示",
+      //         content: "您出价最高暂时",
+      //         showCancel: false
+      //       });
+      //     }
+      //     return item;
+      //   });
+      // }
     });
   },
 
@@ -231,7 +252,7 @@ Page({
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-        that.calTime(that, res.body.createTime);
+        that.calTime(that, res.body.endTime);
 
         if (res.body.createId + "" == wx.getStorageSync("user").recId) {
           this.setData({
@@ -278,7 +299,9 @@ Page({
 
       if (res.body.bidderResults && res.body.bidderResults.length > 0) {
         res.body.bidderResults.map((item, index) => {
-          if (index == 1 && item.bidderId == wx.getStorageSync("user").recId) {
+          if (index ==0 && item.bidderId == wx.getStorageSync("user").recId) {
+            console.log("------------->>>>>>>>>>");
+            console.log(item);
             wx.showModal({
               title: "温馨提示",
               content: "恭喜您暂时领先",
@@ -472,5 +495,13 @@ Page({
   },
   summitForm(event){
     formIdService.createUserFormId(event.detail.formId);
+  },
+  goheart(event){
+    formIdService.createUserFormId(event.detail.formId);
+
+    wx.navigateTo({
+      url: '/pages/auctionResult/index?auctionId='+this.data.auction.id,
+    })
+
   }
 });

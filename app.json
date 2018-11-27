@@ -1,11 +1,11 @@
 {
   "pages": [
-   
+
     "pages/index/index",
     "pages/withDraw/index",
     "pages/home/index",
     "pages/test/index",
- "pages/auctionResult/index",
+    "pages/auctionResult/index",
     "pages/auction/index",
     "pages/loding/index",
     "pages/creat/index",
@@ -13,7 +13,8 @@
     "pages/auth/index",
     "pages/poster/index",
     "pages/qa/index",
-    "pages/packet/index"
+    "pages/packet/index",
+    "pages/heartShare/index"
    
   ],
   "window": {

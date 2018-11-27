@@ -159,6 +159,7 @@ button::after{ border: none; }
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background: transparent;
 }
 
 .seller_img {
@@ -202,8 +203,9 @@ overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 }
 
 .heart image {
-  height: 108rpx;
-  width: 288rpx;
+  height:113rpx;
+width:290rpx;
+
 }
 
 .buyer_img {
@@ -265,8 +267,8 @@ overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 }
 
 .noBidder image {
-  height: 66rpx;
-  width: 126rpx;
+  height: 132rpx;
+  width: 252rpx;
 
 }
 

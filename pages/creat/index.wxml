@@ -202,10 +202,28 @@
     <view class="success_text_top_message">确认删除？
     </view>
     <view class='creat-box_success'>
-      <button class="creat_success creat-l_success" bindtap='hideDeleteTag'>
+      <!-- <button class="creat_success creat-l_success" bindtap='hideDeleteTag'>
+        取消
+      </button> -->
+
+      
+        <form bindsubmit="hideDeleteTag" report-submit='true'>
+         <button class="creat_success creat-l_success" form-type="submit">
         取消
       </button>
-      <view class="creat_success creat-r_success" bindtap='deleteTag'>确认</view>
+        </form>
+
+
+
+      
+      <!-- <view class="creat_success creat-r_success" bindtap='deleteTag'>确认</view> -->
+
+       <form bindsubmit="deleteTag" report-submit='true'>
+         <button class="creat_success creat-r_success" form-type="submit">
+            确认
+         </button>
+        </form>
+
     </view>
   </view>
 </block>

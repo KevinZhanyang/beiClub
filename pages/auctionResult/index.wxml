@@ -41,8 +41,8 @@
         </image>
         <view class="auctionNickname">{{auction.nickname?auction.nickname:"创始人"}} </view>
       </view>
-      <view class='heart' >
-        <image wx:if="{{auction.status==5}}" mode='aspectFit' src='/static/img/heart.png'></image>
+      <view class='heart'>
+        <image wx:if="{{auction.status==5}}" mode='aspectFit' src='/static/img/heart.gif'></image>
       </view>
       <!-- <view class="creat_success creat-r_success" bindtap='goCreate'>提现</view> -->
       <view>
@@ -53,22 +53,59 @@
       </view>
 
     </view>
-    <view class="success_text success_text2">有趣的灵魂终将在拍卖里相遇</view>
+    <block wx:if="{{isBidderUser&&auction.status==2}}">
+      <view class="success_text success_text2">对方正在等待与你在现实中相遇哦</view>
+    </block>
+    <block wx:else>
+
+      <view class="success_text success_text2">有趣的灵魂终将在拍卖里相遇</view>
+    </block>
+
 
   </view>
 
 
 
   <view class='creat-box_success'>
-    <block wx:if="{{miss}}">
-      <view class="creat_success creat-r_success" bindtap='withDraw'>快去相遇吧</view>
+    <block wx:if="{{(miss||auction.status==5)&&!isCustom}}">
+      <view class="creat_success creat-r_success" bindtap='goIndex'>返回首页</view>
+      <!-- <button class="creat_success creat-r_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>快去相遇吧</button> -->
     </block>
+
     <block wx:else>
-      <view wx:if="{{!bidder}}" class="creat_success creat-r_success" bindtap='withDraw'>提现</view>
-      <view wx:else class="creat_success creat-r_success" bindtap='waitPay'>付尾款</view>
+      <block wx:if="{{isSeller}}">
+        <!-- <view class="creat_success creat-r_success" bindtap='withDraw'>提现</view> -->
+        <block wx:if="{{isSeller&&auction.status==2}}">
+          <view class="creat_success creat-r_success" bindtap='waitBuyerPay'>等待买家付款</view>
+        </block>
+        <block wx:else>
+          <block wx:if="{{isSeller&&auction.status==5}}">
+            <view class="creat_success creat-r_success" bindtap='withDraw'>提现</view>
+          </block>
+          <block wx:if="{{isSeller&&auction.status==4}}">
+            <view class="creat_success creat-r_success" bindtap='linkFaile'>买家未付款</view>
+          </block>
+        </block>
+      </block>
+      sudo timedatectl set-timezone America/New_York isBidderUser}}">
+      <block wx:if="{{isBidderUser&&auction.status==2}}">
+        <view class="creat_success creat-r_success" bindtap='waitPay'>付全款</view>
+      </block>
+      <block wx:else>
+        <block wx:if="{{isBidderUser&&auction.status==5}}">
+          <view class="creat_success creat-r_success" bindtap='waitPay'>连线成功</view>
+        </block>
+        <block wx:if="{{isBidderUser&&auction.status==4}}">
+          <view class="creat_success creat-r_success" bindtap='linkFaile'>交易超时</view>
+        </block>
+      </block>
     </block>
-    <button class="creat_success creat-l_success" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
-      分享
+    <block wx:if="{{isCustom}}">
+      <view class="creat_success creat-r_success" bindtap='goIndex'>返回首页</view>
+    </block>
+    
+    <button class="creat_success creat-l_success" data-url="{{shareUrl}}" bindtap='goShare'>
+      快去相遇吧
     </button>
   </view>
 </view>

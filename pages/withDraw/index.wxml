@@ -20,12 +20,13 @@
       </view>
   </view>
 
+
   <view class='phone'>
-    <input style="line-height:88rpx;" placeholder='手机号(必填)' bindinput='mobileInput' type="number" maxlength="11"></input>
+    <input style="line-height:88rpx;" value='{{phone}}' placeholder='手机号(必填)' bindinput='mobileInput' type="number" maxlength="11"></input>
   </view>
 
   <view class='wechat'>
-    <input bindinput='mobileWechat' placeholder='微信号(必填)' ></input>
+    <input bindinput='mobileWechat' value='{{wx}}' placeholder='微信号(必填)' ></input>
   </view>
 </view>
 

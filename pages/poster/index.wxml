@@ -1,15 +1,23 @@
 
 <view class="qrcode"  >
-<view class="qrcode_out" style='width:650rpx;height:900rpx'> 
+<view class="qrcode_out" style='width:750rpx;height:900rpx'> 
   <image  mode="aspectFit " data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
 </view>
  
 </view>
 
 <view class='creat-box_success'>
-    <button class="creat_success creat-l_success"  bindtap='edit'>返回编辑</button>
 
-    <view class="creat_success creat-r_success" bindtap='goDetail'>查看详情</view>
+  
+        <form bindsubmit="edit" report-submit='true'>
+        <button class="creat_success creat-l_success"  form-type="submit">返回编辑</button>
+        </form>
+
+       <form bindsubmit="goDetail" report-submit='true'>
+        <button class="creat_success creat-r_success"  form-type="submit">查看详情</button>
+        </form>
+
+        <!-- <view class="creat_success creat-r_success" bindtap='goDetail'>查看详情</view> -->
   </view>
 
 <view class='share' >

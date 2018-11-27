@@ -1,0 +1,38 @@
+
+<view class="qrcode"  >
+<view class="qrcode_out" style='width:750rpx;height:800rpx'> 
+  <image  mode="scaleToFill" data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
+</view>
+ 
+</view>
+
+
+
+<view class='share' >
+  <view class='box_left'>
+
+   <view class="moments" bindtap="saveImg" style='background-image:"../static/img.moments.png"'>
+				朋友圈
+			</view>
+  </view>
+
+  <view class='box_right' bindtap='onShareAppMessage'>
+
+    
+    <button class="friend"  data-url="{{shareUrl}}" open-type="share">微信好友</button>
+  </view>
+
+
+</view>
+
+ <block wx:if="{{showTips}}">
+<view class="modal-box cur">
+  <view class='modal-dialog'>
+    
+    <view class='modal-bd modal-message'>
+     {{tips}}
+    </view>
+    
+  </view>
+</view>
+</block>

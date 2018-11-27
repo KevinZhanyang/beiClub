@@ -13,7 +13,13 @@
     </view>
     <view class="head-right">
       <view class="nickname big">{{auction.nickname}}</view>
-      <view class="nickname">正在拍卖</view>
+
+      <block wx:if="{{clock.end}}">
+        <view class="nickname">拍卖结束</view>
+      </block>
+      <block wx:else>
+        <view class="nickname">正在拍卖</view>
+      </block>
     </view>
   </view>
 
@@ -54,11 +60,11 @@
     <block wx:else>
       <label class="tip">距离拍卖结束时间</label>
       <view class="time">
-        <view>{{clock.hr}}</view>
+        <view>{{countDownList[0].hou}}</view>
         <label>:</label>
-        <view>{{clock.min}}</view>
+        <view>{{countDownList[0].min}}</view>
         <label>:</label>
-        <view>{{clock.sec}}</view>
+        <view>{{countDownList[0].sec}}</view>
       </view>
     </block>
   </view>
@@ -84,10 +90,10 @@
         <image src='/static/img/logo_no.png'></image>
         <view class='noBidder_text'>
           <block wx:if="{{isSelf}}">
-          <block wx:if="{{clock.end}}">
-          竞技失败换个技能再试试呗</block>
-         
-          <block wx:else>暂时还没有人出价</block>
+            <block wx:if="{{clock.end}}">
+              竞技失败换个技能再试试呗</block>
+
+            <block wx:else>暂时还没有人出价</block>
           </block>
           <block wx:else>暂时还没有人为他出价</block>
         </view>
@@ -144,19 +150,28 @@
     <view class="shuoming" bind:tap="startTip">竞拍规则说明</view>
   </view>
   <view class="foot-btn creat-box" wx:if="{{ !show }}">
-    <!-- <view wx:if="{{isSelf}}" class="creat1 creat-l" bindtap="showPopup">
-      <image class='awl' src='/static/img/awl_new.gif'></image>
-      <view class='bid_text'>出价</view>
-    </view> -->
     <block wx:if="{{clock.end||auction.status!=1}}">
-      <view class="creat1 creat-l">
-        <form bindsubmit="summitForm" report-submit='true'>
-          <button class="creat1 creat-l" form-type="submit">
-            <view class='bid_text_end'>活动结束</view>
-          </button>
-        </form>
-      </view>
+      <block wx:if="{{auction.status!=1&&auction.status==5}}">
+        <view class="creat1 creat-l">
+          <form bindsubmit="goheart" report-submit='true'>
+            <button class="creat1 creat-l" form-type="submit">
+              <view class='bid_text_end'>查看心动图</view>
+            </button>
+          </form>
+        </view>
 
+      </block>
+
+      <block wx:if="{{auction.status==1||auction.status!=5}}">
+        <view class="creat1 creat-l">
+          <form bindsubmit="summitForm" report-submit='true'>
+            <button class="creat1 creat-l" form-type="submit">
+              <view class='bid_text_end'>活动结束</view>
+            </button>
+          </form>
+        </view>
+
+      </block>
     </block>
     <block wx:else>
 
@@ -205,11 +220,13 @@
 </view> -->
 <block wx:if="{{showTips}}">
   <view class="modal-box cur" bindtap='closeModal'>
-    <view class='modal-dialog' >
+    <view class='modal-dialog'>
       <view class="modal-title">
-              竞拍规则说明
+        竞拍规则说明
       </view>
-      <view class='modal-bd modal-message'> <rich-text nodes="{{tips}}" bindtap="tap"></rich-text></view>
+      <view class='modal-bd modal-message'>
+        <rich-text nodes="{{tips}}" bindtap="tap"></rich-text>
+      </view>
     </view>
   </view>
 </block>
@@ -260,7 +277,8 @@
         元起）
       </view>
       <view class="stepper">
-        <van-stepper input-class="out-input" maxlength="8" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{firstBidder?firstBidder.bid:auction.startPrice}}" bind:change="onChange" />
+        <van-stepper input-class="out-input" maxlength="8" plus-class="out-plus" minus-class="out-minus" integer custom-class="out-stepper" step="{{auction.bidIncreatment}}" value="{{firstBidder?firstBidder.bid:(auction.startPrice+auction.bidIncreatment)}}" bind:change="onChange"
+        />
       </view>
       <view class="creat pop-button" bindtap="hidePopup">支付1元保证金</view>
     </view>

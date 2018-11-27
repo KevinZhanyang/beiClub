@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "poster": "plugin://poster/poster"
+  },
+  "navigationBarTitleText": "分享"
+}

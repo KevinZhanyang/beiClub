@@ -31,16 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.request(CURRENTUSER).then(res => {
-      if (res.code == 200) {
-        wx.setStorageSync("user", res.body);
-        this.setData({
-          currentUser: res.body.user
-        })
-      } else {
-      }
-    }); 
-    
+    this.getCurrentUser();
     util.request(MYJOINAUCTION).then(res => {
       if (res.code == 200) {
         this.setData({
@@ -66,6 +57,18 @@ Page({
   onReady: function () {
 
   },
+  getCurrentUser(){
+    util.request(CURRENTUSER).then(res => {
+      if (res.code == 200) {
+        wx.setStorageSync("user", res.body);
+        this.setData({
+          currentUser: res.body.user
+        })
+      } else {
+      }
+    });
+
+  },
 
   goAuction(event){
    console.log(event);
@@ -80,7 +83,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getCurrentUser();
   },
 
   /**

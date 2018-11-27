@@ -2,7 +2,7 @@
 .qa{
   width: 684rpx;
   height: 1181rpx;
-  margin:  32rpx;
+  margin: 0 32rpx 0 32rpx;
 
 }
 .qa image{

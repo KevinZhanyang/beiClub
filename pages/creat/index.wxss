@@ -385,7 +385,7 @@ color:rgba(171, 174, 181, 1);
   width: 100%;
   /* margin-top: 190rpx; *//* margin-bottom: 50rpx; */
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   position: absolute;
   bottom: 30rpx;
 }

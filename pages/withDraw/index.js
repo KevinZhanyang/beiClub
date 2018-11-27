@@ -55,6 +55,21 @@ Page({
       } else {
       }
     });
+    
+
+    if (wx.getStorageSync("withDraw_phone")){
+        this.setData({
+          phone: wx.getStorageSync("withDraw_phone")
+        })
+    }
+    if (wx.getStorageSync("withDraw_wx")) {
+      this.setData({
+        wx: wx.getStorageSync("withDraw_wx")
+      })
+    }
+ 
+
+
   },
 
   /**
@@ -87,15 +102,18 @@ Page({
    this.setData({
      phone: event.detail.value
    })
+    wx.setStorageSync("withDraw_phone", event.detail.value);
   },
   mobileWechat(event) {
     console.log(event)
     this.setData({
       wx: event.detail.value
     })
+    wx.setStorageSync("withDraw_wx", event.detail.value);
   },
 
   summitForm(event){
+    formIdService.createUserFormId(event.detail.formId);
     if (!this.data.myAccount || this.data.myAccount.amt<=0){
       wx.showLoading({
         title: '余额不足！',
@@ -110,6 +128,8 @@ Page({
           duration:1500
         })
         return false;
+    }else{
+      wx.setStorageSync("withDraw_phone", this.data.phone);
     }
     
     if (!this.data.wx) {
@@ -117,6 +137,8 @@ Page({
         title: '微信号必填！', duration: 1500
       })
       return false;
+    } else {
+      wx.setStorageSync("withDraw_wx", this.data.wx);
     }
 
     if (!this.data.withDrawAmt) {
@@ -126,12 +148,12 @@ Page({
       })
       return false;
     }
-    formIdService.createUserFormId(event.detail.formId);
+    
     util.request(WITHDRAW, { auctionId: this.data.auctionId, amt: this.data.withDrawAmt,phone:this.data.phone,wx:this.data.wx }, "POST").then(res => {
       if (res.code == 200&&res.body==1) {
         wx.showModal({
-          title: '温馨提示',
-          content: '申请提交成功，待审核！',
+          title: '申请已提交',
+          content: '将在48小时内提现至您的微信钱包！',
           showCancel:false
         })
         util.request(MYACCOUNT).then(res => {

@@ -105,7 +105,11 @@ Page({
     })
 
   },
-  hideDeleteTag() {
+  hideDeleteTag(event) {
+
+    formIdService.createUserFormId(event.detail.formId);
+
+
     var id = this.data.currentDeleteId;
     let tagList = this.data.tagList;
     for (let item of tagList) {
