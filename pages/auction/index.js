@@ -94,7 +94,7 @@ Page({
     //   }
     //   , 6000);
   },
-  calTime(that,endTime) {
+  calTime(that, now, endTime) {
      console.log(endTime)
     //  endTime='2018-11-27 13:40:11'
     if (!endTime){
@@ -103,23 +103,16 @@ Page({
        });
      }
     var endTime = Date.parse(new Date(endTime.replace(/-/g, "/")));
-
-    var now = Date.parse(new Date());
-
-    var d = new Date();
-
-    var localTime = d.getTime(); //通过调用Data()对象的getTime()方法，即可显示1970年1月1日后到此时时间之间的毫秒数。
-    console.log(localTime)
-     var localOffset = d.getTimezoneOffset() * 60000;
-
-    var utc = localTime + localOffset; //得到国际标准时间
-    console.log(utc);
-     var offset = 8;
-    var calctime = utc + (3600000 * offset);
-    var nd = Date.parse(new Date(calctime));
-    console.log('指定时区时间是：' + nd);
+    var nd = Date.parse(new Date(now.replace(/-/g, "/")));
+    // console.log('结束时间是：' + endTime);
+    // var nd = this.getLocalTime(-8);
+    // console.log('指定时区时间是：' + nd);
     var now_result = nd - endTime;
-    console.log('指定时区时间是：' + now_result);
+     console.log('当前时间' + nd);
+    console.log(now);
+    console.log(endTime);
+     console.log('结束时间' + endTime);
+    console.log('时间差' + now_result);
     var result = now_result >= 0;
 
     if (result) {
@@ -139,6 +132,18 @@ Page({
 
 
   },
+  getLocalTime(i){
+    if (typeof i !== 'number') return;
+    var d = new Date();
+    //得到1970年一月一日到现在的秒数
+    var len = d.getTime();
+    //本地时间与GMT时间的时间偏移差
+    var offset = d.getTimezoneOffset() * 60000;
+    //得到现在的格林尼治时间
+    var utcTime = len + offset;
+    return Date.parse(new Date(utcTime + 3600000 * i))
+  }
+  ,
   timeFormat(param) {//小于10的格式化函数
     return param < 10 ? '0' + param : param;
   },
@@ -186,7 +191,7 @@ Page({
       if (res.code == 200) {
         console.log(res.body.endTime)
         console.log("----------------------")
-        that.calTime(that, res.body.endTime);
+        that.calTime(that, res.body.now, res.body.endTime);
         that.setData({
           value: res.body.startPrice + res.body.bidIncreatment,
           wordCloud: "https://used.beimei2.com" + res.body.tagWordCloudUrl
@@ -249,10 +254,14 @@ Page({
   },
 
   getDetail(AUCTION_ID) {
+
     let that = this;
+    that.setData({
+      isHigh:0
+    })
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-        that.calTime(that, res.body.endTime);
+        that.calTime(that, res.body.now,res.body.endTime);
 
         if (res.body.createId + "" == wx.getStorageSync("user").recId) {
           this.setData({
@@ -302,11 +311,14 @@ Page({
           if (index ==0 && item.bidderId == wx.getStorageSync("user").recId) {
             console.log("------------->>>>>>>>>>");
             console.log(item);
-            wx.showModal({
-              title: "温馨提示",
-              content: "恭喜您暂时领先",
-              showCancel: false
-            });
+            // wx.showModal({
+            //   title: "温馨提示",
+            //   content: "目前您出价最高，拍卖结束后再支付尾款",
+            //   showCancel: false
+            // });
+            that.setData({
+              isHigh: 1
+            })
           }
           return item;
         });
