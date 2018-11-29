@@ -83,6 +83,10 @@
         <label>{{bidders.length}}</label>
         人出价
       </view>
+
+      <view class="tip-r">
+         支付一元保证金即可参与拍卖
+      </view>
     </view>
     <!-- swiper -->
     <block wx:if="{{noBidder}}">
@@ -137,8 +141,6 @@
               </view>
 
               <view class="lsit-r">
-
-
                 ¥
                 <label style='word-break:false'>{{item.bid}}</label>
               </view>
@@ -159,7 +161,6 @@
             </button>
           </form>
         </view>
-
       </block>
 
       <block wx:if="{{auction.status==1||auction.status!=5}}">
@@ -169,6 +170,11 @@
               <view class='bid_text_end'>活动结束</view>
             </button>
           </form>
+           <!-- <form bindsubmit="goheart" report-submit='true'>
+            <button class="creat1 creat-l" form-type="submit">
+              <view class='bid_text_end'>查看心动图</view>
+            </button>
+          </form> -->
         </view>
 
       </block>
@@ -183,10 +189,16 @@
           </button>
         </form>
       </view>
-      <view wx:else class="creat1 " bindtap="shareToOther">
-        <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
+      <view wx:else class="creat1 " >
+        <!-- <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share" bindtap='preventTouchMove'>
           找人捧场
-        </button>
+        </button> -->
+
+        <form bindsubmit="onShareAppMessage" report-submit='true'>
+          <button class="creat_success_share creat-l_share" data-url="{{shareUrl}}" open-type="share"  form-type="submit"> 
+          找人捧场
+          </button>
+        </form>
       </view>
 
     </block>
@@ -293,7 +305,12 @@
     </div>
     <view class="box">
       <image src="/static/img/center.png" mode="aspectFill" />
+      <block wx:if="{{isHigh==1}}">
+      <view class="text">目前您出价最高，拍卖结束后再支付尾款</view>
+      </block>
+      <block wx:else>
       <view class="text">出价成功</view>
+      </block>
       <view class="creat creat-l" bindtap='goCreate'>我也要发起竞拍</view>
     </view>
     <view bindtap="hideModal" class="close">x</view>

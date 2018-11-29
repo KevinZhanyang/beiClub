@@ -75,7 +75,7 @@
   margin: 0 auto;
   border-radius: 10rpx;
   box-shadow: 0 4rpx 10rpx rgb(184, 184, 184);
-  padding: 40rpx;
+  padding: 30rpx 40rpx 40rpx 40rpx;
   box-sizing: border-box;
   margin-top: 50rpx;
 }

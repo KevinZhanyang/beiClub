@@ -23,9 +23,9 @@
 
 <block wx:else>
   <view class="list-container">
-    <view class="tips">最少选择2条</view>
+    <view class="tips">最少选择1条</view>
 
-    <scroll-view scroll-x style="width: 750rpx;overflow:hidden;" class="list" style='height:{{tagList.length/5*100+50}}rpx;'>
+    <scroll-view scroll-x style="width: 750rpx;overflow:hidden;" class="list" style='height:{{tagList.length/5*100+70}}rpx;'>
       <!-- <view class="list"> -->
       <view class='list-item_par_out' wx:for="{{tagList}}" wx:key="{{item.id}}" wx:for-index="index" wx:if="{{index<5}}">
         <view class='list-item_par'>

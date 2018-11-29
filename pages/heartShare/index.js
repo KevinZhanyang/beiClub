@@ -120,6 +120,7 @@ Page({
     let that = this;
     that.setData({
       posterUrl: apiRoot + options.qrcodeUrl,
+      // posterUrl:'https://used.beimei2.com/poster/551.png',
       auctionId: options.auctionId
     })
 

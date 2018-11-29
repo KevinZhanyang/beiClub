@@ -151,11 +151,7 @@ Page({
     
     util.request(WITHDRAW, { auctionId: this.data.auctionId, amt: this.data.withDrawAmt,phone:this.data.phone,wx:this.data.wx }, "POST").then(res => {
       if (res.code == 200&&res.body==1) {
-        wx.showModal({
-          title: '申请已提交',
-          content: '将在48小时内提现至您的微信钱包！',
-          showCancel:false
-        })
+        
         util.request(MYACCOUNT).then(res => {
           if (res.code == 200) {
             that.setData({
@@ -164,6 +160,18 @@ Page({
           } else {
           }
         });
+
+        wx.showModal({
+          title: '申请已提交',
+          content: '将在48小时内提现至您的微信钱包！',
+          showCancel: false,
+          success:function(res){
+            wx.navigateBack({
+              
+            })
+          }
+        })
+
       } else if (res.code == 200 && res.body == 0){
         wx.showModal({
           title: '温馨提示',

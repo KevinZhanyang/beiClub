@@ -246,6 +246,20 @@ width:290rpx;
   line-height: 66rpx;
 }
 
+.list-bottom_waitPay {
+  color: #000;
+  width: 640rpx;
+  height: 66rpx;
+  background: #fcd74b;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  line-height: 66rpx;
+}
+
 .auction_status {
   margin-left: 36rpx;
 }
@@ -269,6 +283,20 @@ width:290rpx;
 .noBidder image {
   height: 132rpx;
   width: 252rpx;
+
+}
+
+.noBidders {
+  height: 270rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.noBidders image {
+  height: 108rpx;
+  width: 200rpx;
 
 }
 

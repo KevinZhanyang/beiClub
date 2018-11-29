@@ -20,7 +20,8 @@
   /* padding-left: 41px; */
   /* padding-top: 75rpx; */
   top: 0;
-  left: 0;
+  left: 25rpx;
+  right: 25rpx;
   /* z-index: -999; */
 }
 .poster--clickbtn{
@@ -153,8 +154,8 @@ color:#C0BBB8;
 
 
 .qrcode image{
- width:750rpx;
- height:860rpx;
+ width:700rpx;
+ height:800rpx;
  /* margin-left:50rpx; */
 }
 

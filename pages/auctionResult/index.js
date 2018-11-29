@@ -94,43 +94,65 @@ Page({
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
-        this.setData({
-          auction: res.body,
-          bidder: res.body.bidderResults[0]
-        });
-        if(res.body.status==5){
-          that.setData({
-            miss: true
-          })
-        }
-        console.log(wx.getStorageSync("user").recId == res.body.createId);
-        console.log(wx.getStorageSync("user").recId == res.body.bidderResults[0].bidderId);
-        console.log(res.body.bidderResults[0].bidderId);
-        if (wx.getStorageSync("user").recId ==res.body.createId){
-          that.setData({
-             isSeller:true
-          })
-        } else if (wx.getStorageSync("user").recId == res.body.bidderResults[0].bidderId){
+        if (res.body.bidderResults[0]){
+          this.setData({
+            auction: res.body,
+            bidder: res.body.bidderResults[0]
+          });
+          if (res.body.status == 5) {
+            that.setData({
+              miss: true
+            })
+          }
 
-          that.setData({
-            isBidderUser: true
-          })
+          if (wx.getStorageSync("user").recId == res.body.createId) {
+            that.setData({
+              isSeller: true
+            })
+          } else if (wx.getStorageSync("user").recId == res.body.bidderResults[0].bidderId) {
+            that.setData({
+              isBidderUser: true
+            })
+          } else {
+            that.setData({
+              isCustom: true
+            })
+          }
+
+          if (!res.body.successShareUrl && res.body.status == 5) {
+            that.generateShareUrl(res.body);
+          } else {
+            that.setData({
+              qrcodeUrl: res.body.successShareUrl
+            })
+
+          }
         }else{
-          that.setData({
-            isCustom: true
-          })
+          this.setData({
+            auction: res.body,
+           
+          });
+        
+
+          if (wx.getStorageSync("user").recId == res.body.createId) {
+            that.setData({
+              isSeller: true
+            })
+          } else {
+            that.setData({
+              isCustom: true
+            })
+          }
+
+          if (!res.body.successShareUrl && res.body.status == 5) {
+            that.generateShareUrl(res.body);
+          } else {
+            that.setData({
+              qrcodeUrl: res.body.successShareUrl
+            })
+
+          }
         }
-
-        if (!res.body.successShareUrl && !res.body.status==5){
-          that.generateShareUrl(res.body);
-        }else{
-          that.setData({
-             qrcodeUrl: res.body.successShareUrl
-           })
-
-        }
-
-
       }
     });
   },
@@ -139,9 +161,14 @@ Page({
 
     putData.auctionUserName = data.nickname;
     putData.auctionAvatarUrl = data.avatar;
-
-    putData.bidderName = data.bidderResults[0].nickname;
-    putData.bidderAvatarUrl = data.bidderResults[0].avatar;
+    if (data.bidderResults[0]){
+      putData.bidderName = data.bidderResults[0].nickname;
+      putData.bidderAvatarUrl = data.bidderResults[0].avatar;
+    }else{
+      putData.bidderName ="无人出价";
+      putData.bidderAvatarUrl = "https://used-america.oss-us-west-1.aliyuncs.com/cbb/2018-11-27 20:50:51/154332305129948.png";
+    }
+    
 
     putData.posterUrl = data.posterUrl;
     putData.id = data.id  

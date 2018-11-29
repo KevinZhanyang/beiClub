@@ -128,11 +128,18 @@ Page({
       auctionId: options.auctionId
     })
    
+    util.request(AUCTION + "/" + AUCTION_ID).then(res => {
+      if (res.code == 200) {
+           that.setData({
+             auctionObj:res.body
+           })
+      }
+      })
   },
   onShareAppMessage(res) {
     console.log(res)
     let that = this;
-    let title = "快来拍吧！";
+    let title = that.data.auctionObj.nickname + "正在拍卖他/她自己" + that.data.auctionObj.startPrice+"元起拍！快来抢！";
     let path = '/pages/auction/index?auctionId=' + this.data.auctionId;
     let imageUrl = this.data.shareImg;
     //
@@ -209,5 +216,44 @@ Page({
 
       }})
   
+  },
+  saveImgforButtun(event) {
+    let that = this;
+    formIdService.createUserFormId(event.detail.formId);
+
+    wx.getImageInfo({
+      src: this.data.posterUrl,
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.path,
+          success: (res) => {
+            that.setData({
+              showTips: true,
+              tips: "海报已成功保存至相册；快去分享吧！"
+            })
+            setTimeout(() => {
+              that.setData({
+                showTips: false
+              })
+
+            }, 1500)
+          },
+          fail: (err) => {
+            that.setData({
+              showTips: true,
+              tips: "海报已成功保存失败！"
+            })
+            setTimeout(() => {
+              that.setData({
+                showTips: false
+              })
+
+            }, 1500)
+          }
+        })
+
+      }
+    })
+
   }
 })

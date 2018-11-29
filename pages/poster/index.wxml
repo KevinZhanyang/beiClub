@@ -1,6 +1,6 @@
 
 <view class="qrcode"  >
-<view class="qrcode_out" style='width:750rpx;height:900rpx'> 
+<view class="qrcode_out" style='width:700rpx;height:900rpx'> 
   <image  mode="aspectFit " data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
 </view>
  
@@ -9,12 +9,12 @@
 <view class='creat-box_success'>
 
   
-        <form bindsubmit="edit" report-submit='true'>
-        <button class="creat_success creat-l_success"  form-type="submit">返回编辑</button>
+        <form bindsubmit="saveImg" report-submit='true'>
+        <button class="creat_success creat-l_success" form-type="submit">找人捧场</button>
         </form>
 
        <form bindsubmit="goDetail" report-submit='true'>
-        <button class="creat_success creat-r_success"  form-type="submit">查看详情</button>
+        <button class="creat_success creat-r_success"  form-type="submit">拍卖详情</button>
         </form>
 
         <!-- <view class="creat_success creat-r_success" bindtap='goDetail'>查看详情</view> -->
@@ -38,13 +38,14 @@
 </view>
 
  <block wx:if="{{showTips}}">
-<view class="modal-box cur">
-  <view class='modal-dialog'>
-    
-    <view class='modal-bd modal-message'>
-     {{tips}}
+  <view class="modal-box cur" bindtap='closeModal'>
+    <view class='modal-dialog'>
+      <view class="modal-title">
+          分享提示
+      </view>
+      <view class='modal-bd modal-message'>
+        <rich-text nodes="图片已保存到相册!，快去发朋友圈让更多为你的拍卖捧场" bindtap="tap"></rich-text>
+      </view>
     </view>
-    
   </view>
-</view>
 </block>

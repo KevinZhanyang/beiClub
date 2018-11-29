@@ -31,20 +31,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getCurrentUser();
+    // this.getCurrentUser();
+  },
+
+  getActionList(){
     util.request(MYJOINAUCTION).then(res => {
       if (res.code == 200) {
-        this.setData({
-          auctionList: res.body
+        var result = []
+        var end = []
+        var ing = []
+        res.body.map((item, index) => {
+          if (item.status == 4) {
+            end.push(item);
+          } else {
+            result.push(item);
+          }
         })
-      } else {
-      }
-    });
+        if (ing.length > 0) {
+          ing.map((item, index) => {
+            result.push(item);
+          })
+        }
+        if (end.length > 0) {
+          end.map((item, index) => {
+            result.push(item);
+          })
+        }
 
-    util.request(MYACCOUNT).then(res => {
-      if (res.code == 200) {
         this.setData({
-          myAccount: res.body
+          auctionList: result, end: end
         })
       } else {
       }
@@ -67,7 +82,14 @@ Page({
       } else {
       }
     });
-
+    util.request(MYACCOUNT).then(res => {
+      if (res.code == 200) {
+        this.setData({
+          myAccount: res.body
+        })
+      } else {
+      }
+    });
   },
 
   goAuction(event){
@@ -84,6 +106,7 @@ Page({
    */
   onShow: function () {
     this.getCurrentUser();
+    this.getActionList();
   },
 
   /**

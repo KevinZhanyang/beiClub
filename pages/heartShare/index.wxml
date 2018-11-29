@@ -1,6 +1,6 @@
 
 <view class="qrcode"  >
-<view class="qrcode_out" style='width:750rpx;height:800rpx'> 
+<view class="qrcode_out" style='width:700rpx;height:800rpx'> 
   <image  mode="scaleToFill" data-src="{{posterUrl}}" src="{{posterUrl}}" bindtap="previewImage" />
 </view>
  

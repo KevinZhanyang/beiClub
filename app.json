@@ -2,19 +2,24 @@
   "pages": [
 
     "pages/index/index",
+    "pages/heartShare/index",
+        "pages/auction/index",
+    "pages/creat/index",
+  "pages/poster/index",
+  
     "pages/withDraw/index",
     "pages/home/index",
     "pages/test/index",
     "pages/auctionResult/index",
-    "pages/auction/index",
+    
     "pages/loding/index",
-    "pages/creat/index",
+    
     "pages/editAuction/index",
     "pages/auth/index",
-    "pages/poster/index",
+  
     "pages/qa/index",
-    "pages/packet/index",
-    "pages/heartShare/index"
+    "pages/packet/index"
+    
    
   ],
   "window": {

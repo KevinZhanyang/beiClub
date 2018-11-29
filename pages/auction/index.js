@@ -68,6 +68,50 @@ Page({
       shareUrl: "/pages/auction/index?auctionId=" + auctionId
     });
   },
+  onShareAppMessage(res) {
+    formIdService.createUserFormId(res.detail.formId);
+    console.log(res)
+    let that = this;
+    let title = that.data.auction.nickname + "正在拍卖他/她自己, " + that.data.auction.startPrice + "元起拍！快来抢！";
+    let path = that.data.shareUrl;
+    let imageUrl = this.data.shareImg;
+    //
+    return {
+      title: title,
+      path: path,
+      imageUrl: imageUrl,
+      // complete start 
+      complete: function (res) {
+        //
+        if (res.errMsg == 'shareAppMessage:ok') {
+          console.log('share success');
+          /*
+          //分享为按钮转发
+          if (that.data.shareBtn) {
+              //判断是否分享到群
+              if (res.hasOwnProperty('shareTickets')) {
+                  console.log(res.shareTickets[0]);
+                  //分享到群
+                  that.data.isshare = 1;
+              } else {
+                  // 分享到个人
+                  that.data.isshare = 0;
+              }
+          }
+          */
+
+        } else {
+          console.log('share fail');
+          wx.showToast({
+            title: '分享失败',
+          });
+        }
+
+      },
+
+    }
+
+  },
   goCreate(){
     wx.navigateTo({
       url:
@@ -103,16 +147,23 @@ Page({
        });
      }
     var endTime = Date.parse(new Date(endTime.replace(/-/g, "/")));
-    var nd = Date.parse(new Date(now.replace(/-/g, "/")));
-    // console.log('结束时间是：' + endTime);
-    // var nd = this.getLocalTime(-8);
-    // console.log('指定时区时间是：' + nd);
+
+    var now = Date.parse(new Date());
+
+    var d = new Date();
+
+    var localTime = d.getTime(); //通过调用Data()对象的getTime()方法，即可显示1970年1月1日后到此时时间之间的毫秒数。
+    console.log(localTime)
+     var localOffset = d.getTimezoneOffset() * 60000;
+
+    var utc = localTime + localOffset; //得到国际标准时间
+    console.log(utc);
+     var offset = 8;
+    var calctime = utc + (3600000 * offset);
+    var nd = Date.parse(new Date(calctime));
+    console.log('指定时区时间是：' + nd);
     var now_result = nd - endTime;
-     console.log('当前时间' + nd);
-    console.log(now);
-    console.log(endTime);
-     console.log('结束时间' + endTime);
-    console.log('时间差' + now_result);
+    console.log('指定时区时间是：' + now_result);
     var result = now_result >= 0;
 
     if (result) {
@@ -127,10 +178,6 @@ Page({
       // 执行倒计时函数
       this.countDown();
     }
-    
-
-
-
   },
   getLocalTime(i){
     if (typeof i !== 'number') return;
@@ -148,8 +195,18 @@ Page({
     return param < 10 ? '0' + param : param;
   },
   countDown() {//倒计时函数
+    var d = new Date();
     // 获取当前时间，同时得到活动结束时间数组
-    let newTime = new Date().getTime();
+    let newTime = d.getTime();
+
+    var localOffset = d.getTimezoneOffset()*60000;
+
+    var utc = newTime + localOffset; //得到国际标准时间
+    console.log(utc);
+    var offset = 8;
+    var calctime = utc + (3600000 * offset);
+    var newTimes = Date.parse(new Date(calctime));
+
     let endTimeList = this.data.actEndTimeList;
     let countDownArr = [];
 
@@ -158,8 +215,8 @@ Page({
       let endTime = new Date(o).getTime();
       let obj = null;
       // 如果活动未结束，对时间进行处理
-      if (endTime - newTime > 0) {
-        let time = (endTime - newTime) / 1000;
+      if (endTime - newTimes > 0) {
+        let time = (endTime - newTimes) / 1000;
         // 获取天、时、分、秒
         let day = parseInt(time / (60 * 60 * 24));
         let hou = parseInt(time % (60 * 60 * 24) / 3600);

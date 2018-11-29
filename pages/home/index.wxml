@@ -2,7 +2,7 @@
   <!-- 个人信息 -->
   <view class="head">
     <view class='nickName'>
-      <text>{{currentUser.nickname}}</text>
+     <view>{{currentUser.nickname}}</view>
     </view>
     <view class='headImgOut'>
       <image src="{{currentUser.avatar}}">
@@ -77,9 +77,13 @@
         <view class='buyer_name'>{{auction.bidderResults&&auction.bidderResults.length>0?auction.bidderResults[0].nickname:"?"}}</view>
       </view>
     </view>
-    <view class='list-bottom'>
+    <view class="{{   auction.status==2? 'list-bottom_waitPay':'list-bottom'}}">
       <view class='auction_status'>
-        {{auction.status==1?'进行中':(auction.status==2?'待付款':(auction.status==3?'已流拍':(auction.status==4?'已结束':"成功")))}}
+
+        <block >
+            {{(auction.createId==currentUser.id)||(auction.bidderResults&&auction.bidderResults.length>0&&auction.bidderResults[0].bidderId==currentUser.id)?(auction.status==1?'进行中':(auction.status==2?'待付款':(auction.status==3?'失败':(auction.status==4?'失败':"成功")))):(auction.status==1?'出局':(auction.status==2?'出局':(auction.status==3?'出局':(auction.status==4?'出局':"出局"))))}}
+        </block>
+
       </view>
       <view class='auction_bid'>
         {{auction.bidderResults&&auction.bidderResults.length>0?('出价￥'+auction.bidderResults[0].bid):"暂无人出价"}}
@@ -87,7 +91,7 @@
     </view>
   </view>
 
-    <block wx:if="{{!auctionList||auctionList.length==0}}">
+    <block wx:if="{{!auctionList}}">
       <view class="noBidder" style="height:270rpx;">
         <image src="/static/img/loading.gif"></image>
         <view class='noBidder_text'>
@@ -95,8 +99,14 @@
         </view>
       </view>
     </block>
-
-
+  <block wx:if="{{auctionList&&auctionList.length==0}}">
+      <view class="noBidders" style="height:200rpx;">
+        <image src="/static/img/logo_no.png"></image>
+        <view class='noBidder_text'>
+         快去参与或发起拍卖吧。。。
+        </view>
+      </view>
+    </block>
 </view>
 
 

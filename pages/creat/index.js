@@ -239,13 +239,13 @@ Page({
 
 
 
-    if (!tag || tag.length < 2) {
+    if (!tag || tag.length<1) {
 
 
       this.setData({
         tipTitle: "温馨提示",
         showTipsModel: true,
-        tips: "至少选择2个标签"
+        tips: "至少选择1个标签"
       })
       that.setData({
         create: 0
