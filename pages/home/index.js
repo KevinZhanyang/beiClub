@@ -35,12 +35,19 @@ Page({
   },
 
   getActionList(){
+    let that = this
     util.request(MYJOINAUCTION).then(res => {
       if (res.code == 200) {
         var result = []
         var end = []
         var ing = []
         res.body.map((item, index) => {
+
+
+          item.statusTxt = (item.createId == that.data.currentUser.id) || (item.bidderResults && item.bidderResults.length > 0 && item.bidderResults[0].bidderId == that.data.currentUser.id) ? (item.status == 1 ? '进行中' : (item.status == 2 ? '待付款' : (item.status == 3 ? '失败' : (item.status == 4 ? '失败' : "成功")))) : (item.status == 1 ? '失败' : (item.status == 2 ? '失败' : (item.status == 3 ? '失败' : (item.status == 4 ? '失败' : "失败")))) 
+
+
+
           if (item.status == 4) {
             end.push(item);
           } else {
@@ -73,12 +80,17 @@ Page({
 
   },
   getCurrentUser(){
+    let that = this;
     util.request(CURRENTUSER).then(res => {
       if (res.code == 200) {
         wx.setStorageSync("user", res.body);
         this.setData({
           currentUser: res.body.user
         })
+
+        that.getActionList();
+
+
       } else {
       }
     });
@@ -106,7 +118,12 @@ Page({
    */
   onShow: function () {
     this.getCurrentUser();
-    this.getActionList();
+   
+
+
+
+
+
   },
 
   /**

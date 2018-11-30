@@ -1,8 +1,13 @@
 <view class="van-stepper custom-class">
-  <view
+  <!-- <view
     class="minus-class van-stepper__minus {{ minusDisabled ? 'van-stepper__minus--disabled' : '' }}"
     bind:tap="onMinus"
-  />
+  /> -->
+
+   <form bindsubmit="onMinus" report-submit='true'>
+          <button  class="minus-class van-stepper__minus {{ minusDisabled ? 'van-stepper__minus--disabled' : '' }}" form-type="submit">
+          </button>
+        </form>
   <input
     type="{{ integer ? 'number' : 'digit' }}"
     class="input-class van-stepper__input {{ disabled || disableInput ? 'van-stepper__input--disabled' : '' }}"
@@ -12,8 +17,17 @@
     bind:blur="onBlur"
     cursor-spacing="20"
   />
-  <view
+  <!-- <view
+
+
     class="plus-class van-stepper__plus {{ plusDisabled ? 'van-stepper__plus--disabled' : '' }}"
     bind:tap="onPlus"
-  />
+  /> -->
+
+
+   <form bindsubmit="onPlus" report-submit='true'>
+          <button  class="plus-class van-stepper__plus {{ plusDisabled ? 'van-stepper__plus--disabled' : '' }}" form-type="submit">
+          <view class="pp">|</view>
+          </button>
+        </form>
 </view>

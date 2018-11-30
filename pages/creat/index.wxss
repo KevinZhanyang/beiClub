@@ -371,12 +371,11 @@ color:rgba(171, 174, 181, 1);
   position:relative;
 }
 .x{
-  position:absolute;right:0;top:0;
+  position:absolute;right:6rpx;
+top:-8rpx;
+
   width: 22rpx;background-color: none;
-  font-size: 16rpx;
-  color: red;
-  border: 1rpx solid red;
-  border-radius: 20rpx;
+  font-size: 32rpx;
   text-align: center;
   cursor: pointer;
 }

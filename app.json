@@ -1,38 +1,26 @@
 {
   "pages": [
-
     "pages/index/index",
     "pages/heartShare/index",
-        "pages/auction/index",
+    "pages/ence_push/ence_push",
+    "pages/auction/index",
     "pages/creat/index",
-  "pages/poster/index",
-  
+    "pages/poster/index",
     "pages/withDraw/index",
     "pages/home/index",
     "pages/test/index",
     "pages/auctionResult/index",
-    
     "pages/loding/index",
-    
     "pages/editAuction/index",
     "pages/auth/index",
-  
     "pages/qa/index",
     "pages/packet/index"
-    
-   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  },
-  "plugins": {
-    "poster": {
-      "version": "1.0.0",
-      "provider": "wxbf07f0f22c6c200d"
-    }
   },
   "navigateToMiniProgramAppIdList": [
     "wx31f8d157fbe5ebc8"

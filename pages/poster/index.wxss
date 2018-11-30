@@ -12,6 +12,11 @@
   height: 70rpx;
   line-height: 70rpx;
 } */
+.modal-message {
+padding:20rpx 30rpx 50rpx 30rpx;
+
+}
+
 .qrcode {
   background-color:#FFF;
   width: 100%;

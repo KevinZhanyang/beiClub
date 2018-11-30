@@ -47,7 +47,7 @@ const uploadFile = function (filePath, dir, successc, failc) {
         failc(new Error('上传错误:' + JSON.stringify(res)))
         return;
       }
-       successc(aliyunServerURL+aliyunFileKey);
+       successc(aliyunServerURL+"/"+aliyunFileKey);
     },
     fail: function (err) {
       err.wxaddinfo = aliyunServerURL;

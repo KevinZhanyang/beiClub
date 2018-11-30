@@ -9,7 +9,7 @@
 
   <view class="time-box">
 
-    <block wx:if="{{!clock.end}}">
+    <block wx:if="{{clock.end}}">
       <label class="tip">拍卖已结束</label>
       <view class="time">
         <view>00</view>
@@ -20,13 +20,13 @@
       </view>
     </block>
     <block wx:else>
-      <label class="tip">距离拍卖结束时间</label>
+      <label class="tip">距离付款结束时间</label>
       <view class="time">
-        <view>{{clock.hr}}</view>
+        <view>{{countDownList[0].hou}}</view>
         <label>:</label>
-        <view>{{clock.min}}</view>
+        <view>{{countDownList[0].min}}</view>
         <label>:</label>
-        <view>{{clock.sec}}</view>
+        <view>{{countDownList[0].sec}}</view>
       </view>
     </block>
   </view>
@@ -49,12 +49,12 @@
         <image mode='aspectFit' class="creat_success bidderImg" src="{{bidder?bidder.avatar:'https://used-america.oss-us-west-1.aliyuncs.com/cbb/2018-11-27 20:50:51/154332305129948.png'}}">
 
         </image>
-        <view class='bidderNickname'>{{bidder.nickname?bidder.nickname:"摆渡人"}}</view>
+        <view class='bidderNickname'>{{bidder.nickname?bidder.nickname:"无人出价"}}</view>
       </view>
 
     </view>
     <block wx:if="{{isBidderUser&&auction.status==2}}">
-      <view class="success_text success_text2">对方正在等待与你在现实中相遇哦</view>
+      <view class="success_text success_text2">立即付款将生成专属于你们的心动图</view>
     </block>
     <block wx:else>
 
@@ -69,7 +69,13 @@
     <block wx:if="{{isSeller}}">
       <!-- <view class="creat_success creat-r_success" bindtap='withDraw'>提现</view> -->
       <block wx:if="{{isSeller&&auction.status==2}}">
-        <view class="creat_success creat-r_success" bindtap='waitBuyerPay'>等待买家付款</view>
+
+         <form bindsubmit="pushFormSubmit" report-submit='true'>
+          <button class="creat_success creat-r_success"   form-type="submit"> 
+          等待买家付款
+          </button>
+        </form>
+        <!-- <view class="creat_success creat-r_success" bindtap='ww'></view> -->
         <view class="creat_success creat-l_success" bindtap='goIndex'>返回首页</view>
       </block>
       <block wx:if="{{isSeller&&auction.status==5}}">
@@ -97,7 +103,7 @@
 
     <block wx:if="{{isBidderUser}}">
       <block wx:if="{{isBidderUser&&auction.status==2}}">
-        <view class="creat_success creat-r_success" bindtap='waitPay'>付全款</view>
+        <view class="creat_success creat-r_success" bindtap='waitPay'>去付款</view>
         <view class="creat_success creat-l_success" bindtap='goIndex'>返回首页</view>
       </block>
       <block wx:if="{{isBidderUser&&auction.status==5}}">

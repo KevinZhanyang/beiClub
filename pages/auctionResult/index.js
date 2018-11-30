@@ -16,9 +16,128 @@ Page({
    * 页面的初始数据
    */
   data: {
+    clock: "",
+    countDownList: [],
+    actEndTimeList: []
+  },
+  calTime(that, now, endTime) {
+    console.log(endTime)
+    if (!endTime) {
+      that.setData({
+        clock: { end: "已经截止" }
+      });
+    }
+    console.log("---------->>>>>>>>>");
+    console.log(endTime);
+
+    var endTime = Date.parse(new Date(endTime.replace(/-/g, "/")))+600000;
+
+    var d = new Date(endTime);
+    console.log(that.formatDate(d));
+    console.log("---------->>>>>>>>>");
+
+
+    var d = new Date();
+    var localTime = d.getTime(); //通过调用Data()对象的getTime()方法，即可显示1970年1月1日后到此时时间之间的毫秒数。
+    var localOffset = d.getTimezoneOffset() * 18000;
+    var utc = localTime + localOffset; //得到国际标准时间
+    var offset = 8;
+    var calctime = utc + (3600000 * offset);
+    var nd = Date.parse(new Date(calctime));
+    var now_result = nd - (endTime);
+   
+    var result = now_result >= 0;
+
+    if (result) {
+      that.setData({
+        clock: { end: "已经截止" }
+      });
+    } else {
+      let endTimeList = [];
+      // 将活动的结束时间参数提成一个单独的数组，方便操作
+      endTimeList.push(endTime)
+      this.setData({ actEndTimeList: endTimeList });
+      // 执行倒计时函数
+      this.countDown();
+    }
+  },
+  pushFormSubmit(event) {
+    formIdService.createUserFormId(event.detail.formId);
 
   },
 
+ formatDate(now) {
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var date = now.getDate();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+  } ,
+  getLocalTime(i) {
+    if (typeof i !== 'number') return;
+    var d = new Date();
+    //得到1970年一月一日到现在的秒数
+    var len = d.getTime();
+    //本地时间与GMT时间的时间偏移差
+    var offset = d.getTimezoneOffset() * 60000;
+    //得到现在的格林尼治时间
+    var utcTime = len + offset;
+    return Date.parse(new Date(utcTime + 3600000 * i))
+  }
+  ,
+  timeFormat(param) {//小于10的格式化函数
+    return param < 10 ? '0' + param : param;
+  },
+  countDown() {//倒计时函数
+    var d = new Date();
+    // 获取当前时间，同时得到活动结束时间数组
+    let newTime = d.getTime();
+
+    var localOffset = d.getTimezoneOffset() * 60000;
+
+    var utc = newTime + localOffset; //得到国际标准时间
+    console.log(utc);
+    var offset = 8;
+    var calctime = utc + (3600000 * offset);
+    var newTimes = Date.parse(new Date(calctime));
+
+    let endTimeList = this.data.actEndTimeList;
+    let countDownArr = [];
+
+    // 对结束时间进行处理渲染到页面
+    endTimeList.forEach(o => {
+      let endTime = new Date(o).getTime();
+      let obj = null;
+      // 如果活动未结束，对时间进行处理
+      if (endTime - newTimes > 0) {
+        let time = (endTime - newTimes) / 1000;
+        // 获取天、时、分、秒
+        let day = parseInt(time / (60 * 60 * 24));
+        let hou = parseInt(time % (60 * 60 * 24) / 3600);
+        let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+        let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+        obj = {
+          day: this.timeFormat(day),
+          hou: this.timeFormat(hou),
+          min: this.timeFormat(min),
+          sec: this.timeFormat(sec)
+        }
+      } else {//活动已结束，全部设置为'00'
+        obj = {
+          day: '00',
+          hou: '00',
+          min: '00',
+          sec: '00'
+        }
+      }
+      countDownArr.push(obj);
+    })
+    // 渲染，然后每隔一秒执行一次倒计时函数
+    this.setData({ countDownList: countDownArr })
+    setTimeout(this.countDown, 1000);
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -94,6 +213,13 @@ Page({
     let that = this;
     util.request(AUCTION + "/" + AUCTION_ID).then(res => {
       if (res.code == 200) {
+        console.log(res.body.endTime)
+
+        that.calTime(that, res.body.now, res.body.endTime);
+
+
+
+
         if (res.body.bidderResults[0]){
           this.setData({
             auction: res.body,

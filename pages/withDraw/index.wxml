@@ -28,7 +28,23 @@
   <view class='wechat'>
     <input bindinput='mobileWechat' value='{{wx}}' placeholder='微信号(必填)' ></input>
   </view>
+   <view class='qrcode'>
+    <view class="{{qrcode?'qrcodeTxtSuccess':'qrcodeTxt'}}" data-src="{{qrcode}}" bindtap="{{qrcode?'previewImage':'qrcodeTxt'}}">{{qrcodeStatus}}</view>
+    <view class='qrcodeButtun'> <button bindtap='choose' class='uoloadButtun'><image src='/static/img/updaload.png'></image>
+    
+    <view class='upTxt'>上传</view>
+    
+    </button>
+    
+    </view>
+  </view>
 </view>
+
+<view class='pic' data-src="https://used-america.oss-us-west-1.aliyuncs.com/cbb/2018-11-30 16:13:36/1543565616481143.png" bindtap="previewImageFor" >
+      <image src='/static/img/withdraw.png'></image>
+</view>
+
+
 
 <view class='tips'> 
  <view class='point'></view>
@@ -42,7 +58,12 @@
     </button>
   </form>
 </view>
-
+<view class='contact'>
+ <view>如果提现48小时内不到账，请</view>
+ <view> <button class="btn-none" open-type="contact">
+       联系客服
+      </button></view>
+</view>
 
 <view class='normal_qa' bindtap='goqa'>
    常见问题

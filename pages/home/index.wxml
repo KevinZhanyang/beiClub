@@ -67,9 +67,16 @@
       <view class='heart' wx:if="{{auction.status==5}}">
         <image mode='aspectFit' src='/static/img/heart.gif'></image>
       </view>
-       <view class='heart' wx:else>
-        <image mode='aspectFit' src=''></image>
+      <block wx:else>
+        <view class='heart' wx:if="{{auction.status!=5&&auction.status!=2&&auction.status!=1&&auction.bidderResults&&auction.bidderResults.length>0}}">
+        <image mode='aspectFit' src='/static/img/heart_break.png'></image>
       </view>
+       <view class='heart' wx:else>
+        <image mode='aspectFit' src="{{auction.statusTxt=='失败'&&auction.bidderResults&&auction.bidderResults.length>0?'/static/img/heart_break.png':''}}"></image>
+      </view>
+      
+      </block>
+     
       <view class='buyer'>
         <view class='buyer_img'>
           <image src='{{auction.bidderResults&&auction.bidderResults.length>0?auction.bidderResults[0].avatar:"/static/img/q.png"}}'></image>
@@ -79,9 +86,25 @@
     </view>
     <view class="{{   auction.status==2? 'list-bottom_waitPay':'list-bottom'}}">
       <view class='auction_status'>
+        <block wx:if="{{auction.bidderResults&&auction.bidderResults.length>0&&auction.status==4}}">
+                失败     
+        </block>
 
-        <block >
-            {{(auction.createId==currentUser.id)||(auction.bidderResults&&auction.bidderResults.length>0&&auction.bidderResults[0].bidderId==currentUser.id)?(auction.status==1?'进行中':(auction.status==2?'待付款':(auction.status==3?'失败':(auction.status==4?'失败':"成功")))):(auction.status==1?'出局':(auction.status==2?'出局':(auction.status==3?'出局':(auction.status==4?'出局':"出局"))))}}
+
+        <block wx:else >
+
+             <block wx:if="{{auction.bidderResults.length<1&&(auction.status==4||auction.status==3)}}">
+                       流拍
+             </block>
+
+             <block wx:else>
+             
+              {{(auction.createId==currentUser.id)||(auction.bidderResults&&auction.bidderResults.length>0&&auction.bidderResults[0].bidderId==currentUser.id)?(auction.status==1?'进行中':(auction.status==2?'待付款':(auction.status==3?'失败':(auction.status==4?'失败':"成功")))):(auction.status==1?'出局':(auction.status==2?'出局':(auction.status==3?'出局':(auction.status==4?'出局':"出局"))))}}
+             
+             </block>
+
+
+           
         </block>
 
       </view>

@@ -2,10 +2,18 @@
 
 var wxDraw = require("../../utils/wxdraw.min.js").wxDraw;
 var Shape = require("../../utils/wxdraw.min.js").Shape;
+var util = require("../../utils/util.js");
 var formIdService = require("../../services/formId.js");
 import {
+  GET_TAG_LIST,
+  AUCTION,
+  BIDDER,
+  BIDDER_LIST,
+  PAY_INFO,
+  CURRENTUSER,
   apiRoot
 } from "../../config/api.js";
+
 Page({
 
   data: {
@@ -128,7 +136,7 @@ Page({
       auctionId: options.auctionId
     })
    
-    util.request(AUCTION + "/" + AUCTION_ID).then(res => {
+    util.request(AUCTION + "/" + options.auctionId).then(res => {
       if (res.code == 200) {
            that.setData({
              auctionObj:res.body
@@ -139,7 +147,7 @@ Page({
   onShareAppMessage(res) {
     console.log(res)
     let that = this;
-    let title = that.data.auctionObj.nickname + "正在拍卖他/她自己" + that.data.auctionObj.startPrice+"元起拍！快来抢！";
+    let title = that.data.auctionObj.nickname + "正在拍卖自己," + that.data.auctionObj.startPrice+"元起拍！快来抢！";
     let path = '/pages/auction/index?auctionId=' + this.data.auctionId;
     let imageUrl = this.data.shareImg;
     //

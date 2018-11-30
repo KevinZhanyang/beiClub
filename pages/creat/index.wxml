@@ -29,49 +29,52 @@
       <!-- <view class="list"> -->
       <view class='list-item_par_out' wx:for="{{tagList}}" wx:key="{{item.id}}" wx:for-index="index" wx:if="{{index<5}}">
         <view class='list-item_par'>
+          
           <view class='box'>
-            <view class='x' wx:if="{{item.showDelete==1}}" bindtap='deleteModel' data-id="{{item.id}}">
-              x
+            <view class='x iconfont icon-roundclose' wx:if="{{item.showDelete==1}}" bindtap='deleteModel' data-id="{{item.id}}">
+
             </view>
             <view class="list-item {{item.state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{item.id}}">
               {{item.name}}
             </view>
 
           </view>
+
+
           <view class='box'>
-            <view class='x' wx:if="{{tagList[index+5].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+5].id}}">
-              x
+            <view class='x iconfont icon-roundclose' wx:if="{{tagList[index+5].showDelete==1&&tagList[index+5].state==0}}" bindtap='deleteModel' data-id="{{tagList[index+5].id}}">
+
             </view>
             <view class="list-item {{tagList[index+5].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+5].id}}">
               {{tagList[index+5].name}}
             </view>
           </view>
-           <view class='box' wx:if="{{tagList.length>10&&tagList[index+10]}}">
-            <view class='x' wx:if="{{tagList[index+10].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+10].id}}">
-              x
+          <view class='box' wx:if="{{tagList.length>10&&tagList[index+10]}}">
+            <view class='x iconfont icon-roundclose' wx:if="{{tagList[index+10].showDelete==1&&tagList[index+10].state==0}}" bindtap='deleteModel' data-id="{{tagList[index+10].id}}">
+
             </view>
             <view class="list-item {{tagList[index+10].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+10].id}}">
               {{tagList[index+10].name}}
             </view>
-           </view>
+          </view>
 
-              <view class='box' wx:if="{{tagList.length>15&&tagList[index+15]}}">
-            <view class='x' wx:if="{{tagList[index+15].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+15].id}}">
-              x
+          <view class='box' wx:if="{{tagList.length>15&&tagList[index+15]}}">
+            <view class='x iconfont icon-roundclose' wx:if="{{tagList[index+15].showDelete==1&&tagList[index+15].state==0}}" bindtap='deleteModel' data-id="{{tagList[index+15].id}}">
+
             </view>
             <view class="list-item {{tagList[index+15].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+15].id}}">
               {{tagList[index+15].name}}
             </view>
-           </view>
+          </view>
 
-             <view class='box' wx:if="{{tagList.length>20&&tagList[index+20]}}">
-            <view class='x' wx:if="{{tagList[index+20].showDelete==1}}" bindtap='deleteModel' data-id="{{tagList[index+20].id}}">
-              x
+          <view class='box' wx:if="{{tagList.length>20&&tagList[index+20]}}">
+            <view class='x iconfont icon-roundclose' wx:if="{{tagList[index+20].showDelete==1&&tagList[index+20].state==0}}" bindtap='deleteModel' data-id="{{tagList[index+20].id}}">
+
             </view>
             <view class="list-item {{tagList[index+20].state==1?'active':''}}" catchlongpress="showX" bindtap="selectTag" data-id="{{tagList[index+20].id}}">
               {{tagList[index+20].name}}
             </view>
-           </view>
+          </view>
         </view>
       </view>
 
@@ -206,23 +209,23 @@
         取消
       </button> -->
 
-      
-        <form bindsubmit="hideDeleteTag" report-submit='true'>
-         <button class="creat_success creat-l_success" form-type="submit">
-        取消
-      </button>
-        </form>
+
+      <form bindsubmit="hideDeleteTag" report-submit='true'>
+        <button class="creat_success creat-l_success" form-type="submit">
+          取消
+        </button>
+      </form>
 
 
 
-      
+
       <!-- <view class="creat_success creat-r_success" bindtap='deleteTag'>确认</view> -->
 
-       <form bindsubmit="deleteTag" report-submit='true'>
-         <button class="creat_success creat-r_success" form-type="submit">
-            确认
-         </button>
-        </form>
+      <form bindsubmit="deleteTag" report-submit='true'>
+        <button class="creat_success creat-r_success" form-type="submit">
+          确认
+        </button>
+      </form>
 
     </view>
   </view>
@@ -230,14 +233,14 @@
 
 
 <block wx:if="{{showShareLodding}}">
-   <view class="Lodding_modalDlg_out">
+  <view class="Lodding_modalDlg_out">
   </view>
   <view class="showShareLoddingModalDlg">
-      <view style='height:330rpx;'>
-         <view class="imgheadborder" >
-            <image class='imghead' style='height:200rpx;' src="/static/img/loading.gif"></image>
-         </view>
-         <view class="lodding_text_top">疯狂画海报中...</view>
+    <view style='height:330rpx;'>
+      <view class="imgheadborder">
+        <image class='imghead' style='height:200rpx;' src="/static/img/loading.gif"></image>
       </view>
+      <view class="lodding_text_top">疯狂画海报中...</view>
+    </view>
   </view>
 </block>

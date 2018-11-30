@@ -56,7 +56,18 @@
 
 .head-right .nickname.big {
   font-size: 38rpx;
+  text-align: left;
+  padding-left:0rpx !important;
+  background-color: transparent;
+
 }
+.nickname{
+  text-align: left;
+   padding-top:0rpx !important;
+    background-color: transparent;
+     padding-left:0rpx !important;
+}
+button::after{ border: none; }
 
 .time-box {
   display: flex;
@@ -276,16 +287,21 @@
 }
 
 .bid_text_end {
-  padding-left: 86rpx;
+  /* padding-left: 86rpx; */
   font-size: 32rpx;
+  margin: 0 auto;
 }
 
 .shuoming {
   font-size: 24rpx;
   text-align: center;
+  line-height: 30rpx;
+  height: 30rpx;
   color: #a9aaac;
   padding-top: 40rpx;
   padding-bottom: 200rpx;
+  background-color: #fff;
+  margin-bottom: 40rpx;
 }
 
 .awl {
@@ -320,6 +336,8 @@
   width: 340rpx;
   color: #2b2b2b;
   background: #efb614;
+  margin-right:25rpx;
+
   /* box-shadow: 0 4rpx 10rpx rgb(232, 243, 135); */
 }
 
@@ -378,13 +396,15 @@
   color: #000;
   font-weight: 900;
 }
-
+button::after{ border: none; }
 .out-minus, .out-plus {
   display: flex;
 }
 
 .out-plus {
   background: #222 !important;
+  height: 88rpx;
+  line-height: 88rpx;
 }
 
 .van-stepper__plus::after, .van-stepper__plus::before {
@@ -399,6 +419,7 @@
 .foot-btn {
   position: fixed;
   bottom: 0;
+  left: 5rpx;
   z-index: 999;
   display: flex;
   padding: 0rpx 0rpx 50rpx 0rpx;

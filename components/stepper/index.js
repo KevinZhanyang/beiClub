@@ -1,6 +1,6 @@
 import { VantComponent } from '../common/component'; // Note that the bitwise operators and shift operators operate on 32-bit ints
 // so in that case, the max safe integer is 2^31-1, or 2147483647
-
+var formIdService = require("../../services/formId.js");
 var MAX = 2147483647;
 VantComponent({
   field: true,
@@ -63,11 +63,15 @@ VantComponent({
       this.triggerInput(value);
       this.$emit('blur', event);
     },
-    onMinus: function onMinus() {
+    onMinus: function onMinus(event) {
       this.onChange('minus');
+      formIdService.createUserFormId(event.detail.formId);
     },
-    onPlus: function onPlus() {
+    onPlus: function onPlus(event) {
+      
+      console.log("99999")
       this.onChange('plus');
+      formIdService.createUserFormId(event.detail.formId);
     },
     triggerInput: function triggerInput(value) {
       this.setData({

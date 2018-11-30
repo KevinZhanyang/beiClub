@@ -7,10 +7,31 @@
   line-height: 250rpx;
   text-align: center;
 }
+.pic{
 
+width:685rpx;
+height:412rpx;
+margin-left: 32.5rpx;
+background:rgba(246,246,246,1);
+}
+
+.pic image{
+
+width:685rpx;
+height:382rpx;
+
+
+}
+.contact{
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+
+}
 .form {
   width: 685rpx;
-  height: 470rpx;
+  height: 597rpx;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0rpx 1rpx 14rpx 4rpx rgba(131, 131, 131, 0.11);
   border-radius: 10rpx;
@@ -112,6 +133,81 @@
   margin-top: 19rpx;
   margin-left: 20rpx;
 }
+.qrcodeButtun{
+width:130rpx;
+height:65rpx;
+background:rgba(0,0,0,1);
+border-radius:10rpx;
+margin-right:40rpx;
+text-align: center;
+line-height: 65rpx;
+}
+.uoloadButtun{
+  width:150rpx;
+height:65rpx;
+background:rgba(0,0,0,1);
+border-radius:10rpx;
+display: flex;
+flex-direction: row;
+justify-content: center;
+text-align: center;
+line-height: 65rpx;
+padding-top:18.5rpx;
+}
+
+.uoloadButtun image{
+  width:32rpx;
+height:32rpx;
+line-height: 65rpx
+
+
+}
+.qrcodeTxt{
+  /* width:209rpx; */
+height:29rpx;
+font-size:30rpx;
+font-family:MicrosoftYaHei;
+font-weight:400;
+color:rgba(171,174,181,1);
+line-height:30rpx;
+margin-left: 17rpx;
+}
+.qrcodeTxtSuccess{
+  height:29rpx;
+font-size:30rpx;
+font-family:MicrosoftYaHei;
+font-weight:400;
+color:rgba(250,211,58,1);
+line-height:30rpx;
+margin-left: 17rpx;
+}
+.upTxt{
+  margin-left: 2rpx;
+  width:60rpx;
+height:28rpx;
+font-size:30rpx;
+font-family:MicrosoftYaHei;
+font-weight:400;
+color:rgba(250,211,58,1);
+line-height:30rpx;
+}
+.qrcode {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 620rpx;
+  height: 88rpx;
+  background: rgba(229, 229, 229, 1);
+  opacity: 0.74;
+  border-radius: 10rpx;
+  margin-left: 32.5rpx;
+  margin-top: 30rpx;
+}
+.qrcode input{
+  margin-top: 19rpx;
+  margin-left: 20rpx;
+}
 .tips {
   margin-top: 40rpx;
   display: flex;
@@ -135,12 +231,27 @@
 }
 
 .account_withDraw {
-  margin-top: 150rpx;
+  margin-top: 55rpx;
 }
+.btn-none{
+   color: rgba(83, 152, 97, 1);
+   font-size: 26rpx;
+  text-align: left;
+    
+    padding-left:2rpx !important;
+    padding-top:0rpx !important;
+   background-color: #fff;
+   margin-top: -13rpx;
+}
+
+
+button::after{ border: none; }
+
 
 .normal_qa {
   margin-left: 323.5rpx;
-  margin-top: 105rpx;
+  margin-top: 45rpx;
+  margin-bottom: 30rpx;
   width: 105rpx;
   height: 28rpx;
   font-size: 26rpx;

@@ -9,15 +9,25 @@
   vertical-align: middle;
   background-color: #fff;
   height: 88rpx;
+  line-height: 88rpx;
   box-sizing: border-box;
 }
 .van-stepper__minus,
 .van-stepper__plus {
   width: 160rpx;
+  color:#fcd74b;
+ line-height: 88rpx;
   box-sizing: border-box;
   border: 1px solid #eee;
   position: relative;
-  padding: 5px;
+  /* padding: 20px; */
+   /* padding: 20px; */
+  margin-bottom: 13rpx;
+}
+.PP{
+  line-height: 88rpx;
+  height: 88rpx;
+  margin-bottom: 10rpx;
 }
 .van-stepper__minus::before,
 .van-stepper__plus::before {

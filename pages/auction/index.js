@@ -9,7 +9,8 @@ import {
   AUCTION,
   BIDDER,
   BIDDER_LIST,
-  PAY_INFO
+  PAY_INFO,
+  CURRENTUSER 
 } from "../../config/api.js";
 
 
@@ -26,6 +27,8 @@ Page({
   },
   onLoad(options) {
     console.log(options)
+
+    this.getCurrentUser();
     var auctionId;
     if (options.auctionId) {
       auctionId = options.auctionId;
@@ -55,8 +58,7 @@ Page({
       setTimeout(() => {
         wx.navigateTo({
           url:
-            "/pages/auth/index?senceType=back&sence=" +
-            auctionId +
+            "/pages/auth/index?senceType=back&sence=" +auctionId +
             "&path=" +
             "/pages/auction/index"
         });
@@ -69,12 +71,13 @@ Page({
     });
   },
   onShareAppMessage(res) {
-    formIdService.createUserFormId(res.detail.formId);
+   
     console.log(res)
     let that = this;
-    let title = that.data.auction.nickname + "正在拍卖他/她自己, " + that.data.auction.startPrice + "元起拍！快来抢！";
+    let title = that.data.auction.nickname + "正在拍卖自己, " + that.data.auction.startPrice + "元起拍！快来抢！";
     let path = that.data.shareUrl;
     let imageUrl = this.data.shareImg;
+    let result = res
     //
     return {
       title: title,
@@ -85,20 +88,12 @@ Page({
         //
         if (res.errMsg == 'shareAppMessage:ok') {
           console.log('share success');
-          /*
+          
           //分享为按钮转发
           if (that.data.shareBtn) {
-              //判断是否分享到群
-              if (res.hasOwnProperty('shareTickets')) {
-                  console.log(res.shareTickets[0]);
-                  //分享到群
-                  that.data.isshare = 1;
-              } else {
-                  // 分享到个人
-                  that.data.isshare = 0;
-              }
+            formIdService.createUserFormId(result.detail.formId);
           }
-          */
+          
 
         } else {
           console.log('share fail');
@@ -137,6 +132,26 @@ Page({
     //     that.getDetail(that.data.auctionId);
     //   }
     //   , 6000);
+  },
+  getCurrentUser() {
+    util.request(CURRENTUSER).then(res => {
+      if (res.code == 200) {
+        wx.setStorageSync("user", res.body);
+        this.setData({
+          currentUser: res.body.user
+        })
+      } else {
+      }
+    });
+  },
+  goResult(event){
+    wx.navigateTo({
+      url: '/pages/auctionResult/index?auctionId=' + this.data.auctionId + "&senceType=bidder",
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+    formIdService.createUserFormId(event.detail.formId);
   },
   calTime(that, now, endTime) {
      console.log(endTime)
@@ -178,6 +193,10 @@ Page({
       // 执行倒计时函数
       this.countDown();
     }
+  },
+  pushFormSubmit(event) {
+    formIdService.createUserFormId(event.detail.formId);
+
   },
   getLocalTime(i){
     if (typeof i !== 'number') return;
@@ -382,10 +401,11 @@ Page({
       }
     });
   },
-  goIndex() {
+  goIndex(event) {
     wx.navigateTo({
       url: "/pages/index/index"
     });
+    formIdService.createUserFormId(event.detail.formId);
   },
 
   getList() {
@@ -417,13 +437,18 @@ Page({
     }
     this.setData({ show: true });
   },
-  startTip() {
+  startTip(event) {
+
+
+
     this.setData({
       tipTitle: "起拍价",
       showTips: true,
       tips:
         "<p><strong style=\"color: rgb(163, 21, 21);\">1</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖规则,拍卖时间为2小时，活动结束后最后出价最高者拍的该服务；</span></p><p><strong style=\"color: rgb(163, 21, 21);\">2</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖成功，拍卖成功后即可进入小程序提现，24小时内提现到您的微信钱包\"；</span></p><p><strong style=\"color: rgb(163, 21, 21);\">3</strong><span style=\"color: rgb(163, 21, 21);\">.拍卖失败，若未拍的该服务即可进入小程序申请退款，工作人员将在24小时内退还到您的微信钱包!</span></p>"
     });
+
+    formIdService.createUserFormId(event.detail.formId);
   },
   closeModal() {
     this.setData({
@@ -443,7 +468,7 @@ Page({
   },
   hidePopup(event) {
     let that = this;
-
+    formIdService.createUserFormId(event.detail.formId);
     if (that.data.isCreated && that.data.isCreated == 1) {
       return false;
     }

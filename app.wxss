@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import "icon.wxss";
 @import "colorui.wxss";
+@import "/pages/template/online-push.wxss";
 .container {
   height: 100%;
   display: flex;

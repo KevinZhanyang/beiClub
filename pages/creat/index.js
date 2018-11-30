@@ -20,6 +20,13 @@ Page({
 
     this.getList();
   },
+  pushFormSubmit(event){
+
+   console.log("fdsfds");
+    
+    console.log(event);
+
+  },
   getList() {
     let that = this;
 
