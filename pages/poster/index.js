@@ -149,7 +149,7 @@ Page({
     let that = this;
     let title = that.data.auctionObj.nickname + "正在拍卖自己," + that.data.auctionObj.startPrice+"元起拍！快来抢！";
     let path = '/pages/auction/index?auctionId=' + this.data.auctionId;
-    let imageUrl = this.data.shareImg;
+    let imageUrl = "https://used.beimei2.com/poster/" + that.data.auctionId + ".png";
     //
     return {
       title: title,

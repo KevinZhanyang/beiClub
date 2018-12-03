@@ -271,8 +271,37 @@ Page({
     console.log(2)
     var startPrice = 0.00;
     if (!this.data.startPrice) {
-      startPrice = startPrice
-    } else {
+      this.setData({
+        tipTitle: "温馨提示",
+        showTipsModel: true,
+        tips: "请设置起拍价！"
+      })
+      setTimeout(() => {
+        this.setData({
+          showTipsModel: false
+        })
+      }, 1500)
+      that.setData({
+        create: 0
+      })
+      return false
+    } else if (this.data.startPrice<1) {
+     
+      this.setData({
+        tipTitle: "温馨提示",
+        showTipsModel: true,
+        tips: "起拍价最低为1元"
+      })
+      setTimeout(() => {
+        this.setData({
+          showTipsModel: false
+        })
+      }, 1500)
+      that.setData({
+        create: 0
+      })
+      return false
+    }else {
       startPrice = this.data.startPrice
     }
     var bidIncreatment = 0.00;
@@ -293,6 +322,22 @@ Page({
       })
       return false;
       bidIncreatment = bidIncreatment;
+    } else if (this.data.bidIncreatment < 1) {
+     
+      this.setData({
+        tipTitle: "温馨提示",
+        showTipsModel: true,
+        tips: "加价幅度最低为1元"
+      })
+      setTimeout(() => {
+        this.setData({
+          showTipsModel: false
+        })
+      }, 1500)
+      that.setData({
+        create: 0
+      })
+      return false
     } else {
       bidIncreatment = this.data.bidIncreatment;
     }

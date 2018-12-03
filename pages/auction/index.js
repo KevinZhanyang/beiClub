@@ -76,7 +76,7 @@ Page({
     let that = this;
     let title = that.data.auction.nickname + "正在拍卖自己, " + that.data.auction.startPrice + "元起拍！快来抢！";
     let path = that.data.shareUrl;
-    let imageUrl = this.data.shareImg;
+    let imageUrl = "https://used.beimei2.com/poster/" + that.data.auctionId+".png";
     let result = res
     //
     return {
@@ -475,12 +475,11 @@ Page({
     //关闭蒙层
     this.setData({ show: false });
     console.log(event);
-    if (that.data.auction.startPrice > this.data.value) {
+    if (that.data.auction.startPrice >= this.data.value) {
       wx.showModal({
         title: "温馨提示",
-        content: "您的出价小于起拍价"
+        content: "出价须大于起拍价"
       });
-
       return false;
     }
 

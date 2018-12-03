@@ -152,7 +152,7 @@ Page({
       appId: 'wx31f8d157fbe5ebc8',
       path: 'pages/index/index?id=123',
       extraData: {},
-      envVersion: 'develop',
+      envVersion: 'release',
       success(res) {
         // 打开成功
       }

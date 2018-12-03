@@ -54,7 +54,7 @@
 
     
       <!-- <view class="userinfo"> -->
-        <!-- <button type='primary' bindtap='choose'>选择照片</button>. -->
+        <!-- <button type='primary' bindtap='choose'>选择照片</button> -->
          <!-- <button bindtap='choose'  class="save-btn">hhh</button>  -->
 
          <!-- <form bindsubmit="choose" report-submit='true' > -->
